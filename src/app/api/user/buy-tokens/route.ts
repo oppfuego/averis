@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/backend/middlewares/auth.middleware";
 import { userController } from "@/backend/controllers/user.controller";
 
-const TOKENS_PER_UNIT = 10; // 1 EUR/GBP = 10 токенів
+const TOKENS_PER_UNIT = 100; // 1 EUR/GBP = 10 токенів
 
 export async function POST(req: NextRequest) {
     try {

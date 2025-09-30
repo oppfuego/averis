@@ -11,6 +11,12 @@ import image8 from "@/assets/images/image8.jpg";
 import image9 from "@/assets/images/image9.jpg";
 import image10 from "@/assets/images/image10.jpg";
 import image11 from "@/assets/images/image11.jpg";
+import review1 from "@/assets/images/review1.png";
+import review2 from "@/assets/images/review2.png";
+import review3 from "@/assets/images/review3.png";
+import template1 from "../../public/templates/classic.png";
+import template2 from "../../public/templates/modern.png";
+import template3 from "../../public/templates/creative.png";
 
 export const media = {
     logo: logo,
@@ -27,8 +33,15 @@ export const media = {
     image10: image10,
     image11: image11,
 
-    fitPlannerDemo: "/videos/fit-planner-demo.mp4",
-    getStartedIntro: "/videos/get-started-intro.mp4",
+    review1: review1,
+    review2: review2,
+    review3: review3,
+
+    template1: template1,
+    template2: template2,
+    template3: template3,
+
+    CVMakerDemo: '/videos/cv-maker-demo.mp4',
 
 }
 

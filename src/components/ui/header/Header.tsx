@@ -65,24 +65,19 @@ const Header: React.FC = () => {
                         />
                     </a>
 
-                    <nav
-                        className={styles.nav}
-                        style={
-                            {
-                                "--link-color": headerStyles.linkColor,
-                                "--link-hover-color": headerStyles.linkHoverColor,
-                            } as React.CSSProperties
-                        }
-                    >
-                        {headerContent.links.map((link) => (
-                            <a href={link.href} key={link.label} className={styles.link}>
-                                {link.label}
-                            </a>
-                        ))}
-                    </nav>
+
 
                     <div className={styles.actions}>
-                        <AuthButtons/>
+                        <nav className={styles.nav}>
+                            {headerContent.links.map((link) => (
+                                <a key={link.label} href={link.href} className={styles.link}>
+                                    {link.label}
+                                </a>
+                            ))}
+                        </nav>
+                        <div className={styles.buttons}>
+                            <AuthButtons />
+                        </div>
                     </div>
 
 

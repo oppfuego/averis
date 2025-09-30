@@ -54,6 +54,19 @@ const Footer: React.FC = () => {
             </address>
         ) : null;
 
+    const PaymentMethods = () => (
+        <div className={styles["footer__payments"]}>
+            <div className={styles["footer__column-title"]}>Payment Methods</div>
+            <div className={styles.paymentsContent}>
+                <FaCcVisa className={styles.paymentIcon} />
+                <FaCcMastercard className={styles.paymentIcon} />
+                <FaCcAmex className={styles.paymentIcon} />
+                <FaGooglePay className={styles.paymentIcon} />
+                <FaApplePay className={styles.paymentIcon} />
+            </div>
+        </div>
+    );
+
     const LegalBlock = () =>
         legal ? (
             <div className={styles["footer__legal"]}>
@@ -157,53 +170,13 @@ const Footer: React.FC = () => {
                                 ))}
                             </div>
                         ))}
-
                         {legal && (
                             <div className={styles["footer__column"]}>
                                 <div className={styles["footer__column-title"]}>Company</div>
                                 <LegalBlock />
                             </div>
                         )}
-                    </div>
-                    <div className={styles["footer__contact"]}>
-                        {contact.address && (
-                            <div className={styles["footer__contact-item"]}>
-                                <strong>Address:</strong> {contact.address}
-                            </div>
-                        )}
-                        {contact.email && (
-                            <div className={styles["footer__contact-item"]}>
-                                <strong>Email:</strong>{" "}
-                                <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                            </div>
-                        )}
-                        {contact.phone && (
-                            <div className={styles["footer__contact-item"]}>
-                                <strong>Phone:</strong>{" "}
-                                <a href={`tel:${contact.phone}`}>{contact.phone}</a>
-                            </div>
-                        )}
-                        {!!socials?.length && (
-                            <div className={styles["footer__socials"]}>
-                                {socials.map((s) => {
-                                    const Icon = s.icon;
-                                    const isExternal = !s.href?.startsWith("/");
-                                    return (
-                                        <SmartLink
-                                            key={s.label}
-                                            href={s.href}
-                                            className={styles["footer__social-link"]}
-                                            ariaLabel={s.label}
-                                            title={s.label}
-                                            target={isExternal ? "_blank" : undefined}
-                                            rel={isExternal ? "noopener noreferrer" : undefined}
-                                        >
-                                            <Icon size={footerStyles.sizes?.icons?.xl ?? 24} />
-                                        </SmartLink>
-                                    );
-                                })}
-                            </div>
-                        )}
+                        <PaymentMethods />
                     </div>
                 </div>
             )}
@@ -234,27 +207,7 @@ const Footer: React.FC = () => {
                     <div className={styles["footer__center-legal"]}>
                         <LegalBlock />
                     </div>
-                    {!!socials?.length && (
-                        <div className={styles["footer__center-socials"]}>
-                            {socials.map((s) => {
-                                const Icon = s.icon;
-                                const isExternal = !s.href?.startsWith("/");
-                                return (
-                                    <SmartLink
-                                        key={s.label}
-                                        href={s.href}
-                                        className={styles["footer__social-link"]}
-                                        ariaLabel={s.label}
-                                        title={s.label}
-                                        target={isExternal ? "_blank" : undefined}
-                                        rel={isExternal ? "noopener noreferrer" : undefined}
-                                    >
-                                        <Icon size={footerStyles.sizes?.icons?.xl ?? 24} />
-                                    </SmartLink>
-                                );
-                            })}
-                        </div>
-                    )}
+                    <PaymentMethods />
                 </div>
             )}
 
@@ -285,83 +238,75 @@ const Footer: React.FC = () => {
                                 </div>
                             </div>
                         ))}
-
-                        {/* Company */}
-                        {/* Company */}
                         {legal && (
                             <div className={styles["footer__mega-col"]}>
                                 <div className={styles["footer__column-title"]}>Company</div>
-                                <div className={styles["footer__legal"]}>
-                                    <div className={styles["footer__legal-line"]}>
-                                        <span className={styles["footer__legal-label"]}>Company:</span>{" "}
-                                        <strong>{legal.companyName}</strong>
-                                    </div>
-                                    {legal.companyNumber && (
-                                        <div className={styles["footer__legal-line"]}>
-                                            <span className={styles["footer__legal-label"]}>Company number:</span>{" "}
-                                            <span>{legal.companyNumber}</span>
-                                        </div>
-                                    )}
-                                    {legal.address && (
-                                        <address className={styles["footer__legal-address"]}>
-                                            {legal.address}
-                                        </address>
-                                    )}
-                                    {contact.email && (
-                                        <div className={styles["footer__contact-item"]}>
-                                            <strong>Email:</strong>{" "}
-                                            <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                                        </div>
-                                    )}
-                                    {contact.phone && (
-                                        <div className={styles["footer__contact-item"]}>
-                                            <strong>Phone:</strong>{" "}
-                                            <a href={`tel:${contact.phone}`}>{contact.phone}</a>
-                                        </div>
-                                    )}
-                                </div>
+                                <LegalBlock />
                             </div>
                         )}
+                        <PaymentMethods />
+                    </div>
+                </div>
+            )}
 
+            {footerStyles.type === "corporate" && (
+                <div className={clsx(styles["footer__inner"], styles["footer__inner--corporate"])}>
+                    {/* Верхній рядок: лого + 3 колонки */}
+                    <div className={styles["footer__corporate-grid"]}>
+                        <div className={styles["footer__corporate-logo"]}>
+                            <SmartLink href={logo.href} className={styles["footer__logo"]} ariaLabel="Logo">
+                                <Image
+                                    src={logo.src}
+                                    alt={logo.alt}
+                                    width={0}
+                                    height={0}
+                                    sizes="120px"
+                                    style={{ width: "var(--footer-logo-w)", height: "var(--footer-logo-h)" }}
+                                />
+                            </SmartLink>
+                        </div>
 
-                        {/* Payment Methods */}
-                        <div className={styles["footer__mega-col"]}>
-                            <div className={styles["footer__column-title"]}>Payment Methods</div>
-                            <div className={styles.payments}>
-                                <div className={styles.paymentsContent}>
-                                    <FaCcVisa className={styles.paymentIcon} />
-                                    <FaCcMastercard className={styles.paymentIcon} />
-                                    <FaCcAmex className={styles.paymentIcon} />
-                                    <FaGooglePay className={styles.paymentIcon} />
-                                    <FaApplePay className={styles.paymentIcon} />
-                                </div>
+                        {/* Company info */}
+                        <div className={styles["footer__corporate-col"]}>
+                            <div className={styles["footer__column-title"]}>{legal.companyName}</div>
+                            {legal.companyNumber && <div>Company number {legal.companyNumber}</div>}
+                            {legal.address && <div>{legal.address}</div>}
+                        </div>
+
+                        {/* Contact */}
+                        <div className={styles["footer__corporate-col"]}>
+                            <div className={styles["footer__column-title"]}>Contact Us</div>
+                            {contact.email && <a href={`mailto:${contact.email}`}>{contact.email}</a>}
+                            {contact.phone && <a href={`tel:${contact.phone}`}>{contact.phone}</a>}
+                        </div>
+
+                        {/* Payments */}
+                        <div className={styles["footer__corporate-col"]}>
+                            <div className={styles["footer__column-title"]}>Accepted Payments</div>
+                            <div className={styles.paymentsContent}>
+                                <FaCcVisa className={styles.paymentIcon} />
+                                <FaCcMastercard className={styles.paymentIcon} />
+                                <FaCcAmex className={styles.paymentIcon} />
+                                <FaGooglePay className={styles.paymentIcon} />
+                                <FaApplePay className={styles.paymentIcon} />
                             </div>
                         </div>
                     </div>
 
-                    {/*{!!socials?.length && (*/}
-                    {/*    <div className={styles["footer__mega-socials"]}>*/}
-                    {/*        {socials.map((s) => {*/}
-                    {/*            const Icon = s.icon;*/}
-                    {/*            const isExternal = !s.href?.startsWith("/");*/}
-                    {/*            return (*/}
-                    {/*                <SmartLink*/}
-                    {/*                    key={s.label}*/}
-                    {/*                    href={s.href}*/}
-                    {/*                    className={styles["footer__social-link"]}*/}
-                    {/*                    ariaLabel={s.label}*/}
-                    {/*                    title={s.label}*/}
-                    {/*                    target={isExternal ? "_blank" : undefined}*/}
-                    {/*                    rel={isExternal ? "noopener noreferrer" : undefined}*/}
-                    {/*                >*/}
-                    {/*                    <Icon size={footerStyles.sizes?.icons?.xl ?? 24} />*/}
-                    {/*                </SmartLink>*/}
-                    {/*            );*/}
-                    {/*        })}*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
+                    {/* Нижня частина */}
+                    <div className={styles["footer__corporate-bottom"]}>
+                        <div className={styles["footer__corporate-links"]}>
+                            {columns.find(c => c.title === "Legal")?.links.map(link => (
+                                <SmartLink key={link.label} href={link.href} className={styles["footer__link"]}>
+                                    {link.label}
+                                </SmartLink>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             )}
+
+
 
 
             <div className={styles["footer__rights"]}>

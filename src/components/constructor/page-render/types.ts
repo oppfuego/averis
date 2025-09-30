@@ -166,14 +166,37 @@ export type TimelineBlock = {
     steps: { title: string; description: string }[];
 };
 
-// ---------------- Union Types ----------------
-
 export type LogoBlock = {
     type: "custom";
     component: "LogoBlock";
     width?: number;
     height?: number;
 };
+
+export type HeroSectionBlock = {
+    type: "custom";
+    component: "HeroSection";
+    title: string;
+    highlight?: string;
+    description: string;
+    primaryCta?: { text: string; link: string };
+    secondaryCta?: { text: string; link: string };
+    image?: string;
+    mediaType?: "image" | "video";
+};
+
+export type TestimonialsSlider = {
+    type: "custom";
+    component: "TestimonialsSlider";
+    testimonials: {
+        name: string;
+        role?: string;
+        image?: string;
+        text: string;
+    }[];
+};
+
+// ---------------- Union Types ----------------
 
 export type CustomBlock =
     | MissionBannerBlock
@@ -185,7 +208,9 @@ export type CustomBlock =
     | MarqueeBlock
     | ContactFormBlock
     | TimelineBlock
-    | LogoBlock;
+    | LogoBlock
+    | HeroSectionBlock
+    | TestimonialsSlider;
 
 
 export type PageBlock =

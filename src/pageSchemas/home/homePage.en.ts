@@ -3,89 +3,105 @@ import {COMPANY_NAME} from "@/resources/constants";
 
 const schema: PageSchema = {
     meta: {
-        title: `${COMPANY_NAME} — Smarter Training, Polished Plans`,
-        description: `${COMPANY_NAME} helps you get structured, professional workout plans. Sign up, set your goals, and start training with confidence.`,
-        keywords: ["fitness", "training plan", "personal coach", "fit planner"],
+        title: `${COMPANY_NAME} — Build Your Career with Confidence`,
+        description: `${COMPANY_NAME} helps you create ATS-friendly CVs that recruiters love. Sign up, choose your template, and get your CV within 24 hours.`,
+        keywords: [
+            "cv maker",
+            "resume builder",
+            "ATS resume",
+            "job application",
+            "professional cv",
+            "career success",
+        ],
         canonical: "/",
         ogImage: {
             title: COMPANY_NAME,
-            description: `Your goals, your plan — powered by ${COMPANY_NAME}.`,
+            description: `Level up your career with ${COMPANY_NAME}.`,
             bg: "#0a2540",
             color: "#ffffff",
         },
     },
+
     blocks: [
-        // 🏋️ Hero Banner
+        // 🟢 Hero
         {
-            type: "section",
-            align: "center",
-            left: {
-                type: "text",
-                title: `Welcome to ${COMPANY_NAME}`,
-                description: `Your personal fitness partner. Create an account, set your goals, and receive a professional training plan tailored to you.`,
-                centerTitle: true,
-                centerDescription: true,
-            },
-            right: {
-                type: "media",
-                mediaType: "image",
-                src: "image7",
-                alt: "Athlete running",
-                width: "100%",
-                height: "400px",
-            },
+            type: "custom",
+            component: "HeroSection",
+            title: "Your Career Deserves More",
+            highlight: "Build a Winning CV",
+            description:
+                `Skip the stress. With ${COMPANY_NAME}, you’ll get a recruiter-approved, ATS-friendly CV in less than 24 hours.`,
+            primaryCta: {text: "Create My CV", link: "/get-started"},
+            secondaryCta: {text: "See Templates", link: "/templates"},
+            image: "image1",
         },
 
-        // 🔹 Animated strip
+        // 🟢 Key benefits strip
         {
             type: "custom",
             component: "HighlightStrip",
             messages: [
-                "🏆 Personalized training plans",
-                "📊 Track your progress easily",
-                "⚡ Quick registration & setup",
-                "💪 Guided workouts by professionals",
+                "⚡ CV ready in 24h",
+                "🎨 50+ modern templates",
+                "📑 ATS & recruiter-approved",
+                "💼 Works for all industries",
             ],
         },
 
-        // 🔹 Horizontal timeline — How it works
+        // 🟢 Why us (split section)
+        {
+            type: "section",
+            left: {
+                type: "text",
+                title: "Why Choose Us?",
+                description:
+                    `We combine design expertise with recruiter insights. Every CV from ${COMPANY_NAME} is designed to pass ATS scans, impress employers, and showcase your unique strengths.`,
+                bullets: [
+                    "Professional design, zero effort",
+                    "Tailored to your industry",
+                    "Backed by real HR specialists",
+                ],
+            },
+            right: {
+                type: "media",
+                mediaType: "image",
+                src: "image2",
+                alt: "CV preview mockup",
+                width: "100%",
+                height: "380px",
+            },
+        },
+
+        // 🟢 How it works (step grid)
         {
             type: "grid",
-            columns: 3,
+            columns: 2,
             gap: "2rem",
-            items: [
+            cards: [
                 {
-                    block: {
-                        type: "text",
-                        title: "10,000+",
-                        description: "Users transformed their fitness journey with us.",
-                        centerTitle: true,
-                        centerDescription: true,
-                    }
+                    image: "image3",
+                    title: "Sign Up",
+                    description: "Create your account in seconds.",
                 },
                 {
-                    block: {
-                        type: "text",
-                        title: "500+",
-                        description: "Personalized plans created by certified trainers.",
-                        centerTitle: true,
-                        centerDescription: true,
-                    }
+                    image: "image4",
+                    title: "Choose a Template",
+                    description: "Select from 50+ professional designs.",
                 },
                 {
-                    block: {
-                        type: "text",
-                        title: "24/7",
-                        description: "Access your dashboard and training plan anytime.",
-                        centerTitle: true,
-                        centerDescription: true,
-                    }
+                    image: "image5",
+                    title: "Fill Out Details",
+                    description: "Provide your experience and skills.",
+                },
+                {
+                    image: "image6",
+                    title: "Get Your CV",
+                    description: "Delivered to you within 24 hours.",
                 },
             ],
         },
 
-
-        // 🔹 Split section: video + text
+        // 🟢 Video demo
         {
             type: "section",
             left: {
@@ -94,78 +110,81 @@ const schema: PageSchema = {
                 src: "fitPlannerDemo",
                 width: "100%",
                 height: "360px",
-                alt: "FitPlanner in action",
+                alt: "CV Maker demo",
                 controls: true,
             },
             right: {
                 type: "text",
-                title: "Train Smarter, Not Harder",
-                description: `Our platform adapts to your needs — whether you're a beginner or advanced. You’ll always have a plan that matches your goals.`,
+                title: "See it in Action",
+                description:
+                    "Watch how easy it is to create a polished CV in just a few clicks. Our demo shows the full process from signup to download.",
             },
         },
 
-        // 🔹 Final CTA
-        {
-            type: "section",
-            align: "center",
-            left: {
-                type: "text",
-                title: `Ready to transform your fitness journey?`,
-                description: `Join ${COMPANY_NAME} today and start training with clarity and structure.`,
-                centerTitle: true,
-                centerDescription: true,
-            },
-        },
-
-        // 🔹 Grid — categories
+        // 🟢 CV categories
         {
             type: "grid",
             columns: 3,
             gap: "2rem",
             cards: [
                 {
-                    image: "image11",
-                    title: "Strength",
-                    description: "Custom workouts to build muscle effectively.",
-                    buttonText: "Start Now",
+                    image: "image7",
+                    title: "Graduate CV",
+                    description: "Kickstart your career with confidence.",
+                    buttonText: "Get Started",
                     buttonLink: "/sign-up",
                 },
                 {
-                    image: "image10",
-                    title: "Cardio",
-                    description: "Structured running, cycling, and endurance plans.",
-                    buttonText: "Start Now",
+                    image: "image8",
+                    title: "Professional CV",
+                    description: "Highlight your skills and achievements.",
+                    buttonText: "Get Started",
                     buttonLink: "/sign-up",
                 },
                 {
-                    image: "image5",
-                    title: "Flexibility",
-                    description: "Mobility and stretching sessions for balance.",
-                    buttonText: "Start Now",
+                    image: "image9",
+                    title: "Executive CV",
+                    description: "Stand out in leadership positions.",
+                    buttonText: "Get Started",
                     buttonLink: "/sign-up",
                 },
             ],
         },
 
-        // 🔹 FAQ
+        // 🟢 Final CTA
         {
-            type: "faq",
-            items: [
+            type: "section",
+            align: "center",
+            left: {
+                type: "text",
+                title: `Start Your Career Transformation Today`,
+                description: `Join thousands of job seekers who trust ${COMPANY_NAME}. Sign up now and get your professional CV within 24 hours.`,
+                centerTitle: true,
+                centerDescription: true,
+            },
+        },
+
+        {
+            type: "custom",
+            component: "TestimonialsSlider",
+            testimonials: [
                 {
-                    question: `What is ${COMPANY_NAME}?`,
-                    answer: `${COMPANY_NAME} provides structured training plans created by professional coaches, tailored to your goals.`,
+                    name: "Yaroslav Krupa",
+                    role: "Marketing Specialist",
+                    image: "review1",
+                    text: "I landed 3 interviews in a week thanks to my new CV!",
                 },
                 {
-                    question: "How do I start?",
-                    answer: "Simply sign up, buy tokens, and fill in your fitness details to receive your plan.",
+                    name: "John Smith",
+                    role: "Software Engineer",
+                    image: "review2",
+                    text: "The template looked amazing and was ATS-friendly.",
                 },
                 {
-                    question: "Who creates the plans?",
-                    answer: "All training programs are designed by certified professionals.",
-                },
-                {
-                    question: "Can I track my progress?",
-                    answer: "Yes — your dashboard lets you follow and measure results easily.",
+                    name: "Maria Lopez",
+                    role: "Project Manager",
+                    image: "review3",
+                    text: "Fast delivery and professional quality. Highly recommend!",
                 },
             ],
         },

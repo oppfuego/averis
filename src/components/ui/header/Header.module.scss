@@ -4,7 +4,7 @@
   z-index: 100;
   width: 100%;
   transition: background 0.3s ease, box-shadow 0.3s ease;
-  background: var(--tertiary-color);
+  background: var(--quaternary-color);
 }
 
 .scrolled {
@@ -18,17 +18,17 @@
   align-items: center;
   justify-content: space-between;
   color: var(--text-inverse);
-  background-color: var(--tertiary-color);
+  background-color: var(--quaternary-color);
 }
 
 .headerInner {
-  padding: 16px 32px;
   display: flex;
-  max-width: 1440px;
+  justify-content: space-between; /* лого зліва, actions справа */
+  align-items: center;
+  max-width: 1400px;
   width: 100%;
   margin: 0 auto;
-  justify-content: space-between;
-  align-items: center;
+  padding: 16px 32px;
 }
 
 .logo img {
@@ -37,33 +37,37 @@
 
 .nav {
   display: flex;
-  gap: 32px;
-  text-decoration: none;
+  gap: 24px;
+  align-items: center;
+
 }
 
 .link {
-  text-decoration: none;
-  color: var(--secondary-color);
+  position: relative;
   font-weight: 600;
   font-size: 15px;
-  position: relative;
+  color: var(--text-secondary);
+  padding: 4px 6px;
+  border-radius: 6px;
   transition: color 0.3s ease;
 
-  &::after {
+  &::before {
     content: "";
     position: absolute;
     left: 0;
-    bottom: -4px;
+    top: 0;
     width: 0;
-    height: 2px;
+    height: 100%;
     background: var(--secondary-color);
+    border-radius: 6px;
+    z-index: -1;
     transition: width 0.3s ease;
   }
 
   &:hover {
-    color: var(--text-inverse);
+    color: var(--text-accent);
 
-    &::after {
+    &::before {
       width: 100%;
     }
   }
@@ -71,8 +75,8 @@
 
 .actions {
   display: flex;
-  gap: 20px;
   align-items: center;
+  gap: 40px;
 }
 
 .menuButton {
@@ -89,7 +93,7 @@
   font-weight: 600;
 }
 
-.button{
+.button {
   color: var(--text-inverse);
 }
 

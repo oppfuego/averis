@@ -23,7 +23,7 @@ const pricingSchema: PageSchema = {
     blocks: [
         {
             type: "grid",
-            columns: 3,
+            columns: 2,
             gap: "2rem",
             cards: [
                 {
@@ -31,7 +31,7 @@ const pricingSchema: PageSchema = {
                     variant: "basic",
                     title: "Starter 🏋️",
                     price: "€9",
-                    tokens: 90,
+                    tokens: 900,
                     description: "Perfect for beginners starting their fitness journey.",
                     features: [
                         "1 personalized plan",
@@ -46,7 +46,7 @@ const pricingSchema: PageSchema = {
                     variant: "highlight",
                     title: "Pro 💼",
                     price: "€49",
-                    tokens: 490,
+                    tokens: 4900,
                     description: "Best for consistent trainees and fitness enthusiasts.",
                     features: [
                         "4 new plans every month",
@@ -62,7 +62,7 @@ const pricingSchema: PageSchema = {
                     variant: "premium",
                     title: "Elite 💎",
                     price: "€99",
-                    tokens: 990,
+                    tokens: 9900,
                     description: "For athletes and those seeking maximum performance.",
                     features: [
                         "Unlimited training plans",
@@ -74,34 +74,22 @@ const pricingSchema: PageSchema = {
                     buttonText: "Choose Elite",
                     buttonLink: "/checkout?plan=elite",
                 },
+                {
+                    type: "pricing",
+                    variant: "basic",
+                    title: "Custom Pack",
+                    price: "dynamic",
+                    tokens: 0,
+                    description: "Flexible per-plan pricing, tailored to your needs.",
+                    features: [
+                        "Choose your amount",
+                        "Instant calculation",
+                        "No expiration",
+                    ],
+                    buttonText: "Buy Custom",
+                    buttonLink: "/checkout?plan=custom",
+                },
             ],
-        },
-        {
-            type: "section",
-            align: "center",
-            left: {
-                type: "text",
-                title: "Custom Pack ⚡",
-                description:
-                    "Want flexibility? Build your own pack — pay only for the number of training plans you need. Great for short-term goals or testing our service.",
-                centerTitle: true,
-                centerDescription: true,
-            },
-            right: {
-                type: "pricing",
-                variant: "basic",
-                title: "Custom Pack",
-                price: "dynamic",
-                tokens: 0,
-                description: "Flexible per-plan pricing, tailored to your needs.",
-                features: [
-                    "Choose your amount",
-                    "Instant calculation",
-                    "No expiration",
-                ],
-                buttonText: "Buy Custom",
-                buttonLink: "/checkout?plan=custom",
-            },
         },
     ],
 };

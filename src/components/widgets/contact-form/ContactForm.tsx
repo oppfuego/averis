@@ -7,6 +7,8 @@ import Confetti from "react-confetti";
 import styles from "./ContactForm.module.scss";
 import { validationSchema, initialValues, sendContactRequest } from "./schema";
 import { useAlert } from "@/context/AlertContext";
+import { FaMapMarkerAlt, FaEnvelope, FaPhone } from "react-icons/fa";
+import {COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_PHONE} from "@/resources/constants";
 
 const ContactUsForm = () => {
     const { showAlert } = useAlert();
@@ -31,53 +33,66 @@ const ContactUsForm = () => {
     };
 
     return (
-        <div className={styles.contactUsWrapper}>
+        <div className={styles.contactWrapper}>
             {showConfetti && <Confetti />}
-            <div className={styles.contactForm}>
-                <div className={styles.formTitle}>📬 Contact Us</div>
-                <div className={styles.formDesc}>
-                    Fill out the form below and we’ll get back to you as soon as possible.
+            <div className={styles.contactCard}>
+                {/* Left side with info */}
+                <div className={styles.infoSide}>
+                    <h2>📬 Get in Touch</h2>
+                    <p>
+                        Have questions or want to collaborate? Our team will respond within{" "}
+                        <strong>24 hours</strong>.
+                    </p>
+                    <ul>
+                        <li>
+                            <FaMapMarkerAlt /> {COMPANY_ADDRESS}
+                        </li>
+                        <li>
+                            <FaEnvelope /> {COMPANY_EMAIL}
+                        </li>
+                        <li>
+                            <FaPhone /> {COMPANY_PHONE}
+                        </li>
+                    </ul>
                 </div>
 
-                {successMsg ? (
-                    <div className={styles.successMsg}>{successMsg}</div>
-                ) : (
-                    <Formik
-                        initialValues={initialValues}
-                        validationSchema={validationSchema}
-                        onSubmit={handleSubmit}
-                    >
-                        {({ errors, touched, isSubmitting }) => (
-                            <Form className={styles.form}>
-                                <div className={styles.formGroupRow}>
-                                    <div className={styles.formGroup}>
+                {/* Right side with form */}
+                <div className={styles.formSide}>
+                    <h3>Send us a message</h3>
+
+                    {successMsg ? (
+                        <div className={styles.successMsg}>{successMsg}</div>
+                    ) : (
+                        <Formik
+                            initialValues={initialValues}
+                            validationSchema={validationSchema}
+                            onSubmit={handleSubmit}
+                        >
+                            {({ errors, touched, isSubmitting }) => (
+                                <Form className={styles.form}>
+                                    <div className={styles.row}>
                                         <Field name="name">
                                             {({ field }: { field: React.InputHTMLAttributes<HTMLInputElement> }) => (
                                                 <Input
                                                     {...field}
                                                     placeholder="First Name"
                                                     color={touched.name && errors.name ? "danger" : "neutral"}
+                                                    fullWidth
                                                 />
                                             )}
                                         </Field>
-                                        {touched.name && errors.name && <div className={styles.error}>{errors.name}</div>}
-                                    </div>
-
-                                    <div className={styles.formGroup}>
                                         <Field name="secondName">
                                             {({ field }: { field: React.InputHTMLAttributes<HTMLInputElement> }) => (
                                                 <Input
                                                     {...field}
                                                     placeholder="Last Name"
                                                     color={touched.secondName && errors.secondName ? "danger" : "neutral"}
+                                                    fullWidth
                                                 />
                                             )}
                                         </Field>
-                                        {touched.secondName && errors.secondName && <div className={styles.error}>{errors.secondName}</div>}
                                     </div>
-                                </div>
 
-                                <div className={styles.formGroup}>
                                     <Field name="email">
                                         {({ field }: { field: React.InputHTMLAttributes<HTMLInputElement> }) => (
                                             <Input
@@ -85,13 +100,11 @@ const ContactUsForm = () => {
                                                 type="email"
                                                 placeholder="Email"
                                                 color={touched.email && errors.email ? "danger" : "neutral"}
+                                                fullWidth
                                             />
                                         )}
                                     </Field>
-                                    {touched.email && errors.email && <div className={styles.error}>{errors.email}</div>}
-                                </div>
 
-                                <div className={styles.formGroup}>
                                     <Field name="phone">
                                         {({ field }: { field: React.InputHTMLAttributes<HTMLInputElement> }) => (
                                             <Input
@@ -99,36 +112,42 @@ const ContactUsForm = () => {
                                                 type="tel"
                                                 placeholder="Phone Number"
                                                 color={touched.phone && errors.phone ? "danger" : "neutral"}
+                                                fullWidth
                                             />
                                         )}
                                     </Field>
-                                    {touched.phone && errors.phone && <div className={styles.error}>{errors.phone}</div>}
-                                </div>
 
-                                <div className={styles.formGroup}>
                                     <Field name="message">
                                         {({ field }: { field: React.TextareaHTMLAttributes<HTMLTextAreaElement> }) => (
                                             <Textarea
                                                 {...field}
-                                                placeholder="Message (optional)"
-                                                minRows={4}
-                                                color="neutral"
+                                                placeholder="Your message"
+                                                minRows={5}
+                                                sx={{ borderRadius: "12px" }}
                                             />
                                         )}
                                     </Field>
-                                </div>
 
-                                <ButtonUI
-                                    type="submit"
-                                    fullWidth
-                                    loading={isSubmitting}
-                                    text="🚀 Send Message"
-                                    sx={{ mt: 2 }}
-                                />
-                            </Form>
-                        )}
-                    </Formik>
-                )}
+                                    <ButtonUI
+                                        type="submit"
+                                        fullWidth
+                                        loading={isSubmitting}
+                                        text="Send Message"
+                                        color="secondary"
+                                        textColor="backgroundLight"
+                                        sx={{
+                                            mt: 2,
+                                            fontSize: "1.1rem",
+                                            borderRadius: "12px",
+                                            background: "linear-gradient(90deg, #2563eb, #0ea5e9)",
+                                            "&:hover": { opacity: 0.9 },
+                                        }}
+                                    />
+                                </Form>
+                            )}
+                        </Formik>
+                    )}
+                </div>
             </div>
         </div>
     );

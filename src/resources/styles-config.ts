@@ -38,10 +38,10 @@ export const buttonColors: Record<ButtonColor, string> = {
     muted: "var(--text-muted)",
     inverse: "var(--text-inverse)",
     hover: "var(--button-hover)",
-    link: "var(--link-color)",
+    link: "var(--text-accent)",
     linkHover: "var(--link-hover)",
     backgroundLight: "var(--background-light)",
-    backgroundDark: "var(--background-dark)",
+    backgroundDark: "var(--text-primary)",
     surface: "var(--surface-color)",
     surfaceMuted: "var(--surface-muted)",
     border: "var(--border-color)",
@@ -50,39 +50,39 @@ export const buttonColors: Record<ButtonColor, string> = {
 
 // Header
 export const headerStyles = {
-    type: "default" as HeaderType,
+    type: "sticky" as HeaderType,
     sideBarDirection: "top" as SideBarDirection,
     linkColor: "var(--text-inverse)",
     linkHoverColor: "var(--link-hover)",
-    scrollMode: "blur" as HeaderScrollMode,
-    scrollBackground: "var(--primary-color)",
+    scrollMode: "solid" as HeaderScrollMode,
+    scrollBackground: "var(--quaternary-color)",
     scrollBlur: "50px",
 };
 
 // Drawer
 export const drawerConfig = {
-    anchor: "top" as SideBarDirection,
+    anchor: "bottom" as SideBarDirection,
     width: "100%",
     padding: "20px",
-    logoWidth: 200,
-    logoHeight: 100,
+    logoWidth: 150,
+    logoHeight: 50,
     contentGap: "40px",
     navGap: "20px",
-    contentAlign: "flex-start" as "flex-start" | "center" | "space-between" | "flex-end",
+    contentAlign: "center" as "flex-start" | "center" | "space-between" | "flex-end",
 };
 
 // Footer
 export const footerStyles = {
-    type: "mega" as FooterType,
+    type: "corporate" as FooterType,
     showTopBorder: true,
     showBottomBorder: true,
-    maxWidth: 1700,
+    maxWidth: 1400,
     paddings: { x: 40, y: 10 },
     gap: 30,
     columnsGap: 50,
     logo: { width: 240, height: 100, align: "center" as FooterLogoAlign },
     colors: {
-        bg: "var(--secondary-color)",
+        bg: "var(--quaternary-color)",
         title: "var(--text-secondary)",
         text: "var(--secondary-color)",
         muted: "var(--text-inverse)",

@@ -27,11 +27,16 @@ import type {
     PricingBlock,
     GridItem,
     AlignInput,
-    CustomBlock, // 👈 додаємо
+    CustomBlock,
 } from "./types";
+
 import MissionBanner from "@/components/constructor/missio-banner/MissionBanner";
 import ContactUsForm from "@/components/widgets/contact-form/ContactForm";
 import LogoBlock from "@/components/constructor/logo-block/LogoBlock";
+import ValuesIcons from "@/components/constructor/values-icons/ValuesIcons";
+import TeamGrid from "../team-grid/TeamGrid";
+import HeroSection from "@/components/constructor/hero/Hero";
+import TestimonialsSlider from "@/components/constructor/testimonials-slider/TestimonialsSlider";
 
 // ------------------- helpers -------------------
 
@@ -72,11 +77,30 @@ function RenderCustom(b: CustomBlock) {
         case "LogoBlock":
             return <LogoBlock width={b.width} height={b.height} />;
 
+        case "ValuesIcons":
+            return <ValuesIcons values={b.values ?? []} />;
+
+        case "TeamGrid":
+            return <TeamGrid members={b.members ?? []} />;
+        case "TestimonialsSlider":
+            return <TestimonialsSlider testimonials={b.testimonials} />;
+
+        case "HeroSection":
+            return (
+                <HeroSection
+                    title={b.title}
+                    highlight={b.highlight}
+                    description={b.description}
+                    primaryCta={b.primaryCta}
+                    secondaryCta={b.secondaryCta}
+                    image={b.image}
+                />
+            );
+
         default:
             return null;
     }
 }
-
 
 function RenderText(b: TextBlock) {
     return (
@@ -202,59 +226,23 @@ function RenderGrid(b: GridBlock) {
 function renderBlock(block: PageBlock, key?: React.Key): React.ReactNode {
     switch (block.type) {
         case "text":
-            return (
-                <React.Fragment key={key}>
-                    <RenderText {...block} />
-                </React.Fragment>
-            );
+            return <RenderText key={key} {...block} />;
         case "media":
-            return (
-                <React.Fragment key={key}>
-                    <RenderMedia {...block} />
-                </React.Fragment>
-            );
+            return <RenderMedia key={key} {...block} />;
         case "slider":
-            return (
-                <React.Fragment key={key}>
-                    <RenderSlider {...block} />
-                </React.Fragment>
-            );
+            return <RenderSlider key={key} {...block} />;
         case "faq":
-            return (
-                <React.Fragment key={key}>
-                    <RenderFaq {...block} />
-                </React.Fragment>
-            );
+            return <RenderFaq key={key} {...block} />;
         case "card":
-            return (
-                <React.Fragment key={key}>
-                    <RenderCard {...block} />
-                </React.Fragment>
-            );
+            return <RenderCard key={key} {...block} />;
         case "pricing":
-            return (
-                <React.Fragment key={key}>
-                    <RenderPricingCard {...block} />
-                </React.Fragment>
-            );
+            return <RenderPricingCard key={key} {...block} />;
         case "section":
-            return (
-                <React.Fragment key={key}>
-                    <RenderSection {...block} />
-                </React.Fragment>
-            );
+            return <RenderSection key={key} {...block} />;
         case "grid":
-            return (
-                <React.Fragment key={key}>
-                    <RenderGrid {...block} />
-                </React.Fragment>
-            );
+            return <RenderGrid key={key} {...block} />;
         case "custom":
-            return (
-                <React.Fragment key={key}>
-                    <RenderCustom {...block} />
-                </React.Fragment>
-            );
+            return <RenderCustom key={key} {...block} />;
         default: {
             const _exhaustive: never = block;
             return _exhaustive;

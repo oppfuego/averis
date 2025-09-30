@@ -66,19 +66,18 @@
 
 .timeline {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 2rem;
-  position: relative;
-  margin: 3rem auto;
-  padding: 1rem 0;
+  margin: 4rem auto;
+  padding: 2rem 0;
   max-width: 1200px;
+  position: relative;
 
   &::before {
     content: "";
     position: absolute;
-    top: 40px; // висота центрів іконок
+    top: 50%;
     left: 0;
     right: 0;
     height: 4px;
@@ -91,63 +90,94 @@
   flex: 1;
   text-align: center;
   position: relative;
-  color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
 
   .circle {
-    width: 50px;
-    height: 50px;
-    margin: 0 auto 1rem auto;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background: var(--secondary-color);
-    color: var(--primary-color);
+    background: var(--quaternary-color);
+    color: var(--text-primary);
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    margin: 1rem 0;
+  }
+
+  .content {
+    background: var(--bg-secondary, #fff);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    max-width: 250px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
 
-  h4 {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-inverse);
-  }
+    h4 {
+      margin: 0 0 0.4rem 0;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }
 
-  p {
-    font-size: 0.95rem;
-    color: var(--text-inverse);
-    max-width: 220px;
-    margin: 0 auto;
+    p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--text-inverse);
+    }
   }
 }
 
-/* 🔹 Мобілка — вертикальна версія */
+.step.top {
+  flex-direction: column-reverse;
+
+  .content {
+    margin-bottom: 1rem;
+  }
+}
+
+.step.bottom {
+  .content {
+    margin-top: 1rem;
+  }
+}
+
+/* 🔹 Mobile — робимо вертикально */
 @media (max-width: 768px) {
   .timeline {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    gap: 3rem;
 
     &::before {
       top: 0;
-      left: 20px;
+      left: 30px;
       right: auto;
       width: 4px;
       height: 100%;
     }
+  }
 
-    .step {
-      text-align: left;
-      padding-left: 3rem;
+  .step {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
 
-      .circle {
-        margin: 0;
-        position: absolute;
-        left: 0;
-      }
+    &.top,
+    &.bottom {
+      flex-direction: row;
+    }
+
+    .circle {
+      margin: 0;
+    }
+
+    .content {
+      max-width: 100%;
     }
   }
 }

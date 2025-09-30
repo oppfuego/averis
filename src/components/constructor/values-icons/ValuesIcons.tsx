@@ -6,7 +6,8 @@ import styles from "./ValuesIcons.module.scss";
 interface ValueItem {
     icon: string;
     title: string;
-    description: string; // було text
+    description?: string;
+    text?: string;
 }
 
 const ValuesIcons: React.FC<{ values: ValueItem[] }> = ({ values }) => {
@@ -16,7 +17,7 @@ const ValuesIcons: React.FC<{ values: ValueItem[] }> = ({ values }) => {
                 <div key={i} className={styles.valueCard}>
                     <div className={styles.icon}>{v.icon}</div>
                     <h3>{v.title}</h3>
-                    <p>{v.description}</p> {/* було v.text */}
+                    <p>{v.description ?? v.text}</p>
                 </div>
             ))}
         </Grid>

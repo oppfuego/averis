@@ -6,6 +6,7 @@ import AuthButtons from "@/components/widgets/auth-buttons/AuthButtons";
 import { headerContent } from "@/resources/content";
 import { drawerConfig } from "@/resources/styles-config";
 import { DrawerMenuProps } from "@/types/drawer-menu";
+import { IoCloseSharp } from "react-icons/io5";
 
 const DrawerMenu: FC<DrawerMenuProps> = ({ open, onClose }) => {
     const cfg = drawerConfig;
@@ -23,6 +24,7 @@ const DrawerMenu: FC<DrawerMenuProps> = ({ open, onClose }) => {
                 },
             }}
         >
+            <IoCloseSharp className={styles.closeIcon} onClick={onClose}/>
             <div
                 className={styles.content}
                 style={{

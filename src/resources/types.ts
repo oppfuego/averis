@@ -35,7 +35,7 @@ export type HeaderType = "default" | "sticky" | "sticky-rounded";
 export type SideBarDirection = "left" | "right" | "top" | "bottom";
 
 // Footer
-export type FooterType = "columns" | "center" | "mega";
+export type FooterType = "columns" | "center" | "mega" | "corporate";
 export type FooterLogoAlign = "start" | "center" | "end";
 
 // Hover

@@ -4,157 +4,123 @@ import { COMPANY_NAME } from "@/resources/constants";
 const schema: PageSchema = {
     meta: {
         title: `Get Started — ${COMPANY_NAME}`,
-        description: `Learn how to begin your fitness journey with ${COMPANY_NAME}: create an account, explore features, purchase tokens, and receive your personalized training plan.`,
+        description: `Learn how ${COMPANY_NAME} helps you create a professional CV: sign up, buy tokens, choose a template, fill in your details, and receive your CV within 24 hours.`,
         keywords: [
             `${COMPANY_NAME} get started`,
-            "fitness app onboarding",
-            "personal workout plan",
-            "buy tokens training",
-            "FitPlanner guide"
+            "cv maker onboarding",
+            "resume builder steps",
+            "buy tokens cv",
+            "professional cv service",
         ],
         canonical: "/get-started",
         ogImage: {
             title: `Get Started with ${COMPANY_NAME}`,
-            description: "Follow simple steps to unlock your personalized training plan.",
+            description: "Follow simple steps to create your professional CV.",
             bg: "#0a2540",
             color: "#ffffff",
         },
     },
     blocks: [
-        // 🟢 Hero section
+        // 🟣 Заголовок + текст
         {
             type: "section",
             align: "center",
             left: {
                 type: "text",
-                title: "Getting Started with FitPlanner",
+                title: "Get Started with CV Maker",
                 description:
-                    "Your path to smarter fitness begins here. Create your account, explore our features, and get your personalized workout plan from certified trainers.",
+                    "Creating a professional CV has never been easier. With just a few simple steps, you’ll have a document that highlights your skills and experience — crafted by our specialists and delivered to you within 24 hours.",
                 centerTitle: true,
                 centerDescription: true,
             },
-            right: {
-                type: "media",
-                mediaType: "image",
-                src: "image2",
-                alt: "FitPlanner app preview",
-                width: "100%",
-                height: "300px",
-            },
         },
 
-        // 🟢 Highlight strip
+        // 🟣 HighlightStrip
         {
             type: "custom",
             component: "HighlightStrip",
             messages: [
-                "⚡ Quick registration",
-                "💳 Buy tokens for your plans",
-                "📋 Enter your fitness data",
-                "📄 Receive a personalized training plan",
-                "🏋️ Start training with guidance",
+                "⚡ Ready in 24h",
+                "🎨 Professional Templates",
+                "💳 Buy Tokens Easily",
+                "📑 ATS-Friendly CVs",
+                "✅ Reviewed by Experts",
             ],
         },
 
-        // 🟢 Timeline with key onboarding steps
+        // 🟣 ValuesIcons — чому обирають нас
         {
             type: "custom",
-            component: "Timeline",
-            steps: [
-                {
-                    title: "Step 1 — Sign Up / Log In",
-                    description: "Create your FitPlanner account or log in to start your journey.",
-                },
-                {
-                    title: "Step 2 — Explore the Platform",
-                    description: "Get familiar with your dashboard and available features.",
-                },
-                {
-                    title: "Step 3 — Buy Tokens",
-                    description: "Purchase tokens to unlock your personalized training plans.",
-                },
-                {
-                    title: "Step 4 — Enter Your Data",
-                    description: "Fill out a short form with your fitness level, goals, and preferences.",
-                },
-                {
-                    title: "Step 5 — Receive Your Plan",
-                    description: "Download or view your training plan created by professionals.",
-                },
-                {
-                    title: "Step 6 — Start Training",
-                    description: "Follow your structured plan and track progress every step of the way.",
-                },
+            component: "ValuesIcons",
+            values: [
+                { icon: "🎯", title: "Tailored Content", text: "We highlight your unique strengths." },
+                { icon: "⚡", title: "Fast Delivery", text: "Your CV is ready within 24 hours." },
+                { icon: "📑", title: "Modern Design", text: "Choose sleek, recruiter-approved layouts." },
+                { icon: "💼", title: "Career Ready", text: "Optimized for ATS and global applications." },
             ],
         },
 
-        // 🟢 Grid with benefits
+        // 🟣 Grid — як це працює
         {
             type: "grid",
             columns: 3,
             gap: "2rem",
             cards: [
                 {
-                    image: "image8",
-                    title: "Personalized Approach",
-                    description: "Every plan is unique — designed for your goals, lifestyle, and fitness level.",
+                    image: "image1",
+                    title: "1. Sign Up",
+                    description: "Create your account in a few clicks to get started.",
+                },
+                {
+                    image: "image2",
+                    title: "2. Buy Tokens",
+                    description: "Purchase tokens securely to unlock CV creation.",
+                },
+                {
+                    image: "image3",
+                    title: "3. Choose a Template",
+                    description: "Select from modern, recruiter-approved CV designs.",
+                },
+                {
+                    image: "image4",
+                    title: "4. Fill Out the Form",
+                    description: "Provide your experience, skills, and achievements.",
                 },
                 {
                     image: "image5",
-                    title: "Simple & Clear",
-                    description: "No guesswork. Just structured workouts and clear guidance from trainers.",
+                    title: "5. Wait 24 Hours",
+                    description: "Our specialists craft your CV professionally.",
                 },
                 {
-                    image: "image11",
-                    title: "Continuous Support",
-                    description: "Stay motivated with progress tracking and expert-backed recommendations.",
+                    image: "image6",
+                    title: "6. Get Your CV",
+                    description: "Download your tailored CV and apply with confidence.",
                 },
             ],
         },
 
-        // 🟢 Section with visual demo
-        {
-            type: "media",
-            mediaType: "video",
-            src: "getStartedIntro",
-            alt: "FitPlanner demo video",
-            width: "100%",
-            height: "480px",
-            controls: true,
-            autoPlay: true,
-        },
-
-        // 🟢 Quick FAQ
-        {
-            type: "faq",
-            items: [
-                {
-                    question: "Do I need to be experienced?",
-                    answer: "Not at all. FitPlanner is designed for beginners as well as advanced athletes.",
-                },
-                {
-                    question: "How do I get my training plan?",
-                    answer: "Fill in your data, and within minutes you’ll receive your personalized plan.",
-                },
-                {
-                    question: "Can I adjust my plan?",
-                    answer: "Yes, you can update your preferences and goals anytime.",
-                },
-            ],
-        },
-
-        // 🟢 Final motivation
         {
             type: "section",
             align: "center",
             left: {
                 type: "text",
-                title: "Your Fitness Journey Starts Today",
+                title: "Start Your Career with a Strong CV",
                 description:
-                    "With FitPlanner, you’re never alone. From the first step to every workout, our professional trainers guide you towards real results. Sign up, get your plan, and make your goals a reality.",
+                    "Stand out with a professional CV tailored to you. Sign up, buy tokens, and get your career-ready CV today.",
                 centerTitle: true,
                 centerDescription: true,
             },
+        },
+
+        // 🟣 FAQ
+        {
+            type: "faq",
+            items: [
+                { question: "How long does it take?", answer: "Your CV will be ready within 24 hours." },
+                { question: "Can I try multiple templates?", answer: "Yes, you can switch before final delivery." },
+                { question: "Do I need design skills?", answer: "No, our team prepares everything for you." },
+                { question: "Is it ATS-friendly?", answer: "Yes, all CVs are recruiter-approved and ATS-optimized." },
+            ],
         },
     ],
 };

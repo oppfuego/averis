@@ -21,17 +21,6 @@ const contactPage: PageSchema = {
     },
     blocks: [
         {
-            type: "section",
-            align: "center",
-            left: {
-                type: "text",
-                title: "Send Us a Message",
-                description: `Fill out the form below and our team will respond within 24 hours.`,
-                centerTitle: true,
-                centerDescription: true,
-            },
-        },
-        {
             type: "custom",
             component: "ContactForm",
         },

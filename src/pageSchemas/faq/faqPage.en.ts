@@ -1,24 +1,22 @@
 import { PageSchema } from "@/components/constructor/page-render/types";
-import {
-    COMPANY_NAME,
-    COMPANY_EMAIL,
-} from "@/resources/constants";
+import { COMPANY_NAME, COMPANY_EMAIL } from "@/resources/constants";
 
 const faqSchema: PageSchema = {
     meta: {
         title: `FAQ — ${COMPANY_NAME}`,
-        description: `Frequently Asked Questions about ${COMPANY_NAME}: how training plans work, flexibility, tracking progress, and support from professional coaches.`,
+        description: `Frequently Asked Questions about ${COMPANY_NAME}: how the resume creation process works, delivery time, revisions, and professional support.`,
         keywords: [
             `${COMPANY_NAME} FAQ`,
-            "fitness app",
-            "personal training plans",
-            "progress tracking",
-            "workout guidance"
+            "resume builder",
+            "professional CV",
+            "job application",
+            "HR experts",
+            "career support",
         ],
         canonical: "/faq",
         ogImage: {
             title: `${COMPANY_NAME} FAQ`,
-            description: `Answers to the most common questions about training with ${COMPANY_NAME}.`,
+            description: `Answers to the most common questions about creating your CV with ${COMPANY_NAME}.`,
             bg: "#0a2540",
             color: "#ffffff",
         },
@@ -29,43 +27,43 @@ const faqSchema: PageSchema = {
             items: [
                 {
                     question: `What is ${COMPANY_NAME}?`,
-                    answer: `${COMPANY_NAME} is your personal fitness planner. It connects you with certified trainers who create structured, personalized workout plans so you can train smarter and achieve real results.`
+                    answer: `${COMPANY_NAME} is a professional CV and resume creation service. Our team of HR experts and career consultants craft documents that highlight your strengths and help you get more interview invitations.`,
                 },
                 {
-                    question: "Do I need prior fitness experience?",
-                    answer: `No. ${COMPANY_NAME} works for beginners, intermediates, and advanced athletes. Every plan is tailored to your current level.`
+                    question: "How long does it take to receive my resume?",
+                    answer: `You’ll receive your completed CV within 24 hours after submitting your details.`,
                 },
                 {
-                    question: "Who designs the training plans?",
-                    answer: `All programs are designed by certified professional trainers with real coaching experience.`
+                    question: "Who creates the resumes?",
+                    answer: `Every CV is created by certified HR specialists and career consultants with real hiring experience.`,
                 },
                 {
-                    question: "Can I adjust my plan if my goals change?",
-                    answer: `Absolutely. Your plan is flexible. You can update it anytime if your schedule, fitness level, or goals change.`
+                    question: "Can I request revisions?",
+                    answer: `Yes. If you feel adjustments are needed, we provide revisions to ensure your CV perfectly matches your career goals.`,
                 },
                 {
-                    question: "How do I track progress?",
-                    answer: `The platform lets you monitor improvements step by step — from completed workouts to personal records — so you stay motivated.`
+                    question: "Will my resume be tailored to specific jobs?",
+                    answer: `Absolutely. We adapt each CV to your target role, industry, and career objectives.`,
                 },
                 {
-                    question: `Does ${COMPANY_NAME} include nutrition advice?`,
-                    answer: `Our focus is structured training, but selected trainers may include general nutrition tips as part of their guidance.`
+                    question: "Do you also design the resume layout?",
+                    answer: `Yes. Our designers create modern, professional layouts that make your CV stand out visually.`,
                 },
                 {
-                    question: "Is my data private?",
-                    answer: `Yes. All your training information is processed securely and is never shared with third parties.`
+                    question: "Is my data safe?",
+                    answer: `Your personal information is processed securely and never shared with third parties.`,
                 },
                 {
-                    question: `Can teams or groups use ${COMPANY_NAME}?`,
-                    answer: `Yes. We offer team and business plans for fitness studios, companies, and groups who want structured training together.`
+                    question: "Can you help if I’m changing careers?",
+                    answer: `Of course. Our experts specialize in presenting transferable skills to help you succeed in a new industry.`,
                 },
                 {
-                    question: "Do you provide support?",
-                    answer: `Of course. If you face any issues with your account or training plan, our support team is available at ${COMPANY_EMAIL}.`
+                    question: "Do you offer cover letters too?",
+                    answer: `Yes. Along with resumes, we also create personalized cover letters that complement your CV.`,
                 },
                 {
-                    question: `Can I try ${COMPANY_NAME} for free?`,
-                    answer: `Yes. We offer a free trial so you can explore the platform and test a workout plan before subscribing.`
+                    question: "How can I contact support?",
+                    answer: `Our support team is always available at ${COMPANY_EMAIL}.`,
                 },
             ],
         },

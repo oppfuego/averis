@@ -9,15 +9,12 @@ import Input from "@mui/joy/Input";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 
-import { cardVariants, hoverEffects } from "@/resources/styles-config";
-
-type CardVariant = keyof typeof cardVariants;
-type HoverEffect = keyof typeof hoverEffects;
+type Currency = "GBP" | "EUR";
 
 interface PricingCardProps {
-    variant?: CardVariant;
+    variant?: "starter" | "pro" | "premium";
     title: string;
-    price: string; // "dynamic" для кастомного плану
+    price: string; // "dynamic" = кастомний
     tokens: number;
     description: string;
     features: string[];
@@ -25,15 +22,15 @@ interface PricingCardProps {
     buttonLink?: string;
 }
 
-const CURRENCY_SIGNS: Record<"GBP" | "EUR", string> = {
+const CURRENCY_SIGNS: Record<Currency, string> = {
     GBP: "£",
     EUR: "€",
 };
 
-const TOKENS_PER_UNIT = 10;
+const TOKENS_PER_UNIT = 100;
 
 const PricingCard: React.FC<PricingCardProps> = ({
-                                                     variant = "basic",
+                                                     variant = "starter",
                                                      title,
                                                      price,
                                                      tokens,
@@ -44,22 +41,29 @@ const PricingCard: React.FC<PricingCardProps> = ({
     const { showAlert } = useAlert();
     const user = useUser();
 
-    const [currency, setCurrency] = useState<"GBP" | "EUR">("GBP");
+    const [currency, setCurrency] = useState<Currency>("GBP");
     const [customAmount, setCustomAmount] = useState<number>(20);
-
-    const config = cardVariants[variant];
-    const hover = hoverEffects[config.hover as HoverEffect];
 
     const isCustom = price === "dynamic";
     const currencySign = useMemo(() => CURRENCY_SIGNS[currency], [currency]);
 
+    // Badge text для кожного тарифу
+    const badgeText = isCustom
+        ? "Custom"
+        : variant === "starter"
+            ? "Starter"
+            : variant === "pro"
+                ? "Pro"
+                : variant === "premium"
+                    ? "Premium"
+                    : "";
+
+    // Клас для кастомного тарифу
+    const cardClass = `${styles.card} ${isCustom ? styles.custom : styles[variant]}`;
+
     const handleBuy = async () => {
         if (!user) {
-            showAlert(
-                "Please sign up",
-                "You need to be signed in to purchase",
-                "info"
-            );
+            showAlert("Please sign up", "You need to be signed in to purchase", "info");
             setTimeout(() => (window.location.href = "/sign-up"), 1200);
             return;
         }
@@ -67,8 +71,8 @@ const PricingCard: React.FC<PricingCardProps> = ({
         try {
             let body: any;
             if (isCustom) {
-                if (customAmount < 5) {
-                    showAlert("Minimum is 5", `Enter at least 5 ${currency}`, "warning");
+                if (customAmount < 0.01) {
+                    showAlert("Minimum is 0.01", `Enter at least 0.01 ${currency}`, "warning");
                     return;
                 }
                 body = { currency, amount: customAmount };
@@ -89,9 +93,9 @@ const PricingCard: React.FC<PricingCardProps> = ({
             showAlert(
                 "Success!",
                 isCustom
-                    ? `You paid ${currencySign}${customAmount} ${currency} (≈ ${Math.floor(
-                        customAmount * TOKENS_PER_UNIT
-                    )} tokens)`
+                    ? `You paid ${currencySign}${customAmount.toFixed(
+                        2
+                    )} ${currency} (≈ ${Math.floor(customAmount * TOKENS_PER_UNIT)} tokens)`
                     : `You purchased ${tokens} tokens.`,
                 "success"
             );
@@ -102,96 +106,65 @@ const PricingCard: React.FC<PricingCardProps> = ({
     };
 
     return (
-        <div
-            className={styles.card}
-            style={{
-                border: config.border,
-                background: config.background,
-            }}
-            onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.transform = hover.transform;
-                (e.currentTarget as HTMLElement).style.boxShadow = hover.shadow;
-            }}
-            onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.transform = "none";
-                (e.currentTarget as HTMLElement).style.boxShadow =
-                    "0 6px 16px rgba(0,0,0,0.08)";
-            }}
-        >
-            {/* бейдж зверху праворуч */}
-            {config.label && (
-                <span
-                    className={styles.bestChoiceLabel}
-                    style={{
-                        background: config.label.bg,
-                        color: config.label.color,
-                        right: "1rem",
-                        left: "auto",
-                        transform: "none",
-                    }}
-                >
-          {config.label.text}
-        </span>
-            )}
-
-            {/* блок з ціною */}
-            <div className={styles.priceBlock}>
+        <div className={cardClass}>
+            {/* Ліва частина з ціною */}
+            <div className={styles.left}>
+                <span className={styles.badge}>{badgeText}</span>
+                <h3 className={styles.title}>{title}</h3>
                 {isCustom ? (
-                    <>
-                        <div className={styles.customControls}>
-                            <Input
-                                type="number"
-                                value={customAmount}
-                                onChange={(e) => setCustomAmount(Number(e.target.value))}
-                                slotProps={{ input: { min: 5, step: 1 } }}
-                                sx={{ flex: 1 }}
-                                placeholder="Enter amount"
-                                variant="outlined"
-                                size="md"
-                                startDecorator={currencySign}
-                            />
-                            <Select
-                                value={currency}
-                                onChange={(_, val) => val && setCurrency(val as "GBP" | "EUR")}
-                                size="md"
-                                sx={{ minWidth: 90 }}
-                            >
-                                <Option value="GBP">£ GBP</Option>
-                                <Option value="EUR">€ EUR</Option>
-                            </Select>
-                        </div>
-                        <p className={styles.price}>
+                    <div className={styles.customControls}>
+                        <Input
+                            type="number"
+                            value={customAmount}
+                            onChange={(e) => setCustomAmount(Number(e.target.value))}
+                            slotProps={{ input: { min: 0.01, step: 0.01 } }}
+                            sx={{ flex: 1 }}
+                            placeholder="Enter amount"
+                            variant="outlined"
+                            size="md"
+                            startDecorator={currencySign}
+                        />
+                        <Select
+                            value={currency}
+                            onChange={(_, val) => val && setCurrency(val as Currency)}
+                            size="md"
+                            sx={{ minWidth: 90 }}
+                        >
+                            <Option value="GBP">£ GBP</Option>
+                            <Option value="EUR">€ EUR</Option>
+                        </Select>
+                        <p className={styles.dynamicPrice}>
                             {currencySign}
-                            {customAmount.toFixed(2)}{" "}
-                            <span className={styles.tokens}>
-                ≈ {Math.floor(customAmount * TOKENS_PER_UNIT)} tokens
-              </span>
+                            {customAmount.toFixed(2)} ≈{" "}
+                            {Math.floor(customAmount * TOKENS_PER_UNIT)} tokens
                         </p>
-                    </>
+                    </div>
                 ) : (
                     <p className={styles.price}>
                         {price}
                         <span className={styles.tokens}> / {tokens} tokens</span>
                     </p>
                 )}
-            </div>
-
-            {/* заголовок і опис */}
-            <h3 className={styles.title}>{title}</h3>
-            <p className={styles.description}>{description}</p>
-
-            {/* фічі */}
-            <ul className={styles.features}>
-                {features.map((f, i) => (
-                    <li key={i}>{f}</li>
-                ))}
-            </ul>
-
-            {/* кнопка */}
-            <div style={{ marginTop: "auto" }}>
-                <ButtonUI type="button" sx={{ width: "100%" }} onClick={handleBuy}>
+                <ButtonUI
+                    type="button"
+                    variant="soft"
+                    color="quaternary"
+                    hoverColor="backgroundLight"
+                    fullWidth
+                    onClick={handleBuy}
+                >
                     {user ? buttonText : "Sign Up to Buy"}
                 </ButtonUI>
+            </div>
+
+            {/* Права частина з описом */}
+            <div className={styles.right}>
+                <p className={styles.description}>{description}</p>
+                <ul className={styles.features}>
+                    {features.map((f, i) => (
+                        <li key={i}>{f}</li>
+                    ))}
+                </ul>
             </div>
         </div>
     );

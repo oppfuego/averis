@@ -1,9 +1,10 @@
+"use client";
 import React from "react";
 import Media from "../image/Media";
 import styles from "./Card.module.scss";
-import { StaticImageData } from "next/image";
+import {StaticImageData} from "next/image";
 import ButtonUI from "@/components/ui/button/ButtonUI";
-import { FaArrowRight } from "react-icons/fa6"; // ✅ іконка з react-icons
+import {FaArrowRight} from "react-icons/fa6";
 
 interface CardProps {
     image: string | StaticImageData;
@@ -13,14 +14,20 @@ interface CardProps {
     buttonLink?: string;
 }
 
-const Card: React.FC<CardProps> = ({ image, title, description, buttonText, buttonLink }) => (
+const Card: React.FC<CardProps> = ({
+                                       image,
+                                       title,
+                                       description,
+                                       buttonText,
+                                       buttonLink,
+                                   }) => (
     <div className={styles.card}>
         <div className={styles.imageWrapper}>
             <Media
                 src={image}
                 type="image"
                 width="100%"
-                height="250px"
+                height="220px"
                 alt={title}
                 objectFit="cover"
             />
@@ -29,18 +36,15 @@ const Card: React.FC<CardProps> = ({ image, title, description, buttonText, butt
             <h3 className={styles.title}>{title}</h3>
             <p className={styles.description}>{description}</p>
             {buttonText && buttonLink && (
-                <a
-                    href={buttonLink}
-                    rel="noopener noreferrer"
-                    style={{ textDecoration: "none" }}
-                >
+                <a href={buttonLink} rel="noopener noreferrer" style={{textDecoration: "none"}}>
                     <ButtonUI
-                        variant="outlined"
-                        size="lg"
-                        color="primary"
-                        hoverEffect="scale"
-                        hoverTextColor="#fff"
-                        endIcon={<FaArrowRight />}
+                        variant="solid"
+                        shape="rounded"
+                        size="md"
+                        textColor={"quaternary"}
+                        color={"primary"}
+                        hoverEffect="shadow"
+
                     >
                         {buttonText}
                     </ButtonUI>

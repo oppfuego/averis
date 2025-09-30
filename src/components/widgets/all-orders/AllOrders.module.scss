@@ -5,39 +5,30 @@
 .title {
   font-size: 1.6rem;
   font-weight: 700;
-  margin-bottom: 1.25rem;
-  color: #111827;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
 }
 
-.empty {
-  color: #6b7280;
-  text-align: center;
-  padding: 2rem;
-  font-size: 1.05rem;
-}
-
-.orderList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.ordersList {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .orderCard {
-  background: #fff;
-  border-radius: 0.85rem;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
   padding: 1.25rem;
+  box-shadow: 0 4px 10px var(--shadow-color);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  gap: 0.5rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
   }
 }
 
@@ -49,47 +40,73 @@
 
 .orderId {
   font-weight: 600;
-  color: var(--primary-color);
-  background: rgba(99, 102, 241, 0.1);
-  padding: 0.2rem 0.6rem;
+  color: var(--secondary-color);
+  background: var(--quaternary-color);
+  padding: 0.25rem 0.6rem;
   border-radius: 6px;
   font-size: 0.9rem;
 }
 
 .charge {
-  font-size: 0.9rem;
   font-weight: 600;
-  color: #dc2626;
-  background: rgba(220, 38, 38, 0.1);
-  padding: 0.2rem 0.6rem;
+  color: var(--error-color);
+  background: rgba(239, 68, 68, 0.12);
+  padding: 0.25rem 0.6rem;
   border-radius: 6px;
+  font-size: 0.9rem;
 }
 
 .email {
-  font-size: 0.95rem;
-  color: #374151;
+  color: var(--text-secondary);
   font-weight: 500;
-  word-break: break-word;
 }
 
 .date {
+  color: var(--text-muted);
   font-size: 0.85rem;
-  color: #6b7280;
 }
 
 .downloadBtn {
-  margin-top: 0.75rem;
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
   padding: 0.6rem 1rem;
-  background: var(--primary-color);
-  color: #fff;
+  background: linear-gradient(135deg, var(--secondary-color), var(--tertiary-color));
+  color: var(--text-accent);
   border: none;
   border-radius: 6px;
-  cursor: pointer;
   font-weight: 500;
-  text-align: center;
+  cursor: pointer;
   transition: background 0.2s ease;
 
   &:hover {
-    background: #4338ca;
+    background: linear-gradient(135deg, var(--button-hover), var(--secondary-color));
+  }
+
+  svg {
+    font-size: 1rem;
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-radius: 0.75rem;
+  background: var(--surface-muted);
+  border: 2px dashed var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  .emptyIcon {
+    font-size: 2rem;
+    color: var(--text-muted);
+  }
+
+  p {
+    color: var(--text-secondary);
   }
 }

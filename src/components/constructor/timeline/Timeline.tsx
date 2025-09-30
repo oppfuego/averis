@@ -34,13 +34,20 @@ interface Step {
 const Timeline: React.FC<{ steps: Step[] }> = ({ steps }) => (
     <div className={styles.timeline}>
         {steps.map((step, idx) => (
-            <div key={idx} className={styles.step}>
+            <div
+                key={idx}
+                className={`${styles.step} ${idx % 2 === 0 ? styles.top : styles.bottom}`}
+            >
+                <div className={styles.content}>
+                    <h4>{step.title}</h4>
+                    <p>{step.description}</p>
+                </div>
                 <div className={styles.circle}>{idx + 1}</div>
-                <h4>{step.title}</h4>
-                <p>{step.description}</p>
             </div>
         ))}
     </div>
 );
 
 export default Timeline;
+
+
