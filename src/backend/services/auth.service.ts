@@ -28,8 +28,8 @@ export const authService = {
         const result = await this.issueTokensAndSession(user._id, user.email, user.role, undefined, undefined);
         await sendEmail(
             user.email,
-            "Welcome to FitPlanner 🎉",
-            `Hi ${user.name}, thanks for registering at FitPlanner.`
+            "Welcome to CVMaker 🎉",
+            `Hi ${user.name}, thanks for registering at CVMaker.`
         );
 
         return { user, ...result };

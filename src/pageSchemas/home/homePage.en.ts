@@ -107,7 +107,7 @@ const schema: PageSchema = {
             left: {
                 type: "media",
                 mediaType: "video",
-                src: "fitPlannerDemo",
+                src: "CVMakerDemo",
                 width: "100%",
                 height: "360px",
                 alt: "CV Maker demo",
