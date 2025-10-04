@@ -4,7 +4,7 @@
   justify-content: center;
   gap: 1.5rem;
   max-width: 900px;
-  margin: 3rem auto;
+  margin: 0 auto;
   padding: 1.5rem;
   width: 100%;
   position: relative;
@@ -16,7 +16,7 @@
   position: relative;
   overflow: hidden;
   width: 500px;
-  height: 300px; /* ✅ єдина висота */
+  height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,21 +29,12 @@
   border-radius: 1.25rem;
   padding: 2rem 1.5rem;
   box-shadow: 0 4px 20px var(--shadow-color);
-
   text-align: center;
-  opacity: 0;
-  transform: translateY(15px) scale(0.97);
-  transition: all 0.5s ease-in-out;
 
+  /* центримо правильно */
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform-origin: center;
-}
-
-.card.active {
-  opacity: 1;
-  transform: translate(-50%, 0) scale(1);
+  inset: 0;
+  margin: auto;
 }
 
 .avatar {
@@ -77,5 +68,3 @@
   color: var(--text-muted);
   margin-bottom: 0.5rem;
 }
-
-

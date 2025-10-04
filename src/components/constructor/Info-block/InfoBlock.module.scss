@@ -1,0 +1,66 @@
+.infoBlock {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 1.2rem;
+  padding: 1.8rem;
+  text-align: left;
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px var(--shadow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px) scale(1.02);
+  }
+}
+
+.icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.imageWrapper {
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  color: var(--primary-color);
+}
+
+.description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.bullets {
+
+  li {
+    margin-bottom: 0.5rem;
+    list-style: "✔ " inside;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+  .icon, .imageWrapper {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.right {
+  text-align: right;
+}

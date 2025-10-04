@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import styles from "./HighlightStrip.module.scss";
+import { motion } from "framer-motion";
 
 interface HighlightStripProps {
     messages: string[];
@@ -11,9 +12,19 @@ const HighlightStrip: React.FC<HighlightStripProps> = ({ messages }) => {
         <div className={styles.strip}>
             <div className={styles.track}>
                 {messages.concat(messages).map((msg, i) => (
-                    <span key={i} className={styles.item}>
-            {msg}
-          </span>
+                    <motion.span
+                        key={i}
+                        className={styles.item}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                            duration: 0.6,
+                            delay: i * 0.15,
+                            ease: "easeOut",
+                        }}
+                    >
+                        {msg}
+                    </motion.span>
                 ))}
             </div>
         </div>

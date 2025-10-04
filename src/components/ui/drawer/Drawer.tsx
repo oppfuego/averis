@@ -7,9 +7,11 @@ import { headerContent } from "@/resources/content";
 import { drawerConfig } from "@/resources/styles-config";
 import { DrawerMenuProps } from "@/types/drawer-menu";
 import { IoCloseSharp } from "react-icons/io5";
+import {useCurrency} from "@/context/CurrencyContext";
 
 const DrawerMenu: FC<DrawerMenuProps> = ({ open, onClose }) => {
     const cfg = drawerConfig;
+    const { currency, setCurrency } = useCurrency();
 
     return (
         <Drawer
@@ -52,6 +54,17 @@ const DrawerMenu: FC<DrawerMenuProps> = ({ open, onClose }) => {
                     </a>
 
                     <AuthButtons />
+
+                        <div className={styles.currencySwitch}>
+                            <select
+                                value={currency}
+                                onChange={(e) => setCurrency(e.target.value)}
+                                className={styles.currencySelect}
+                            >
+                                <option value="GBP">£ GBP</option>
+                                <option value="EUR">€ EUR</option>
+                            </select>
+                        </div>
                 </div>
 
                 <nav

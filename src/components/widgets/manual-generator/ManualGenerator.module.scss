@@ -1,151 +1,212 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  max-width: 1200px; /* 👉 стало ширше */
-  width: 100%;
+  gap: 2rem;
+  padding: 2rem;
+  background: var(--surface-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  max-width: 900px;
+  width: 100%; /* ✅ зафіксована ширина */
   margin: 0 auto;
-  padding: 48px;
-  background: linear-gradient(145deg, #f9fafb 0%, #ffffff 100%);
-  border-radius: 24px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden; /* ✅ захист від стрибків */
 }
 
 .section {
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 20px;
-  padding: 32px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--surface-muted);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px var(--shadow-color);
+  }
 }
 
 .sectionTitle {
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 600;
   color: var(--primary-color);
-  border-bottom: 2px solid var(--primary-color);
-  padding-bottom: 6px;
-  margin-bottom: 8px;
-}
-
-.fieldsGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 28px;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.fullWidth {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background: linear-gradient(90deg, #f1f5f9 0%, #f9fafb 100%);
-  border-radius: 16px;
-  box-shadow: 0 2px 12px #6366f122;
-  padding: 18px 20px 14px 20px;
-  margin-bottom: 8px;
-  border: 1px solid #e5e7eb;
-  transition: box-shadow 0.2s, border 0.2s;
-
-  &:hover {
-    box-shadow: 0 4px 24px #6366f133;
-    border: 1.5px solid #6366f1;
-  }
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .label {
-  font-weight: 700;
-  font-size: 1.08rem;
-  color: #3730a3;
-  margin-bottom: 2px;
-  letter-spacing: 0.01em;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: var(--text-secondary);
+}
+
+.inputBase {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border 0.2s ease, outline 0.2s ease;
+
+  &:focus-within {
+    border-color: var(--secondary-color);
+    outline: 2px solid rgba(37, 99, 235, 0.2);
+    outline-offset: 0;
+    box-shadow: none;
+  }
 }
 
 .fileInputWrapper {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.6rem;
 }
 
 .fileInputCustom {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.1rem;
-  background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
-  color: #fff;
-  border: none;
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border: 1px dashed var(--border-color);
   border-radius: 8px;
-  font-weight: 500;
-  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
-  box-shadow: 0 2px 8px #6366f133;
-}
+  background: var(--quaternary-color);
+  color: var(--secondary-color);
+  font-weight: 600;
+  transition: background 0.2s ease;
 
-.fileInputCustom:hover {
-  background: linear-gradient(90deg, #818cf8 0%, #6366f1 100%);
-}
+  &:hover {
+    background: var(--tertiary-color);
+    color: var(--text-accent);
+  }
 
-.fileInputCustom input[type="file"] {
-  display: none;
-}
-
-.fileDisplay {
-  font-size: 14px;
-  color: #555;
-  font-style: italic;
-  margin-top: 2px;
+  input {
+    display: none;
+  }
 }
 
 .photoPreview {
-  margin-top: 8px;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
   object-fit: cover;
-  border: 2px solid #6366f1;
-  box-shadow: 0 2px 8px #6366f122;
+  border: 2px solid var(--secondary-color);
 }
 
-.actions {
+.fileDisplay {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.fullWidth {
   display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 16px;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 .selectGrid {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 16px 20px;
-  background: #fafafa;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.extraItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--surface-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+
+  input {
+    accent-color: var(--secondary-color);
+    cursor: pointer;
+  }
 
   &:hover {
-    border: 1.5px solid var(--primary-color);
-    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1);
+    border-color: var(--secondary-color);
+    background: var(--quaternary-color);
   }
 }
 
-.formGroup .label {
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: not-allowed;
+  background: var(--surface-muted);
+  border: 1px dashed var(--border-color);
+
+  &:hover {
+    background: var(--surface-muted);
+  }
+
+  input {
+    cursor: not-allowed;
+  }
+
+  .badge {
+    background: gray;
+  }
+}
+
+.lockHint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: auto;
+  font-style: italic;
+}
+
+.badge {
+  background: var(--secondary-color);
+  color: var(--text-accent);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
   font-weight: 600;
+}
+
+.tokenSummary {
   font-size: 1rem;
-  color: var(--primary-color);
-  margin-bottom: 4px;
+  font-weight: 500;
+  color: var(--text-primary);
+
+  strong {
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  button {
+    flex: 1;
+  }
+}
+
+.premiumNotice {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  background: rgba(255, 215, 0, 0.1);
+  border-left: 4px solid gold;
+  padding: 0.6rem 0.9rem;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  line-height: 1.4;
 }
 

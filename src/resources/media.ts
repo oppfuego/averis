@@ -14,6 +14,9 @@ import image11 from "@/assets/images/image11.jpg";
 import review1 from "@/assets/images/review1.png";
 import review2 from "@/assets/images/review2.png";
 import review3 from "@/assets/images/review3.png";
+import team1 from "@/assets/images/team1.jpg";
+import team2 from "@/assets/images/team2.jpg";
+import team3 from "@/assets/images/team3.jpg";
 import template1 from "../../public/templates/classic.png";
 import template2 from "../../public/templates/modern.png";
 import template3 from "../../public/templates/creative.png";
@@ -36,6 +39,10 @@ export const media = {
     review1: review1,
     review2: review2,
     review3: review3,
+
+    team1: team1,
+    team2: team2,
+    team3: team3,
 
     template1: template1,
     template2: template2,

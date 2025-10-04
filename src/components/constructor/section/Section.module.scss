@@ -2,8 +2,9 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  padding: var(--16px) 0;
   color: var(--text-inverse);
+  opacity: 0;
+  transform: translateY(40px);
 
   @media (max-width: 768px) {
     flex-direction: column !important;

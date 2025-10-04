@@ -4,9 +4,10 @@ import React from "react";
 import { useAllOrders } from "@/context/AllOrdersContext";
 import styles from "./AllOrders.module.scss";
 import { FaFileDownload } from "react-icons/fa";
-import { downloadPDF } from "@/components/features/pdf-extractor/PDFExtractor";
 import ButtonUI from "@/components/ui/button/ButtonUI";
 import Link from "next/link";
+import { downloadCVPDF } from "@/components/features/pdf-extractor/PDFExtractorCV";
+import { CVOrderType } from "@/backend/types/cv.types";
 
 const OrdersSection: React.FC = () => {
     const { cvOrders } = useAllOrders();
@@ -29,6 +30,35 @@ const OrdersSection: React.FC = () => {
     };
 
     const formatId = (id: string) => id.slice(-6);
+
+    const handleDownload = async (order: CVOrderType) => {
+        console.log("📦 [OrdersSection] Downloading order:", order._id);
+        try {
+            // 🟢 Якщо extrasData вже є — не треба фетчити
+            if (order.extrasData && Object.keys(order.extrasData).length > 0) {
+                await downloadCVPDF(order);
+                return;
+            }
+
+            // 🔹 Інакше підвантажимо повну версію
+            const res = await fetch(`/api/cv/get-order?id=${order._id}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+            const data = await res.json();
+
+            if (!data?.order) {
+                console.warn("⚠️ No order found for ID:", order._id);
+                return;
+            }
+
+            const fullOrder = data.order as CVOrderType;
+            console.log("✅ [OrdersSection] Full order fetched:", fullOrder._id);
+            await downloadCVPDF(fullOrder);
+        } catch (err: any) {
+            console.error("❌ [OrdersSection] Error fetching order:", err.message);
+        }
+    };
 
     return (
         <div className={styles.ordersSection}>
@@ -54,16 +84,18 @@ const OrdersSection: React.FC = () => {
             ) : (
                 <div className={styles.ordersList}>
                     {orders.map((order) => (
-                        <div key={order._id} className={styles.orderCard}>
+                        <div key={order._id.toString()} className={styles.orderCard}>
                             <div className={styles.orderHeader}>
-                                <span className={styles.orderId}>#{formatId(order._id)}</span>
-                                <span className={styles.charge}>-30 tokens</span>
+                                <span className={styles.orderId}>#{formatId(order._id.toString())}</span>
+                                <span className={styles.charge}>
+                                    {order.reviewType === "manager" ? "-60 tokens" : "-30 tokens"}
+                                </span>
                             </div>
                             <p className={styles.email}>{order.email}</p>
-                            <p className={styles.date}>{formatDate(order.createdAt)}</p>
+                            <p className={styles.date}>{formatDate(order.createdAt.toString())}</p>
                             <button
                                 className={styles.downloadBtn}
-                                onClick={() => downloadPDF(order, "Classic")}
+                                onClick={() => handleDownload(order)}
                             >
                                 <FaFileDownload /> Download
                             </button>

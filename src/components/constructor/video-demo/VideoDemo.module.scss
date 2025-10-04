@@ -1,0 +1,13 @@
+.fadeBlock {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.fadeBlock.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

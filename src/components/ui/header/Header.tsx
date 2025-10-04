@@ -1,26 +1,24 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
-import {headerContent} from "@/resources/content";
+import React, { useEffect, useState } from "react";
+import { headerContent } from "@/resources/content";
 import styles from "./Header.module.scss";
-import {IconButton} from "@mui/material";
-import {FaBars} from "react-icons/fa";
-import {useUser} from "@/context/UserContext";
+import { IconButton } from "@mui/material";
+import { FaBars } from "react-icons/fa";
+import { useUser } from "@/context/UserContext";
 import Image from "next/image";
 import AuthButtons from "@/components/widgets/auth-buttons/AuthButtons";
-import {headerStyles} from "@/resources/styles-config";
+import { headerStyles } from "@/resources/styles-config";
 import DrawerMenu from "@/components/ui/drawer/Drawer";
+import { useCurrency } from "@/context/CurrencyContext";
+import { motion } from "framer-motion";
 
 const Header: React.FC = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    const [mounted, setMounted] = useState(false);
 
     const user = useUser();
-
-    useEffect(() => {
-        setMounted(true); // лише після mount будемо показувати баланс
-    }, []);
+    const { currency, setCurrency } = useCurrency();
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -44,7 +42,7 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <header
+            <motion.header
                 className={[
                     headerStyles.type === "default" && styles.header,
                     headerStyles.type === "sticky" && styles.sticky,
@@ -54,18 +52,19 @@ const Header: React.FC = () => {
                     .filter(Boolean)
                     .join(" ")}
                 style={scrolledStyle}
+                initial={{ opacity: 0, y: -40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
             >
                 <div className={styles.headerInner}>
                     <a href={headerContent.logo.href} className={styles.logo}>
                         <Image
-                            width={200}
+                            width={130}
                             height={50}
                             src={headerContent.logo.src}
                             alt={headerContent.logo.alt}
                         />
                     </a>
-
-
 
                     <div className={styles.actions}>
                         <nav className={styles.nav}>
@@ -75,11 +74,22 @@ const Header: React.FC = () => {
                                 </a>
                             ))}
                         </nav>
-                        <div className={styles.buttons}>
+
+                        <div className={styles.actionsNav}>
                             <AuthButtons />
+                            <div className={styles.currencySwitch}>
+                                <select
+                                    value={currency}
+                                    onChange={(e) => setCurrency(e.target.value)}
+                                    className={styles.currencySelect}
+                                >
+                                    <option value="GBP">£ GBP</option>
+                                    <option value="EUR">€ EUR</option>
+                                </select>
+                            </div>
+
                         </div>
                     </div>
-
 
                     <div className={styles.menuButton}>
                         <IconButton
@@ -87,14 +97,13 @@ const Header: React.FC = () => {
                             aria-label="Open navigation"
                             className={styles.button}
                         >
-                            <FaBars className={styles.button}
-                            />
+                            <FaBars className={styles.button} />
                         </IconButton>
                     </div>
                 </div>
-            </header>
+            </motion.header>
 
-            <DrawerMenu open={drawerOpen} onClose={() => setDrawerOpen(false)}/>
+            <DrawerMenu open={drawerOpen} onClose={() => setDrawerOpen(false)} />
         </>
     );
 };

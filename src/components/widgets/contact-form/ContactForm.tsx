@@ -8,7 +8,8 @@ import styles from "./ContactForm.module.scss";
 import { validationSchema, initialValues, sendContactRequest } from "./schema";
 import { useAlert } from "@/context/AlertContext";
 import { FaMapMarkerAlt, FaEnvelope, FaPhone } from "react-icons/fa";
-import {COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_PHONE} from "@/resources/constants";
+import { COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_PHONE } from "@/resources/constants";
+import { motion } from "framer-motion";
 
 const ContactUsForm = () => {
     const { showAlert } = useAlert();
@@ -33,15 +34,32 @@ const ContactUsForm = () => {
     };
 
     return (
-        <div className={styles.contactWrapper}>
+        <motion.div
+            className={styles.contactWrapper}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.2 }}
+        >
             {showConfetti && <Confetti />}
-            <div className={styles.contactCard}>
+            <motion.div
+                className={styles.contactCard}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+            >
                 {/* Left side with info */}
-                <div className={styles.infoSide}>
+                <motion.div
+                    className={styles.infoSide}
+                    initial={{ opacity: 0, x: -40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    viewport={{ once: true }}
+                >
                     <h2>📬 Get in Touch</h2>
                     <p>
-                        Have questions or want to collaborate? Our team will respond within{" "}
-                        <strong>24 hours</strong>.
+                        Have questions or want to collaborate? Our team will respond within <strong>24 hours</strong>.
                     </p>
                     <ul>
                         <li>
@@ -54,20 +72,22 @@ const ContactUsForm = () => {
                             <FaPhone /> {COMPANY_PHONE}
                         </li>
                     </ul>
-                </div>
+                </motion.div>
 
                 {/* Right side with form */}
-                <div className={styles.formSide}>
+                <motion.div
+                    className={styles.formSide}
+                    initial={{ opacity: 0, x: 40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    viewport={{ once: true }}
+                >
                     <h3>Send us a message</h3>
 
                     {successMsg ? (
                         <div className={styles.successMsg}>{successMsg}</div>
                     ) : (
-                        <Formik
-                            initialValues={initialValues}
-                            validationSchema={validationSchema}
-                            onSubmit={handleSubmit}
-                        >
+                        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                             {({ errors, touched, isSubmitting }) => (
                                 <Form className={styles.form}>
                                     <div className={styles.row}>
@@ -119,12 +139,7 @@ const ContactUsForm = () => {
 
                                     <Field name="message">
                                         {({ field }: { field: React.TextareaHTMLAttributes<HTMLTextAreaElement> }) => (
-                                            <Textarea
-                                                {...field}
-                                                placeholder="Your message"
-                                                minRows={5}
-                                                sx={{ borderRadius: "12px" }}
-                                            />
+                                            <Textarea {...field} placeholder="Your message" minRows={5} sx={{ borderRadius: "12px" }} />
                                         )}
                                     </Field>
 
@@ -147,9 +162,9 @@ const ContactUsForm = () => {
                             )}
                         </Formik>
                     )}
-                </div>
-            </div>
-        </div>
+                </motion.div>
+            </motion.div>
+        </motion.div>
     );
 };
 

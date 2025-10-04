@@ -37,6 +37,9 @@ import ValuesIcons from "@/components/constructor/values-icons/ValuesIcons";
 import TeamGrid from "../team-grid/TeamGrid";
 import HeroSection from "@/components/constructor/hero/Hero";
 import TestimonialsSlider from "@/components/constructor/testimonials-slider/TestimonialsSlider";
+import VideoDemo from "@/components/constructor/video-demo/VideoDemo";
+import StoryTimeline from "@/components/constructor/story-timeline/StoryTimeline";
+import InfoBlock from "@/components/constructor/Info-block/InfoBlock";
 
 // ------------------- helpers -------------------
 
@@ -69,7 +72,8 @@ function RenderCustom(b: CustomBlock) {
             return <Marquee items={b.items ?? []} />;
 
         case "Timeline":
-            return <Timeline steps={b.steps ?? []} />;
+            return <Timeline title={b.title} steps={b.steps ?? []} />;
+
 
         case "ContactForm":
             return <ContactUsForm />;
@@ -78,12 +82,50 @@ function RenderCustom(b: CustomBlock) {
             return <LogoBlock width={b.width} height={b.height} />;
 
         case "ValuesIcons":
-            return <ValuesIcons values={b.values ?? []} />;
+            return (
+                <ValuesIcons
+                    title={b.title}
+                    description={b.description}
+                    values={b.values ?? []}
+                />
+            );
+
+        case "VideoDemo":
+            return (
+                <VideoDemo
+                    title={b.title}
+                    description={b.description}
+                    video={b.video}
+                />
+            );
 
         case "TeamGrid":
-            return <TeamGrid members={b.members ?? []} />;
+            return (
+                <TeamGrid
+                    title={b.title}
+                    description={b.description}
+                    members={b.members ?? []}
+                />
+            );
+
         case "TestimonialsSlider":
             return <TestimonialsSlider testimonials={b.testimonials} />;
+
+        case "StoryTimeline":
+            return <StoryTimeline steps={b.steps ?? []} />;
+
+        case "InfoBlock":
+            return (
+                <InfoBlock
+                    title={b.title}
+                    description={b.description}
+                    icon={b.icon}
+                    image={b.image ? resolveMedia(b.image) : undefined}
+                    bullets={b.bullets}
+                    align={b.align}
+                />
+            );
+
 
         case "HeroSection":
             return (
@@ -162,6 +204,8 @@ function RenderPricingCard(b: PricingBlock) {
             features={b.features}
             buttonText={b.buttonText}
             buttonLink={b.buttonLink}
+            badgeTop={b.badgeTop}
+            badgeBottom={b.badgeBottom}е
         />
     );
 }

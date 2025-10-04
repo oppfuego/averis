@@ -10,7 +10,8 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    box-shadow: 0 5px 50px var(--primary-color);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px) scale(1.02);
   }
 }
 

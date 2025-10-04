@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import {Types} from "mongoose";
 
 export interface CVOrderType {
     _id: Types.ObjectId;
@@ -9,6 +9,8 @@ export interface CVOrderType {
     phone: string;
     photo?: string;
     cvStyle: "Classic" | "Modern" | "Creative";
+    fontStyle: string; // 🆕
+    themeColor: string; // 🆕
     industry: string;
     experienceLevel: string;
 
@@ -17,7 +19,12 @@ export interface CVOrderType {
     education: string;
     skills: string;
 
+    reviewType: "default" | "manager";
+    extras: string[];
+
     response: string;
+    extrasData?: Record<string, string>;
+
     status: "pending" | "ready";
     readyAt: Date;
     createdAt: Date;
@@ -28,14 +35,27 @@ export interface CreateCVOrderRequest {
     phone: string;
     photo?: string;
     cvStyle: "Classic" | "Modern" | "Creative";
+    fontStyle: string; // 🆕
+    themeColor: string; // 🆕
     industry: string;
     experienceLevel: string;
     summary: string;
     workExperience: string;
     education: string;
     skills: string;
+    reviewType: "default" | "manager";
+    extras: string[];
 }
 
-export interface CreateCVOrderResponse { order: CVOrderType; }
-export interface GetCVOrdersResponse { orders: CVOrderType[]; }
-export interface GetCVOrderResponse { order: CVOrderType | null; }
+
+export interface CreateCVOrderResponse {
+    order: CVOrderType;
+}
+
+export interface GetCVOrdersResponse {
+    orders: CVOrderType[];
+}
+
+export interface GetCVOrderResponse {
+    order: CVOrderType | null;
+}

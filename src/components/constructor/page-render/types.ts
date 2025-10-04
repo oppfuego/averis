@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type {CSSProperties} from "react";
 
 export type TextBlock = {
     type: "text";
@@ -106,6 +106,8 @@ export type PricingBlock = {
     features: string[];
     buttonText: string;
     buttonLink: string;
+    badgeTop?: string;
+    badgeBottom?: string;
 };
 
 // ---------------- Custom Blocks ----------------
@@ -118,11 +120,30 @@ export type MissionBannerBlock = {
     image?: string;
 };
 
+export type InfoBlock = {
+    type: "custom";
+    component: "InfoBlock";
+    title?: string;
+    description?: string;
+    icon?: string;       // emoji або svg-клас
+    image?: string;      // ключ з media
+    bullets?: string[];
+    align?: "left" | "center" | "right";
+};
+
 export type ValuesIconsBlock = {
     type: "custom";
     component: "ValuesIcons";
-    values: { icon: string; title: string; text: string }[];
+    title?: string;
+    description?: string; // ✅ тепер можна передавати опис секції
+    values: {
+        icon: string;
+        title: string;
+        text?: string;
+        description?: string; // ✅ дозволяємо description для item
+    }[];
 };
+
 
 export type StoryTimelineBlock = {
     type: "custom";
@@ -133,8 +154,16 @@ export type StoryTimelineBlock = {
 export type TeamGridBlock = {
     type: "custom";
     component: "TeamGrid";
-    members: { name: string; role: string; bio: string; image: string }[];
+    title?: string;
+    description?: string;
+    members: {
+        name: string;
+        role: string;
+        bio: string;
+        image: string
+    }[];
 };
+
 
 export type CardSliderBlock = {
     type: "custom";
@@ -160,11 +189,22 @@ export type MarqueeBlock = {
     items: { text: string }[];
 };
 
+export type VideoDemoBlock = {
+    type: "custom";
+    component: "VideoDemo";
+    title?: string;
+    description?: string;
+    video: string;
+};
+
+
 export type TimelineBlock = {
     type: "custom";
     component: "Timeline";
+    title?: string;
     steps: { title: string; description: string }[];
 };
+
 
 export type LogoBlock = {
     type: "custom";
@@ -210,8 +250,9 @@ export type CustomBlock =
     | TimelineBlock
     | LogoBlock
     | HeroSectionBlock
-    | TestimonialsSlider;
-
+    | TestimonialsSlider
+    | VideoDemoBlock
+    | InfoBlock;
 
 export type PageBlock =
     | TextBlock

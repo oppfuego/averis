@@ -1,10 +1,37 @@
+.section {
+  max-width: 1100px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .sectionTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-inverse, #111827);
+  }
+
+  .sectionDesc {
+    font-size: 1.05rem;
+    color: var(--text-secondary, #4b5563);
+    line-height: 1.6;
+  }
+}
+
+.head{
+  display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
 .valueCard {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 16px;
   padding: 24px;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, transform 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
   display: flex;
@@ -13,8 +40,8 @@
   justify-content: flex-start;
 
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
     border-color: var(--primary-color, #4a90e2);
   }
 
@@ -29,15 +56,12 @@
     font-size: 0.95rem;
     color: var(--text-secondary, #4b5563);
     line-height: 1.5;
-    margin: 0;
   }
 }
 
 .icon {
   font-size: 2.5rem;
-  line-height: 1;
   margin-bottom: 16px;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,26 +71,29 @@
   border-radius: 50%;
   background: var(--primary-light, #f0f6ff);
   color: var(--primary-color, #4a90e2);
+
+  transition: all 0.3s ease;
+}
+
+.valueCard:hover .icon {
+  background: var(--primary-color, #4a90e2);
+  color: #fff;
+  transform: rotate(8deg) scale(1.1);
 }
 
 /* 🔹 Responsive */
 @media (max-width: 768px) {
-  .valueCard {
-    padding: 16px;
+  .sectionTitle {
+    font-size: 1.6rem;
+  }
 
-    h3 {
-      font-size: 1.1rem;
-    }
-
-    p {
-      font-size: 0.9rem;
-    }
+  .sectionDesc {
+    font-size: 0.95rem;
   }
 
   .icon {
     width: 52px;
     height: 52px;
     font-size: 2rem;
-    margin-bottom: 12px;
   }
 }

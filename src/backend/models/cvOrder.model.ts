@@ -6,50 +6,75 @@ export interface CVOrderDocument extends Document {
 
     fullName: string;
     phone: string;
-    photo?: string; // base64 або URL
+    photo?: string;
+
     cvStyle: "Classic" | "Modern" | "Creative";
+    fontStyle: string;
+    themeColor: string;
+
     industry: string;
     experienceLevel: string;
-
     summary: string;
     workExperience: string;
     education: string;
     skills: string;
 
-    // AI результат
-    response: string;
+    reviewType: "default" | "manager";
+    extras: string[];
 
-    // «людина працює»: доступність через 24 год
+    response: string;
+    extrasData: Record<string, string>;
+
     status: "pending" | "ready";
     readyAt: Date;
-
     createdAt: Date;
 }
 
-const cvOrderSchema = new Schema<CVOrderDocument>({
-    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    email: { type: String, required: true },
+const cvOrderSchema = new Schema<CVOrderDocument>(
+    {
+        userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+        email: { type: String, required: true },
 
-    fullName: { type: String, required: true },
-    phone: { type: String, required: true },
-    photo: { type: String },
+        fullName: { type: String, required: true },
+        phone: { type: String, required: true },
+        photo: { type: String },
 
-    cvStyle: { type: String, enum: ["Classic", "Modern", "Creative"], default: "Classic" },
-    industry: { type: String, required: true },
-    experienceLevel: { type: String, required: true },
+        cvStyle: { type: String, enum: ["Classic", "Modern", "Creative"], default: "Classic" },
+        fontStyle: { type: String, default: "Default" },
+        themeColor: { type: String, default: "Default" },
 
-    summary: { type: String, required: true },
-    workExperience: { type: String, required: true },
-    education: { type: String, required: true },
-    skills: { type: String, required: true },
+        industry: { type: String, required: true },
+        experienceLevel: { type: String, required: true },
+        summary: { type: String, required: true },
+        workExperience: { type: String, required: true },
+        education: { type: String, required: true },
+        skills: { type: String, required: true },
 
-    response: { type: String, required: true },
+        reviewType: { type: String, enum: ["default", "manager"], default: "default" },
+        extras: [{ type: String }],
+        response: { type: String, required: true },
+        extrasData: { type: Map, of: String, default: {} },
 
-    status: { type: String, enum: ["pending", "ready"], default: "ready" },
-    readyAt: { type: Date, required: true },
+        status: { type: String, enum: ["pending", "ready"], default: "ready" },
+        readyAt: { type: Date, required: true },
+        createdAt: { type: Date, default: Date.now },
+    },
+    { strict: false } // дозволяє зберігати нові поля навіть якщо кешована схема
+);
 
-    createdAt: { type: Date, default: Date.now },
+// 🧩 Прибираємо кешовану модель
+if (mongoose.models.CVOrder) {
+    delete mongoose.models.CVOrder;
+}
+
+// 🧠 Перетворення extrasData з Map у Object
+cvOrderSchema.set("toJSON", {
+    transform: (doc, ret) => {
+        if (ret.extrasData instanceof Map) {
+            ret.extrasData = Object.fromEntries(ret.extrasData);
+        }
+        return ret;
+    },
 });
 
-export const CVOrder =
-    mongoose.models.CVOrder || mongoose.model<CVOrderDocument>("CVOrder", cvOrderSchema);
+export const CVOrder = mongoose.model<CVOrderDocument>("CVOrder", cvOrderSchema);

@@ -1,230 +1,149 @@
 .card {
   display: flex;
-  flex-direction: row;
-  align-items: stretch; /* 👈 вирівнює по висоті */
+  flex-direction: column;
   justify-content: space-between;
+  border: 2px solid var(--border-color);
   border-radius: 1rem;
-  overflow: hidden;
-  width: 100%;
-  min-height: 280px;
-  height: 100%; /* Додаємо для однакової висоти */
-  background: #fff;
-  border: 2px solid #e5e7eb;
+  background: var(--surface-color);
+  padding: 2rem;
+  text-align: center;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  position: relative;
 
   &:hover {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(-6px);
+    border-color: var(--secondary-color);
+    box-shadow: 0 12px 28px var(--shadow-color);
   }
 }
 
-.left {
-  flex: 0 0 280px; /* фіксована ширина */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* 👈 щоб кнопка була внизу */
-  align-items: center;
-  background: var(--primary-gradient, var(--primary-color));
-  color: #fff;
-  padding: 2rem;
-  text-align: center;
-  height: 100%; /* Додаємо для однакової висоти */
+.badgeTop {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.35rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-accent);
+  background: var(--secondary-color);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  text-transform: uppercase;
+}
+
+.badgeBottom {
+  margin-top: 1rem;
+  align-self: center;
+  padding: 0.3rem 1rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--quaternary-color);
+  color: var(--secondary-color);
+  border: 1px solid var(--tertiary-color);
 }
 
 .title {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
 }
 
 .price {
   font-size: 2rem;
   font-weight: 800;
-  margin: 1rem 0;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
 
   .tokens {
     display: block;
-    font-size: 0.9rem;
-    color: #ddd;
-    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
   }
 }
 
 .dynamicPrice {
+  display: block;
   font-size: 1rem;
-  margin-top: 0.5rem;
-}
-
-.customControls {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  align-items: stretch;
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-.right {
-  flex: 1;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* 👈 вирівнюємо контент */
-  height: 100%; /* Додаємо для однакової висоти */
+  color: var(--text-muted);
+  margin: 0.2rem;
+  font-weight: 800;
 }
 
 .description {
-  font-size: 1rem;
-  margin-bottom: 1.2rem;
-  color: #444;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
 }
 
 .features {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1.5rem;
+  text-align: left;
 
   li {
-    margin: 0.6rem 0;
-    padding-left: 1.6rem;
+    font-size: 0.9rem;
+    margin: 0.4rem 0;
+    padding-left: 1.25rem;
     position: relative;
-    font-size: 1rem;
-    color: #333;
+    color: var(--text-secondary);
 
     &::before {
       content: "✔";
       position: absolute;
       left: 0;
-      color: var(--primary-color);
+      color: var(--secondary-color);
       font-size: 0.9rem;
     }
   }
 }
 
-/* Варіанти кольорів */
-.starter {
-  --primary-color: #2563eb;
-  --primary-gradient: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
-  border-left: 0;
-}
-.pro {
-  --primary-color: #059669;
-  --primary-gradient: linear-gradient(135deg, #059669 0%, #34d399 100%);
-  border-left: 0;
-}
-.premium {
-  --primary-color: #ea580c;
-  --primary-gradient: linear-gradient(135deg, #ea580c 0%, #fbbf24 100%);
-  border-left: 0;
-}
-.badge {
-  display: inline-block;
-  padding: 0.3em 1em;
-  border-radius: 999px;
+.card button {
+  margin-top: auto;
   font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  margin-bottom: 1.2rem;
-  background: rgba(255,255,255,0.18);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  border: 2px solid rgba(255,255,255,0.25);
+  font-weight: 600;
 }
 
-.starter .badge {
-  background: #2563eb;
-  color: #fff;
-  border-color: #60a5fa;
+.starter {
+  color: var(--primary-color);
 }
-.pro .badge {
-  background: #059669;
-  color: #fff;
-  border-color: #34d399;
+
+.pro {
+  color: var(--primary-color);
+  border-width: 3px;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
 }
-.premium .badge {
-  background: #ea580c;
-  color: #fff;
-  border-color: #fbbf24;
+
+.premium {
+  color: var(--primary-color);
+  border-width: 3px;
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
 }
+
 .custom {
-  --primary-color: #a21caf;
-  --primary-gradient: linear-gradient(135deg, #a21caf 0%, #f472b6 100%);
-  border-left: 0;
-}
-.custom .left {
-  box-shadow: 0 0 0 4px #f472b6, 0 8px 32px rgba(162,28,175,0.18);
-  position: relative;
-}
-.custom .badge {
-  background: #a21caf;
-  color: #fff;
-  border-color: #f472b6;
-  position: relative;
-}
-.custom .badge::before {
-  content: "✨ ";
-}
-.custom .dynamicPrice {
-  font-weight: 700;
-  color: #a21caf;
-  background: #fff0fa;
-  border-radius: 0.5em;
-  padding: 0.2em 0.7em;
-  display: inline-block;
-  margin-top: 0.7rem;
+  --primary-color: var(--info-color);
+  border-width: 3px;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 /* 📱 Адаптив */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .card {
-    flex-direction: column;
-    min-height: auto;
-  }
-
-  .left {
-    flex: unset;
-    width: 100%;
-    padding: 1.5rem 1rem;
-    border-radius: 1rem 1rem 0 0; /* щоб верх був заокруглений */
-  }
-
-  .right {
-    width: 100%;
-    padding: 1.5rem 1rem;
-    text-align: center;
-
-    .features {
-      text-align: left;
-      margin: 0 auto;
-      max-width: 400px;
-    }
+    padding: 1.5rem;
   }
 
   .title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   .price {
     font-size: 1.6rem;
   }
 }
-
-@media (max-width: 480px) {
-  .title {
-    font-size: 1.2rem;
-  }
-
-  .price {
-    font-size: 1.4rem;
-  }
-
-  .badge {
-    font-size: 0.8rem;
-    padding: 0.2em 0.8em;
-  }
-
-  .features li {
-    font-size: 0.9rem;
-  }
-}
-

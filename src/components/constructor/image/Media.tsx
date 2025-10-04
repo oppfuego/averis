@@ -27,7 +27,7 @@ const Media: React.FC<MediaProps> = ({
                                          autoPlay = false,
                                          loop = false,
                                          muted = false,
-                                         aspectRatio = "16/6",
+                                         aspectRatio = "16/9",
                                      }) => {
     return (
         <div

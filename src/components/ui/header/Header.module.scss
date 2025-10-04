@@ -37,7 +37,7 @@
 
 .nav {
   display: flex;
-  gap: 24px;
+  gap: 5px;
   align-items: center;
 
 }
@@ -45,7 +45,7 @@
 .link {
   position: relative;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-secondary);
   padding: 4px 6px;
   border-radius: 6px;
@@ -79,6 +79,53 @@
   gap: 40px;
 }
 
+.actionsNav{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.currencySwitch {
+  position: relative;
+  margin-left: 1rem;
+
+  .currencySelect {
+    appearance: none; // ховаємо стандартну стрілку
+    background: var(--quaternary-color);
+    border: 1.5px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 8px 36px 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+    outline: none;
+
+    &:hover {
+      border-color: var(--accent-color);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(0, 140, 255, 0.2);
+    }
+  }
+
+  // кастомна стрілочка
+  &::after {
+    content: "▾";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    color: var(--primary-color);
+    pointer-events: none;
+  }
+}
+
+
 .menuButton {
   display: none;
   background: none;
@@ -95,6 +142,12 @@
 
 .button {
   color: var(--text-inverse);
+}
+
+@media (max-width: 1440px) {
+  .nav {
+    gap: 5px;
+  }
 }
 
 @media (max-width: 1024px) {

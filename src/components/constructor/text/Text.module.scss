@@ -1,21 +1,23 @@
 .textBlock {
-  padding: 1rem;
   line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* керує відстанями між елементами всередині */
 }
 
 .title {
   font-weight: bold;
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  margin: 0; /* прибрав зайві відступи */
   color: var(--text-inverse);
 
   @media screen and (max-width: 1028px) {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 }
 
 .description {
-  margin-bottom: 1rem;
+  margin: 0; /* прибираємо нижній margin, бо gap керує відступами */
   color: var(--text-primary);
   text-align: justify;
 }
@@ -26,12 +28,38 @@
   align-items: center;
 }
 
+/* 🔹 Булети акуратно в 1 колонку */
 .bulletList {
-  list-style: disc inside;
-  margin-bottom: 0.5rem;
-  color: var(--text-primary);
+  margin: 0; /* прибираємо дефолтні відступи ul */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  li {
+    position: relative;
+    padding-left: 1.5rem;
+    list-style: none;
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: 1.5;
+
+    &::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      top: 0.15rem;
+      color: var(--secondary-color);
+      font-size: 1rem;
+      font-weight: bold;
+    }
+  }
 }
 
 .descriptionWithBullets {
   margin-top: 1rem;
+
+  .bulletList {
+    margin-top: 0.5rem;
+  }
 }

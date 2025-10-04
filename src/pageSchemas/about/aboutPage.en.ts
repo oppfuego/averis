@@ -1,10 +1,10 @@
-import { PageSchema } from "@/components/constructor/page-render/types";
+import {PageSchema} from "@/components/constructor/page-render/types";
 
 const schema: PageSchema = {
     meta: {
         title: "About Us — CV Maker",
         description:
-            "CV Maker is a team of professional HR experts and career consultants who create resumes tailored to your goals and job applications. A professional resume delivered within 24 hours.",
+            "CV Maker combines instant AI-generated resumes with professional HR review. Create your CV instantly or choose the optional expert service for a polished version within 24 hours.",
         keywords: [
             "CV Maker",
             "create resume",
@@ -12,99 +12,106 @@ const schema: PageSchema = {
             "CV templates",
             "resume builder",
             "professional resume",
+            "AI CV",
+            "HR review",
         ],
         canonical: "/about-us",
         ogImage: {
             title: "CV Maker",
-            description: "A professional resume crafted by experts — delivered within 24 hours",
+            description: "Instant CVs + optional expert review in 24h",
             bg: "#0a2540",
             color: "#ffffff",
         },
     },
     blocks: [
-        // 🔹 Mission
         {
-            type: "section",
-            align: "center",
-            left: {
-                type: "text",
-                title: "Our Mission",
-                description:
-                    "We aim to help every candidate stand out from the crowd. At CV Maker, your resume is crafted by professional HR experts who know exactly what employers are looking for.",
-                centerTitle: true,
-                centerDescription: true,
-            },
+            type: "custom",
+            component: "HeroSection",
+            title: "About CV Maker",
+            highlight: "Our Mission & Vision",
+            description: `At CV Maker, we believe that every professional deserves a fair chance to showcase their skills.  
+   Our platform helps you instantly generate ATS-friendly CVs, while our HR experts ensure your application stands out with personalized reviews.`,
+            image: "image2",
         },
 
         // 🔹 Why CV Maker?
         {
             type: "section",
             left: {
-                type: "text",
-                title: "Why CV Maker?",
-                description:
-                    "We don’t just generate a template — we create a document that highlights your unique strengths:",
-                bullets: [
-                    "A team of certified HR and career consultants",
-                    "Resumes tailored to your job application and industry",
-                    "A ready-to-use result delivered within 24 hours",
-                ],
-            },
-            right: {
                 type: "media",
                 mediaType: "image",
-                src: "image1",
+                src: "image5",
                 alt: "Example of a professional resume",
-                width: "100%",
-                height: "320px",
+            },
+            right: {
+                type: "custom",
+                component: "InfoBlock",
+                title: "Why CV Maker?",
+                description: "We provide flexibility: instant results when you need speed, or expert refinement when you want the highest quality.",
+                bullets: [
+                    "AI-powered instant CV builder",
+                    "Optional HR manager review in 24h",
+                    "Resumes tailored to your industry",
+                ],
             },
         },
 
-        // 🔹 Our Story (зображення + bullets)
+        // 🔹 Our Story
         {
             type: "section",
             left: {
-                type: "media",
-                mediaType: "image",
-                src: "image2", // додай у resources/media
-                alt: "Our team at work",
-                width: "100%",
-                height: "320px",
+                type: "custom",
+                component: "StoryTimeline",
+                steps: [
+                    {year: "2018", title: "Founded", description: "Founded by HR experts"},
+                    {year: "2019", title: "CV Generator", description: "Launched instant CV generator"},
+                    {year: "2021", title: "HR Review", description: "Added HR review service"},
+                    {year: "2023", title: "Worldwide", description: "100k+ CVs worldwide"},
+                ],
             },
             right: {
-                type: "text",
+                type: "custom",
+                component: "InfoBlock",
                 title: "Our Story",
-                description:
-                    "CV Maker was created to solve a common problem: most people don’t know how to properly present their experience. We built a team of HR professionals and recruiters who now help clients receive more interview invitations.",
+                image: "image2",
+                description: `CV Maker was born from a simple but powerful idea: 
+Not everyone has the time, resources, or design skills to craft a professional CV.  
+Many job seekers lose opportunities not because they lack talent, but because their resumes fail 
+to pass automated filters or attract recruiters' attention.  
+
+To solve this, we combined automation with human expertise — creating a platform that delivers instant, 
+ATS-ready CVs while also offering optional personalized reviews from experienced HR professionals.  
+
+From day one, our mission has been to empower people from all industries and backgrounds to showcase their strengths 
+and land opportunities they truly deserve.`,
                 bullets: [
-                    "Founded by HR experts with 10+ years of experience",
-                    "Driven by a mission to help job seekers worldwide",
-                    "Trusted by hundreds of clients globally",
+                    "Founded by HR experts with 10+ years of experience in recruitment and career consulting",
+                    "Built to bridge the gap between AI automation and human insight",
+                    "Driven by a mission to help job seekers worldwide at every stage of their career",
+                    "Trusted by thousands of professionals globally across tech, healthcare, finance, and more",
                 ],
             },
         },
 
-        // 🔹 Our Vision (reverse + bullets)
+        // 🔹 Our Vision
         {
             type: "section",
             left: {
-                type: "text",
+                type: "custom",
+                component: "InfoBlock",
                 title: "Our Vision",
-                description:
-                    "We believe that access to professional career tools should not be a privilege. Our vision is to make high-quality resume writing accessible globally, ensuring everyone has the opportunity to achieve their career goals.",
+                description: "We believe professional career tools should be accessible to everyone. Whether you need a quick CV today or a polished expert-reviewed version, CV Maker gives you both options.",
                 bullets: [
-                    "Making professional resumes accessible worldwide",
-                    "Combining human expertise with smart tools",
-                    "Empowering every candidate to shine",
+                    "Accessible resumes for all candidates",
+                    "Balance between speed and quality",
+                    "Empowering people to land their dream jobs",
                 ],
             },
             right: {
                 type: "media",
                 mediaType: "image",
-                src: "image4", // додай у resources/media
+                src: "image4",
                 alt: "Vision of CV Maker",
-                width: "100%",
-                height: "320px",
             },
         },
 
@@ -113,26 +120,10 @@ const schema: PageSchema = {
             type: "custom",
             component: "ValuesIcons",
             values: [
-                {
-                    icon: "🎯",
-                    title: "Client Focus",
-                    text: "We tailor the style and format to match your career goals",
-                },
-                {
-                    icon: "📄",
-                    title: "Professionalism",
-                    text: "Resumes written by HR experts and recruiters",
-                },
-                {
-                    icon: "⏱️",
-                    title: "Efficiency",
-                    text: "You receive your completed document within 24 hours",
-                },
-                {
-                    icon: "🤝",
-                    title: "Trust",
-                    text: "We’ve already helped hundreds of clients land their dream jobs",
-                },
+                {icon: "⚡", title: "Instant Access", text: "Generate a CV immediately when speed matters most"},
+                {icon: "👩‍💼", title: "Expert Touch", text: "Optional HR manager review with 24h delivery"},
+                {icon: "📑", title: "ATS-Optimized", text: "Every CV is recruiter-friendly and passes ATS scans"},
+                {icon: "🤝", title: "Trust", text: "Thousands of job seekers already rely on us"},
             ],
         },
 
@@ -143,11 +134,23 @@ const schema: PageSchema = {
             left: {
                 type: "text",
                 title: "What Sets Us Apart",
-                description:
-                    "Unlike automated tools, every CV we deliver is personally reviewed by HR experts. We combine professional writing with modern design to ensure your resume not only looks great but also passes Applicant Tracking Systems (ATS).",
+                description: "Unlike pure automation tools, CV Maker gives you a choice. Get an AI-generated CV instantly, or opt for a manager-reviewed version that combines automation with human expertise.",
                 centerTitle: true,
                 centerDescription: true,
             },
+        },
+
+        // 🔹 Meet the Team
+        {
+            type: "custom",
+            component: "TeamGrid",
+            title: "Meet Our Team",
+            description: "Behind CV Maker is a passionate team of HR experts and developers who combine technology with human insight.",
+            members: [
+                { name: "Anna Kowalski", role: "HR Manager", bio: "10+ years in recruitment & career coaching.", image: "team1" },
+                { name: "John Doe", role: "Lead Developer", bio: "Building scalable resume tech solutions.", image: "team2" },
+                { name: "Maria Lopez", role: "Designer", bio: "Crafting clean, professional CV templates.", image: "team3" }
+            ]
         },
 
         // 🔹 How It Works
@@ -155,24 +158,23 @@ const schema: PageSchema = {
             type: "custom",
             component: "Timeline",
             steps: [
-                {
-                    title: "1. Provide Your Details",
-                    description: "You fill out a form with your work experience, education, and skills.",
-                },
-                {
-                    title: "2. Expert Review",
-                    description: "Our HR consultants create a professional resume tailored to your profile.",
-                },
-                {
-                    title: "3. Design & Formatting",
-                    description: "Our designers give your document a modern and polished look.",
-                },
-                {
-                    title: "4. Ready Resume",
-                    description: "Within 24 hours, you receive a finished PDF file.",
-                },
+                { title: "1. Provide Your Details", description: "Fill out the form with your work experience, education, and skills." },
+                { title: "2. Choose Your Option", description: "Download your instant CV — or select manager review for expert refinement." },
+                { title: "3. Expert Processing (Optional)", description: "Our HR consultants review and polish your CV." },
+                { title: "4. Delivery", description: "Instant download available, or polished PDF sent within 24 hours." },
             ],
         },
+
+        // 🔹 FAQ
+        {
+            type: "faq",
+            items: [
+                { question: "How fast can I get my CV?", answer: "You can download your CV instantly. If you choose expert review, it’s ready within 24 hours." },
+                { question: "Is my CV ATS-friendly?", answer: "Yes, all generated CVs are optimized to pass ATS (Applicant Tracking System) scans." },
+                { question: "Can I edit my CV after generating it?", answer: "Absolutely. You can edit, update, and regenerate your CV anytime." },
+                { question: "Do you offer refunds?", answer: "Yes, we have a satisfaction guarantee. If you’re not happy, contact support for assistance." }
+            ]
+        }
     ],
 };
 
