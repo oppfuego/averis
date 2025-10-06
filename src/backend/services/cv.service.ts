@@ -3,6 +3,7 @@ import { User } from "../models/user.model";
 import { ENV } from "../config/env";
 import OpenAI from "openai";
 import { CVOrderType } from "../types/cv.types";
+import mongoose from "mongoose";
 
 const openai = new OpenAI({ apiKey: ENV.OPENAI_API_KEY });
 
@@ -11,10 +12,10 @@ const log = (fn: string, msg: string, data?: any) => {
     console.log(`[${time}] 🧩 [cvService.${fn}] ${msg}`, data ?? "");
 };
 
-// ---------- PROMPTS ----------
+// ---------- BASE PROMPTS ----------
 const buildSimplePrompt = (b: any, email: string) => `
-Create a concise professional CV in English.
-Use sections: Summary, Work Experience, Education, Skills.
+Create a concise, professional CV in English.
+Include sections: Summary, Work Experience, Education, Skills.
 
 Name: ${b.fullName}
 Email: ${email}
@@ -29,8 +30,8 @@ Skills: ${b.skills}
 `;
 
 const buildDetailedPrompt = (b: any, email: string) => `
-Create a detailed professional CV with sections:
-Summary, Work Experience, Education, Skills, Achievements, Projects, Languages.
+Create a detailed recruiter-friendly CV in English.
+Include sections: Summary, Key Achievements, Work Experience, Education, Skills, Languages, and Professional Impact.
 
 Name: ${b.fullName}
 Email: ${email}
@@ -44,22 +45,81 @@ Education: ${b.education}
 Skills: ${b.skills}
 `;
 
-const buildCoverLetterPrompt = (b: any) =>
-    `Write a 1-page cover letter for ${b.fullName} applying for a ${b.industry} position. Highlight motivation and professional background.`;
+// ---------- EXTRA PROMPTS ----------
+const buildExtraPrompts = {
+    coverLetter: (b: any) => `
+You are a professional HR copywriter. Write a fully finished, one-page cover letter for ${b.fullName}, applying for a ${b.industry} role. 
+Use a professional tone and include motivation, key achievements, and career goals. 
+Do not ask any questions — output only the final letter.
 
-const buildLinkedInPrompt = (b: any) =>
-    `Create a professional LinkedIn summary for ${b.fullName} (${b.industry}, ${b.experienceLevel}). Focus on achievements, impact, and personality.`;
+Summary: ${b.summary}
+Experience: ${b.workExperience}
+Education: ${b.education}
+Skills: ${b.skills}
+`,
+
+    linkedin: (b: any) => `
+You are a LinkedIn optimization expert. Write a complete and ready-to-publish "About" section for ${b.fullName}, 
+a ${b.experienceLevel} professional in ${b.industry}. 
+Focus on strengths, leadership, and career achievements. 
+Do not ask questions — return only the finished text.
+`,
+
+    keywords: (b: any) => `
+List exactly 20 high-impact, comma-separated keywords recruiters use for ${b.industry} (${b.experienceLevel}) positions. 
+Focus on hard and soft skills, tools, and industry terminology. Return only the list.
+`,
+
+    atsCheck: (b: any) => `
+Write a brief ATS (Applicant Tracking System) compatibility report for this CV. 
+Describe keyword optimization, formatting quality, and recruiter readability in plain English. 
+Return a concise, ready-to-read report — no explanations or questions.
+`,
+
+    jobAdaptation: (b: any) => `
+You are a senior recruiter adapting a CV for a ${b.industry} job. 
+Rewrite the Summary and Work Experience sections to align perfectly with recruiter expectations. 
+Return only the adapted, finished text — do not request more info or clarification.
+
+Summary: ${b.summary}
+Work Experience: ${b.workExperience}
+Education: ${b.education}
+Skills: ${b.skills}
+`,
+
+    achievements: (b: any) => `
+Generate exactly 5 measurable and resume-ready achievements for a ${b.experienceLevel} ${b.industry} specialist. 
+Each achievement should use a strong action verb and a quantifiable outcome. 
+Return only the bullet list, no commentary.
+`,
+
+    skillsGap: (b: any) => `
+Write a short "Skills Gap Analysis" report for a ${b.experienceLevel} ${b.industry} professional. 
+Identify 5 missing but valuable skills and recommend 3 courses or learning paths to close these gaps. 
+Output only the report text.
+`,
+};
 
 // ---------- SERVICE ----------
 export const cvService = {
     async createOrder(userId: string, email: string, body: any): Promise<CVOrderType> {
-        log("createOrder", "Called", { userId, email });
+        log("createOrder", "Start", { userId, email, reviewType: body.reviewType });
 
         const user = await User.findById(userId);
         if (!user) throw new Error("UserNotFound");
 
         const BASE_COST: Record<string, number> = { default: 30, manager: 60 };
-        const EXTRA_COST: Record<string, number> = { coverLetter: 10, linkedin: 15 };
+        const EXTRA_COST: Record<string, number> = {
+            coverLetter: 10,
+            linkedin: 15,
+            keywords: 12,
+            atsCheck: 12,
+            jobAdaptation: 20,
+            achievements: 10,
+            skillsGap: 15,
+            customFont: 5,
+            customColor: 5,
+        };
 
         const baseCost = BASE_COST[body.reviewType] ?? 30;
         const extrasCost = (body.extras || []).reduce(
@@ -68,122 +128,81 @@ export const cvService = {
         );
         const totalCost = baseCost + extrasCost;
 
-        log("createOrder", "💰 Cost breakdown", { baseCost, extrasCost, totalCost });
-
         if (user.tokens < totalCost) throw new Error("InsufficientTokens");
         user.tokens -= totalCost;
         await user.save();
 
-        const mainPrompt =
-            body.reviewType === "manager"
-                ? buildDetailedPrompt(body, email)
-                : buildSimplePrompt(body, email);
+        const isManager = body.reviewType === "manager";
+        const mainPrompt = isManager
+            ? buildDetailedPrompt(body, email)
+            : buildSimplePrompt(body, email);
 
-        log("createOrder", "🧠 Main prompt ready");
-
+        // 🧠 Основне тіло резюме
         const mainRes = await openai.chat.completions.create({
             model: "gpt-4o-mini",
-            messages: [{ role: "user", content: mainPrompt }],
+            messages: [
+                {
+                    role: "system",
+                    content:
+                        "You are a professional HR CV generator. Always return a finished, well-formatted CV text. Never ask clarifying questions.",
+                },
+                { role: "user", content: mainPrompt },
+            ],
         });
-
         const mainText = mainRes.choices[0].message?.content || "";
-        log("createOrder", "📄 Main CV generated", { length: mainText.length });
 
-        // ---------- Extras ----------
+        // ✨ Генерація extras
         const extrasData: Record<string, string> = {};
         for (const extra of body.extras || []) {
-            let extraPrompt = "";
-            switch (extra) {
-                case "coverLetter":
-                    extraPrompt = buildCoverLetterPrompt(body);
-                    break;
-                case "linkedin":
-                    extraPrompt = buildLinkedInPrompt(body);
-                    break;
-            }
-
-            if (!extraPrompt) continue;
-
-            log("createOrder", `🟢 Generating extra: ${extra}`);
+            const fn = buildExtraPrompts[extra as keyof typeof buildExtraPrompts];
+            if (!fn) continue;
             try {
                 const extraRes = await openai.chat.completions.create({
                     model: "gpt-4o-mini",
-                    messages: [{ role: "user", content: extraPrompt }],
+                    messages: [
+                        {
+                            role: "system",
+                            content:
+                                "You are a professional HR assistant. Always provide the final polished text, without asking for more details or context.",
+                        },
+                        { role: "user", content: fn(body) },
+                    ],
                 });
                 extrasData[extra] = extraRes.choices[0].message?.content || "";
-                log("createOrder", `✅ Extra generated: ${extra}`, { length: extrasData[extra].length });
+                log("createOrder", `✅ Extra generated: ${extra}`);
             } catch (err: any) {
-                extrasData[extra] = "Error generating: " + err.message;
-                log("createOrder", `❌ Error generating extra: ${extra}`, { error: err.message });
+                log("createOrder", `❌ Error generating extra: ${extra}`, err.message);
             }
         }
 
-        const readyAt =
-            body.reviewType === "manager"
-                ? new Date(Date.now() + 24 * 60 * 60 * 1000)
-                : new Date();
+        const readyAt = isManager
+            ? new Date(Date.now() + 60 * 1000) // тест — 1 хв
+            : new Date();
 
-        log("createOrder", "💾 Saving CVOrder in Mongo", {
-            userId,
+        // 💾 Створюємо CVOrder
+        const orderDoc = await CVOrder.create({
+            userId: new mongoose.Types.ObjectId(userId),
             email,
-            reviewType: body.reviewType,
-            extrasDataKeys: Object.keys(extrasData),
-        });
-        const order = await CVOrder.create({
-            userId,
-            email,
-            fullName: body.fullName,
-            phone: body.phone,
-            photo: body.photo,
-            cvStyle: body.cvStyle,
-            fontStyle: body.fontStyle,
-            themeColor: body.themeColor,
-            industry: body.industry,
-            experienceLevel: body.experienceLevel,
-            summary: body.summary,
-            workExperience: body.workExperience,
-            education: body.education,
-            skills: body.skills,
-            reviewType: body.reviewType,
-            extras: body.extras,
+            ...body,
             response: mainText,
             extrasData,
-            status: body.reviewType === "manager" ? "pending" : "ready",
+            status: isManager ? "pending" : "ready",
             readyAt,
         });
 
-        const plain: any = order.toObject ? order.toObject() : order;
-        if (plain.extrasData instanceof Map) {
-            plain.extrasData = Object.fromEntries(plain.extrasData);
-        }
-        log("createOrder", "🎨 Appearance", { font: body.fontStyle, color: body.themeColor });
+        const order = orderDoc.toObject() as CVOrderType;
+        log("createOrder", "✅ Completed", { id: order._id, extrasKeys: Object.keys(extrasData) });
 
-
-        log("createOrder", "✅ Done", { id: plain._id, extras: Object.keys(plain.extrasData || {}) });
-        return plain;
+        return order;
     },
 
     async getOrders(userId: string): Promise<CVOrderType[]> {
-        log("getOrders", "Fetching all orders", { userId });
-        const orders = await CVOrder.find({ userId }).sort({ createdAt: -1 });
-        log("getOrders", "Fetched", { count: orders.length });
-        return orders.map((o: any) => (o.toObject ? o.toObject() : o));
+        const docs = await CVOrder.find({ userId }).sort({ createdAt: -1 });
+        return docs.map((d) => d.toObject() as CVOrderType);
     },
 
     async getOrderById(userId: string, orderId: string): Promise<CVOrderType | null> {
-        log("getOrderById", "Looking for order", { userId, orderId });
-        const order = await CVOrder.findOne({ _id: orderId, userId });
-        if (!order) {
-            log("getOrderById", "⚠️ Not found");
-            return null;
-        }
-
-        const plain: any = order.toObject ? order.toObject() : order;
-        if (plain.extrasData instanceof Map) {
-            plain.extrasData = Object.fromEntries(plain.extrasData);
-        }
-
-        log("getOrderById", "✅ Found", { id: plain._id, extrasKeys: Object.keys(plain.extrasData || {}) });
-        return plain;
+        const doc = await CVOrder.findOne({ _id: orderId, userId });
+        return doc ? (doc.toObject() as CVOrderType) : null;
     },
 };

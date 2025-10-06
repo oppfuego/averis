@@ -52,7 +52,7 @@ const cvOrderSchema = new Schema<CVOrderDocument>(
 
         reviewType: { type: String, enum: ["default", "manager"], default: "default" },
         extras: [{ type: String }],
-        response: { type: String, required: true },
+        response: { type: String, required: false, default: "" },
         extrasData: { type: Map, of: String, default: {} },
 
         status: { type: String, enum: ["pending", "ready"], default: "ready" },
@@ -69,6 +69,16 @@ if (mongoose.models.CVOrder) {
 
 // 🧠 Перетворення extrasData з Map у Object
 cvOrderSchema.set("toJSON", {
+    transform: (doc, ret) => {
+        if (ret.extrasData instanceof Map) {
+            ret.extrasData = Object.fromEntries(ret.extrasData);
+        }
+        return ret;
+    },
+});
+
+// 🧠 Те саме для .toObject() (щоб API не повертало порожній об’єкт)
+cvOrderSchema.set("toObject", {
     transform: (doc, ret) => {
         if (ret.extrasData instanceof Map) {
             ret.extrasData = Object.fromEntries(ret.extrasData);

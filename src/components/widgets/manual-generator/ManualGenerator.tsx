@@ -23,10 +23,7 @@ const EXTRA_OPTIONS = [
     { name: "atsCheck", label: "ATS Compatibility Report", cost: 12 },
     { name: "jobAdaptation", label: "Adapt CV to Job Description", cost: 20 },
     { name: "achievements", label: "Achievements Booster", cost: 10 },
-    { name: "skillsGap", label: "AI Skills Gap Analysis", cost: 15 },
-    { name: "onePage", label: "One-Page Resume Condenser", cost: 10 },
-    { name: "customFont", label: "Custom Font Style", cost: 5 },
-    { name: "customColor", label: "Custom Theme Color", cost: 5 },
+    { name: "skillsGap", label: "Skills Gap Analysis", cost: 15 },
 ];
 
 const BASE_COST: Record<ReviewType, number> = {
@@ -246,7 +243,6 @@ const ManualGeneratorCV = () => {
                                         "jobAdaptation",
                                         "achievements",
                                         "skillsGap",
-                                        "onePage",
                                     ].includes(opt.name);
 
                                     const isDisabled = managerOnly && values.reviewType !== "manager";

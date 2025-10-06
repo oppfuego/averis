@@ -1,14 +1,13 @@
 "use client";
 
-import { pdf } from "@react-pdf/renderer";
+import {pdf} from "@react-pdf/renderer";
 import {
     ClassicCV,
     CreativeCV,
     ModernCV,
-    OnePageCV,
     ManagerReviewedCV,
 } from "@/components/features/cvTemplates/cvTemplates";
-import { CVOrderType } from "@/backend/types/cv.types";
+import {CVOrderType} from "@/backend/types/cv.types";
 
 // 🔹 універсальний рендер extras (використовується всередині шаблонів)
 const renderExtras = (o: CVOrderType) => {
@@ -21,8 +20,7 @@ const renderExtras = (o: CVOrderType) => {
         atsCheck: "ATS Compatibility Report",
         jobAdaptation: "Adapted CV for Job Description",
         achievements: "Achievements Booster",
-        skillsGap: "AI Skills Gap Analysis",
-        onePage: "Condensed 1-Page CV",
+        skillsGap: "Skills Gap Analysis",
     };
 
     return Object.entries(o.extrasData).map(([key, value]) => ({
@@ -38,12 +36,11 @@ export async function downloadCVPDF(order: CVOrderType) {
     console.log("🗂️ Extras data:", order.extrasData);
     let doc;
 
-    // Якщо користувач вибрав опцію "One Page"
-    if (order.extras?.includes("onePage")) {
-        doc = OnePageCV(order);
+    if (!order.fontStyle || order.fontStyle === "Default") {
+        order.fontStyle = "Helvetica";
     }
-    // Якщо менеджерський тип
-    else if (order.reviewType === "manager") {
+
+    if (order.reviewType === "manager") {
         doc = ManagerReviewedCV(order);
     }
     // Інакше звичайні стилі

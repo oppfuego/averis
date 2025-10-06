@@ -32,7 +32,7 @@ const Page = () => {
                 centerDescription
             />
 
-            {/* Highlight Strip для акценту */}
+            {/* Highlight Strip */}
             <HighlightStrip
                 messages={[
                     "ATS-friendly CVs 🚀",
@@ -41,11 +41,10 @@ const Page = () => {
                 ]}
             />
 
-
             {/* Основний грід прикладів */}
             <ExamplesGrid />
 
-            {/* InfoBlock для додаткової цінності */}
+            {/* InfoBlock */}
             <InfoBlock
                 title="Why Use Our CV Templates?"
                 description="Our CV examples are designed by HR experts to help you stand out. Each template is fully optimized for applicant tracking systems (ATS) and tailored to different industries."
@@ -55,7 +54,45 @@ const Page = () => {
                     "Easy to edit and customize",
                 ]}
                 align="center"
-                image={resolveMedia("image2")} // ✅ через resolveMedia
+                image={resolveMedia("image2")}
+            />
+
+            {/* 🆕 Extras Section */}
+            <ValuesIcons
+                title="Optional Extras for a Complete Job Application"
+                description="Boost your application with additional professionally written materials you can generate along with your CV:"
+                values={[
+                    {
+                        icon: "✉️",
+                        title: "Cover Letter",
+                        text: "A personalized letter written specifically for the job and company.",
+                    },
+                    {
+                        icon: "💼",
+                        title: "LinkedIn Summary",
+                        text: "An optimized 'About' section to impress recruiters online.",
+                    },
+                    {
+                        icon: "🔍",
+                        title: "Keyword Optimization",
+                        text: "Ensures your CV matches ATS systems and job descriptions.",
+                    },
+                    {
+                        icon: "🧩",
+                        title: "ATS Compatibility Report",
+                        text: "Instant feedback on how your CV performs in applicant systems.",
+                    },
+                    {
+                        icon: "🏆",
+                        title: "Achievements Boost",
+                        text: "Rewriting of achievements with quantifiable impact and clarity.",
+                    },
+                    {
+                        icon: "🧠",
+                        title: "Skills Gap Report",
+                        text: "An intelligent analysis that highlights missing or desired skills.",
+                    },
+                ]}
             />
 
             {/* Values Icons */}
@@ -69,7 +106,7 @@ const Page = () => {
                 ]}
             />
 
-            {/* FAQ у кінці */}
+            {/* FAQ */}
             <FAQ
                 items={[
                     {
@@ -83,6 +120,11 @@ const Page = () => {
                     {
                         question: "Can I customize the CV?",
                         answer: "Of course! You can edit text, layout, and design to match your profile.",
+                    },
+                    {
+                        question: "What are 'Extras'?",
+                        answer:
+                            "Extras are optional add-ons like Cover Letter, LinkedIn Summary, or ATS report that help you strengthen your overall application.",
                     },
                 ]}
             />
