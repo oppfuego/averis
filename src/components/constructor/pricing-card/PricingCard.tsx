@@ -7,9 +7,11 @@ import ButtonUI from "@/components/ui/button/ButtonUI";
 import { useAlert } from "@/context/AlertContext";
 import { useUser } from "@/context/UserContext";
 import Input from "@mui/joy/Input";
+import Select from "@mui/joy/Select";
+import Option from "@mui/joy/Option";
 import { useCurrency } from "@/context/CurrencyContext";
 
-type Currency = "GBP" | "EUR" | "USD";
+const TOKENS_PER_GBP = 100;
 
 interface PricingCardProps {
     variant?: "starter" | "pro" | "premium" | "custom";
@@ -22,16 +24,8 @@ interface PricingCardProps {
     buttonLink?: string;
     badgeTop?: string;
     badgeBottom?: string;
-    index?: number; // 👈 для затримки анімації
+    index?: number;
 }
-
-const CURRENCY_SIGNS: Record<Currency, string> = {
-    GBP: "£",
-    EUR: "€",
-    USD: "$",
-};
-
-const TOKENS_PER_UNIT = 100;
 
 const PricingCard: React.FC<PricingCardProps> = ({
                                                      variant = "starter",
@@ -47,13 +41,14 @@ const PricingCard: React.FC<PricingCardProps> = ({
                                                  }) => {
     const { showAlert } = useAlert();
     const user = useUser();
-    const { currency } = useCurrency();
+    const { currency, setCurrency, sign, convertFromGBP, convertToGBP } = useCurrency();
     const [customAmount, setCustomAmount] = useState<number>(20);
 
     const isCustom = price === "dynamic";
-    const currencySign = useMemo(() => CURRENCY_SIGNS[currency], [currency]);
-    const cardClass = `${styles.card} ${styles[variant]}`;
-    const priceNum = !isCustom ? price.replace(/[^0-9.]/g, "") : "";
+
+    // 💰 конвертація фіксованих планів
+    const basePriceGBP = useMemo(() => (isCustom ? 0 : parseFloat(price.replace(/[^0-9.]/g, ""))), [price, isCustom]);
+    const convertedPrice = useMemo(() => (isCustom ? 0 : convertFromGBP(basePriceGBP)), [basePriceGBP, convertFromGBP, isCustom]);
 
     const handleBuy = async () => {
         if (!user) {
@@ -65,8 +60,9 @@ const PricingCard: React.FC<PricingCardProps> = ({
         try {
             let body: any;
             if (isCustom) {
-                if (customAmount < 0.01) {
-                    showAlert("Minimum is 0.01", `Enter at least 0.01 ${currency}`, "warning");
+                const gbpEquivalent = convertToGBP(customAmount);
+                if (gbpEquivalent < 0.01) {
+                    showAlert("Minimum is 0.01", "Enter at least 0.01 GBP equivalent", "warning");
                     return;
                 }
                 body = { currency, amount: customAmount };
@@ -87,9 +83,9 @@ const PricingCard: React.FC<PricingCardProps> = ({
             showAlert(
                 "Success!",
                 isCustom
-                    ? `You paid ${currencySign}${customAmount.toFixed(
-                        2
-                    )} ${currency} (≈ ${Math.floor(customAmount * TOKENS_PER_UNIT)} tokens)`
+                    ? `You paid ${sign}${customAmount.toFixed(2)} ${currency} (≈ ${Math.floor(
+                        convertToGBP(customAmount) * TOKENS_PER_GBP
+                    )} tokens)`
                     : `You purchased ${tokens} tokens.`,
                 "success"
             );
@@ -101,63 +97,60 @@ const PricingCard: React.FC<PricingCardProps> = ({
 
     return (
         <motion.div
-            className={cardClass}
+            className={`${styles.card} ${styles[variant]}`}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{
-                duration: 0.6,
-                ease: "easeOut",
-                delay: index * 0.15, // 👈 затримка для stagger-анімації
-            }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }}
         >
             {badgeTop && <span className={styles.badgeTop}>{badgeTop}</span>}
-
             <h3 className={styles.title}>{title}</h3>
 
             {isCustom ? (
                 <>
-                    <Input
-                        type="number"
-                        value={customAmount}
-                        onChange={(e) => setCustomAmount(Number(e.target.value))}
-                        slotProps={{ input: { min: 0.01, step: 0.01 } }}
-                        placeholder="Enter amount"
-                        size="md"
-                        startDecorator={currencySign}
-                    />
+                    <div style={{ display: "flex", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                        <Input
+                            type="number"
+                            value={customAmount}
+                            onChange={(e) => setCustomAmount(Number(e.target.value))}
+                            slotProps={{ input: { min: 0.01, step: 0.01 } }}
+                            placeholder="Enter amount"
+                            size="md"
+                            startDecorator={sign}
+                        />
+                        <Select
+                            value={currency}
+                            onChange={(_, val) => val && setCurrency(val as "GBP" | "EUR")}
+                            size="md"
+                            sx={{ minWidth: 90 }}
+                        >
+                            <Option value="GBP">£ GBP</Option>
+                            <Option value="EUR">€ EUR</Option>
+                        </Select>
+                    </div>
                     <p className={styles.dynamicPrice}>
-                        {currencySign}
-                        {customAmount.toFixed(2)} ≈ {Math.floor(customAmount * TOKENS_PER_UNIT)} tokens
+                        {sign}
+                        {customAmount.toFixed(2)} ≈{" "}
+                        {Math.floor(convertToGBP(customAmount) * TOKENS_PER_GBP)} tokens
                     </p>
                 </>
             ) : (
                 <p className={styles.price}>
-                    {currencySign}
-                    {priceNum}
-                    <span className={styles.tokens}>/ {tokens} tokens</span>
+                    {sign}
+                    {convertedPrice.toFixed(2)} <span className={styles.tokens}>/ {tokens} tokens</span>
                 </p>
             )}
 
             <p className={styles.description}>{description}</p>
-
             <ul className={styles.features}>
                 {features.map((f, i) => (
                     <li key={i}>{f}</li>
                 ))}
             </ul>
 
-            <ButtonUI
-                fullWidth
-                onClick={handleBuy}
-                color="primary"
-                variant="solid"
-                hoverColor="secondary"
-                textColor="backgroundLight"
-            >
+            <ButtonUI fullWidth onClick={handleBuy}>
                 {user ? buttonText : "Sign Up to Buy"}
             </ButtonUI>
-
             {badgeBottom && <span className={styles.badgeBottom}>{badgeBottom}</span>}
         </motion.div>
     );
