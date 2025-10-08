@@ -100,8 +100,24 @@ const ManualGeneratorCV = () => {
             onSubmit={async (values) => {
                 setLoading(true);
                 try {
-                    const payload = { ...values, email: user?.email };
+                    // ✅ 1. Обчислюємо totalTokens перед payload
+                    let extras = [...values.extras];
+                    if (values.fontStyle !== "Default" && !extras.includes("customFont"))
+                        extras.push("customFont");
+                    if (values.themeColor !== "Default" && !extras.includes("customColor"))
+                        extras.push("customColor");
 
+                    const totalTokens =
+                        BASE_COST[values.reviewType] +
+                        extras.reduce((sum, name) => {
+                            const opt = EXTRA_OPTIONS.find((o) => o.name === name);
+                            return sum + (opt?.cost || 0);
+                        }, 0);
+
+                    // ✅ 2. Формуємо payload після обчислення totalTokens
+                    const payload = { ...values, email: user?.email, totalTokens };
+
+                    // ✅ 3. Відправляємо запит
                     const res = await fetch("/api/cv/create-order", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -128,7 +144,7 @@ const ManualGeneratorCV = () => {
             }}
         >
             {({ values, setFieldValue, setValues }) => {
-                // 🔹 автоматичне додавання appearance extras
+                // 🔹 автоматичне оновлення extras (Appearance)
                 let extras = [...values.extras];
                 if (values.fontStyle !== "Default" && !extras.includes("customFont"))
                     extras.push("customFont");
@@ -164,7 +180,8 @@ const ManualGeneratorCV = () => {
                                                     accept="image/*"
                                                     onChange={async (e) => {
                                                         const file = e.target.files?.[0];
-                                                        if (file) setFieldValue("photo", await toBase64(file));
+                                                        if (file)
+                                                            setFieldValue("photo", await toBase64(file));
                                                     }}
                                                 />
                                             </label>
@@ -175,7 +192,9 @@ const ManualGeneratorCV = () => {
                                                         alt="preview"
                                                         className={styles.photoPreview}
                                                     />
-                                                    <span className={styles.fileDisplay}>Photo selected</span>
+                                                    <span className={styles.fileDisplay}>
+                                                    Photo selected
+                                                </span>
                                                 </>
                                             )}
                                         </div>
@@ -223,9 +242,17 @@ const ManualGeneratorCV = () => {
                                 className={styles.inputBase}
                             >
                                 <Option value="default">Instant CV (30 tokens)</Option>
-                                <Option value="manager">Manager Review – 24h (60 tokens)</Option>
+                                <Option value="manager">
+                                    Manager Review – 24h (60 tokens)
+                                </Option>
                             </Select>
-                            <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginTop: "0.4rem" }}>
+                            <p
+                                style={{
+                                    fontSize: "0.85rem",
+                                    color: "var(--text-muted)",
+                                    marginTop: "0.4rem",
+                                }}
+                            >
                                 {values.reviewType === "manager"
                                     ? "🧠 A professional will review and enhance your CV for 24-hour delivery."
                                     : "⚡ Instant AI CV generation with no manual review."}
@@ -245,7 +272,8 @@ const ManualGeneratorCV = () => {
                                         "skillsGap",
                                     ].includes(opt.name);
 
-                                    const isDisabled = managerOnly && values.reviewType !== "manager";
+                                    const isDisabled =
+                                        managerOnly && values.reviewType !== "manager";
 
                                     return (
                                         <label
@@ -260,11 +288,16 @@ const ManualGeneratorCV = () => {
                                                 checked={values.extras.includes(opt.name)}
                                                 onChange={(e) => {
                                                     if (e.target.checked)
-                                                        setFieldValue("extras", [...values.extras, opt.name]);
+                                                        setFieldValue("extras", [
+                                                            ...values.extras,
+                                                            opt.name,
+                                                        ]);
                                                     else
                                                         setFieldValue(
                                                             "extras",
-                                                            values.extras.filter((x) => x !== opt.name)
+                                                            values.extras.filter(
+                                                                (x) => x !== opt.name
+                                                            )
                                                         );
                                                 }}
                                             />
@@ -272,8 +305,8 @@ const ManualGeneratorCV = () => {
                                             <span className={styles.badge}>+{opt.cost}</span>
                                             {isDisabled && (
                                                 <span className={styles.lockHint}>
-                          🔒 Available for Manager Review
-                        </span>
+                                                🔒 Available for Manager Review
+                                            </span>
                                             )}
                                         </label>
                                     );
@@ -284,7 +317,8 @@ const ManualGeneratorCV = () => {
                         {/* 🎨 Appearance */}
                         <div className={styles.section}>
                             <div className={styles.premiumNotice}>
-                                💎 Selecting custom font or color adds +5 tokens each. Default choices are free.
+                                💎 Selecting custom font or color adds +5 tokens each. Default
+                                choices are free.
                             </div>
                             <h3 className={styles.sectionTitle}>🎨 Appearance Settings</h3>
                             <div className={styles.selectGrid}>

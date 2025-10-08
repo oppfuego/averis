@@ -9,4 +9,10 @@ export const userService = {
         await user.save();
         return user;
     },
+
+    async getUserById(userId: string) {
+        const user = await User.findById(userId);
+        if (!user) throw new Error("UserNotFound");
+        return user;
+    },
 };

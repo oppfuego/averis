@@ -45,6 +45,8 @@ export interface CreateCVOrderRequest {
     skills: string;
     reviewType: "default" | "manager";
     extras: string[];
+    email: string;
+    totalTokens?: number;
 }
 
 

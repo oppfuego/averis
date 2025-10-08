@@ -8,6 +8,7 @@ import { useUser } from "@/context/UserContext";
 import AllOrders from "@/components/widgets/all-orders/AllOrders";
 import CVOrders from "@/components/widgets/cv-orders/CVOrders"; // 👈 імпорт
 import { LogoutButton } from "@/components/widgets/logout-button/LogoutButton";
+import TransactionHistory from "@/components/widgets/all-transactions/AllTransactions";
 
 const UserProfile: React.FC = () => {
     const user = useUser();
@@ -34,7 +35,11 @@ const UserProfile: React.FC = () => {
                 </Link>
             </section>
 
-            <AllOrders/>
+            <div className={styles.dashboard}>
+                <AllOrders/>
+                <TransactionHistory/>
+            </div>
+
 
         </div>
     );

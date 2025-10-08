@@ -1,5 +1,6 @@
 import { connectDB } from "../config/db";
 import { cvService } from "../services/cv.service";
+import { userController } from "../controllers/user.controller";
 import {
     CreateCVOrderRequest,
     CreateCVOrderResponse,
@@ -18,6 +19,14 @@ export const cvController = {
         log("createOrder", "Start", { userId, email, reviewType: body.reviewType });
 
         const order = await cvService.createOrder(userId, email, body);
+
+        const totalTokens = body.totalTokens;
+        if (totalTokens && totalTokens > 0) {
+            await userController.spendTokens(userId, totalTokens, "CV Generation");
+            log("createOrder", `💸 Tokens spent: ${totalTokens}`);
+        } else {
+            log("createOrder", "⚠️ totalTokens not provided — skipping spendTokens()");
+        }
 
         const plain: any = (order as any)?.toObject ? (order as any).toObject() : order;
         log("createOrder", "Returning FINAL ORDER", {

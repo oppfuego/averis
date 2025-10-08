@@ -22,7 +22,10 @@ export async function POST(req: NextRequest) {
             }
 
             const tokens = Math.floor(gbpEquivalent * TOKENS_PER_GBP);
+
+            // 🧾 запис транзакції вже всередині userController.buyTokens()
             const user = await userController.buyTokens(payload.sub, tokens);
+
             return NextResponse.json({ user, info: `Converted ${amount} ${currency} → ${tokens} tokens` });
         }
 
