@@ -26,7 +26,7 @@ const schema: PageSchema = {
         {
             type: "custom",
             component: "HeroSection",
-            title: "Get Started with CV Maker",
+            title: `Get Started with ${COMPANY_NAME}`,
             highlight: "Our Mission & Vision",
             description: `With ${COMPANY_NAME}, you can either generate your CV instantly using our professional templates, 
     or select the Manager Review option to receive a polished version carefully refined by HR experts within just 24 hours.`,

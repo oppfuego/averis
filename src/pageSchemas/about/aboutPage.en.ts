@@ -1,12 +1,13 @@
 import {PageSchema} from "@/components/constructor/page-render/types";
+import { COMPANY_NAME } from "@/resources/constants";
 
 const schema: PageSchema = {
     meta: {
-        title: "About Us — CV Maker",
+        title: `About Us — ${COMPANY_NAME}`,
         description:
-            "CV Maker combines instant AI-generated resumes with professional HR review. Create your CV instantly or choose the optional expert service for a polished version within 24 hours.",
+            `${COMPANY_NAME} combines instant AI-generated resumes with professional HR review. Create your CV instantly or choose the optional expert service for a polished version within 24 hours.`,
         keywords: [
-            "CV Maker",
+            `${COMPANY_NAME}`,
             "create resume",
             "online resume",
             "CV templates",
@@ -17,7 +18,7 @@ const schema: PageSchema = {
         ],
         canonical: "/about-us",
         ogImage: {
-            title: "CV Maker",
+            title: `${COMPANY_NAME}`,
             description: "Instant CVs + optional expert review in 24h",
             bg: "#0a2540",
             color: "#ffffff",
@@ -27,14 +28,13 @@ const schema: PageSchema = {
         {
             type: "custom",
             component: "HeroSection",
-            title: "About CV Maker",
+            title: `About ${COMPANY_NAME}`,
             highlight: "Our Mission & Vision",
-            description: `At CV Maker, we believe that every professional deserves a fair chance to showcase their skills.  
+            description: `At ${COMPANY_NAME}, we believe that every professional deserves a fair chance to showcase their skills.  
    Our platform helps you instantly generate ATS-friendly CVs, while our HR experts ensure your application stands out with personalized reviews.`,
             image: "image2",
         },
 
-        // 🔹 Why CV Maker?
         {
             type: "section",
             left: {
@@ -46,10 +46,10 @@ const schema: PageSchema = {
             right: {
                 type: "custom",
                 component: "InfoBlock",
-                title: "Why CV Maker?",
+                title: `Why ${COMPANY_NAME}?`,
                 description: "We provide flexibility: instant results when you need speed, or expert refinement when you want the highest quality.",
                 bullets: [
-                    "AI-powered instant CV builder",
+                    "A tool for instantly creating resumes based on pre-designed templates",
                     "Optional HR manager review in 24h",
                     "Resumes tailored to your industry",
                 ],
@@ -74,7 +74,7 @@ const schema: PageSchema = {
                 component: "InfoBlock",
                 title: "Our Story",
                 image: "image2",
-                description: `CV Maker was born from a simple but powerful idea: 
+                description: `${COMPANY_NAME} was born from a simple but powerful idea: 
 Not everyone has the time, resources, or design skills to craft a professional CV.  
 Many job seekers lose opportunities not because they lack talent, but because their resumes fail 
 to pass automated filters or attract recruiters' attention.  
@@ -100,7 +100,7 @@ and land opportunities they truly deserve.`,
                 type: "custom",
                 component: "InfoBlock",
                 title: "Our Vision",
-                description: "We believe professional career tools should be accessible to everyone. Whether you need a quick CV today or a polished expert-reviewed version, CV Maker gives you both options.",
+                description: `We believe professional career tools should be accessible to everyone. Whether you need a quick CV today or a polished expert-reviewed version, ${COMPANY_NAME} gives you both options.`,
                 bullets: [
                     "Accessible resumes for all candidates",
                     "Balance between speed and quality",
@@ -111,7 +111,7 @@ and land opportunities they truly deserve.`,
                 type: "media",
                 mediaType: "image",
                 src: "image4",
-                alt: "Vision of CV Maker",
+                alt: `Vision of ${COMPANY_NAME}`,
             },
         },
 
@@ -134,7 +134,7 @@ and land opportunities they truly deserve.`,
             left: {
                 type: "text",
                 title: "What Sets Us Apart",
-                description: "Unlike pure automation tools, CV Maker gives you a choice. Get an AI-generated CV instantly, or opt for a manager-reviewed version that combines automation with human expertise.",
+                description: `Unlike pure automation tools, ${COMPANY_NAME} gives you a choice. Get an AI-generated CV instantly, or opt for a manager-reviewed version that combines automation with human expertise.`,
                 centerTitle: true,
                 centerDescription: true,
             },
@@ -145,7 +145,7 @@ and land opportunities they truly deserve.`,
             type: "custom",
             component: "TeamGrid",
             title: "Meet Our Team",
-            description: "Behind CV Maker is a passionate team of HR experts and developers who combine technology with human insight.",
+            description: `Behind ${COMPANY_NAME} is a passionate team of HR experts and developers who combine technology with human insight.`,
             members: [
                 { name: "Anna Kowalski", role: "HR Manager", bio: "10+ years in recruitment & career coaching.", image: "team1" },
                 { name: "John Doe", role: "Lead Developer", bio: "Building scalable resume tech solutions.", image: "team2" },

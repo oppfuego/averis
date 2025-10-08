@@ -59,8 +59,8 @@ const Header: React.FC = () => {
                 <div className={styles.headerInner}>
                     <a href={headerContent.logo.href} className={styles.logo}>
                         <Image
-                            width={130}
-                            height={50}
+                            width={240}
+                            height={70}
                             src={headerContent.logo.src}
                             alt={headerContent.logo.alt}
                         />

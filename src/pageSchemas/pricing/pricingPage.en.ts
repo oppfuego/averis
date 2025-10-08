@@ -1,19 +1,20 @@
 import { PageSchema } from "@/components/constructor/page-render/types";
+import {COMPANY_NAME} from "@/resources/constants";
 
 const schema: PageSchema = {
     meta: {
-        title: "Pricing — CV Maker",
+        title: `Pricing — ${COMPANY_NAME}`,
         description:
-            "Choose the right plan for your career journey. CV Maker offers instant CV generation and optional expert HR review.",
+            `Choose the right plan for your career journey. ${COMPANY_NAME} offers instant CV generation and optional expert HR review.`,
         keywords: [
-            "CV Maker pricing",
+            `${COMPANY_NAME} pricing`,
             "resume builder plans",
             "AI CV cost",
             "expert HR review pricing",
         ],
         canonical: "/pricing",
         ogImage: {
-            title: "CV Maker Pricing",
+            title: `${COMPANY_NAME} Pricing`,
             description: "Affordable plans for instant CVs or HR-reviewed resumes",
             bg: "#0a2540",
             color: "#ffffff",
