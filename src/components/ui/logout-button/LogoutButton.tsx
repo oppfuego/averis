@@ -18,8 +18,9 @@ export function LogoutButton({ all = false }: { all?: boolean }) {
         <ButtonUI
             variant="solid"
             color="danger"
+            textColor="quaternary"
             size="lg"
-            hoverEffect="scale"
+            hoverEffect="shadow"
             hoverColor="danger"
             endIcon={<FaSignOutAlt/>}
             onClick={handleClick}

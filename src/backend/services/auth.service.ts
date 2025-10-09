@@ -42,7 +42,15 @@ export const authService = {
         const valid = await bcrypt.compare(password, user.password);
         if (!valid) throw new Error("Invalid credentials");
 
+        // 🧩 1️⃣ ВАЖЛИВО: видаляємо старі refresh-сесії цього користувача
+        await RefreshSession.deleteMany({ userId: user._id });
+
+        // 🧩 2️⃣ Тепер видаємо абсолютно нові токени та сесію
         const result = await this.issueTokensAndSession(user._id, user.email, user.role, userAgent, ip);
+
+        // 🧩 3️⃣ (опційно) Лог для відладки
+        console.log(`[authService.login] ✅ New login for ${user.email}, old sessions cleared.`);
+
         return { user, ...result };
     },
 
@@ -62,8 +70,10 @@ export const authService = {
 
         const accessToken = await signAccessToken({ sub: userId.toString(), email, role });
         // додатково — JWT refresh з payload (sid) для швидкої перевірки підпису:
-        const refreshJWT = await signRefreshToken({ sub: userId.toString(), sid: session._id.toString() }, ENV.REFRESH_TOKEN_EXPIRES);
-
+        const refreshJWT = await signRefreshToken(
+            { sub: userId.toString(), sid: (session as any)._id.toString() },
+            ENV.REFRESH_TOKEN_EXPIRES
+        );
         // передаємо клієнту: access JWT + "rawRefresh" як cookie значення (але ми дамо саме refreshJWT у cookie, а raw — НЕ віддаємо)
         // Трюк: кладемо у cookie refresh **JWT** (підписаний), а в БД тримаємо hash від "rawRefresh".
         // Щоб зв'язати їх, в JWT тримаємо sid сесії. При refresh перевіряємо JWT (підпис) + наявність сесії (sid) + не відкликана.

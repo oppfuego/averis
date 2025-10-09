@@ -5,6 +5,7 @@ import { requireAuth } from "@/backend/middlewares/auth.middleware";
 export async function GET(req: NextRequest) {
     try {
         const user = await requireAuth(req);
+        console.log("📌 AUTH CHECK:", user);
         if (!user) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
         const result = await cvController.getOrders(user.sub);

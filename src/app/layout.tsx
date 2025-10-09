@@ -1,9 +1,9 @@
 import "./globals.css";
 import {authWrapper} from "@/utils/authWrapper";
 import {AlertProvider} from "@/context/AlertContext";
-import PageWrapper from "@/components/ui/page-wrapper/PageWrapper";
-import Header from "@/components/ui/header/Header";
-import Footer from "@/components/ui/footer/Footer";
+import PageWrapper from "@/components/layout/page-wrapper/PageWrapper";
+import Header from "@/components/layout/header/Header";
+import Footer from "@/components/layout/footer/Footer";
 import ProtectedRoute from "@/components/features/protected-route/ProtectedRoute";
 import {currentFont} from "@/resources/styles-config";
 import {I18nProvider} from "@/context/i18nContext";

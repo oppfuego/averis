@@ -1,0 +1,55 @@
+.balanceCard {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  &__info {
+    p {
+      font-size: 0.95rem;
+      color: #6b7280;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0.25rem 0 0;
+      color: var(--primary-color);
+
+      span {
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__topUpBtn {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    color: #fff;
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.2s;
+    text-decoration: none;
+
+    &:hover {
+      background: linear-gradient(135deg, #4338ca, #4f46e5);
+    }
+  }
+}

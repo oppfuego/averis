@@ -1,24 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cvController } from "@/backend/controllers/cv.controller";
-// import { requireAuth } from "@/backend/middlewares/auth.middleware";
+import { requireAuth } from "@/backend/middlewares/auth.middleware";
 
 export async function POST(req: NextRequest) {
     try {
-        // 🔹 тимчасово прибрав авторизацію
-        // const user = await requireAuth(req);
-        // if (!user)
-        //     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+        const payload = await requireAuth(req); // ✅ Тепер беремо реального користувача
+        if (!payload?.sub) {
+            return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+        }
 
         const body = await req.json();
 
-        // ⚠️ Підставимо тестові userId + email вручну
-        const fakeUserId = "68dc231adc70790f2b50d399";
-        const fakeEmail = body.email || "test@example.com";
+        // ✅ Використовуємо дані з токена
+        const userId = payload.sub;
+        const email = payload.email;
 
-        const result = await cvController.createOrder(fakeUserId, fakeEmail, body);
-
+        const result = await cvController.createOrder(userId, email, body);
         return NextResponse.json(result);
     } catch (err: any) {
+        console.error("❌ Error creating CV order:", err);
         return NextResponse.json({ message: err.message }, { status: 400 });
     }
 }
