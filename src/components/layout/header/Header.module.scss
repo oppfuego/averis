@@ -11,150 +11,153 @@
   background: rgba(10, 37, 64, 0.9);
   backdrop-filter: blur(6px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--text-inverse);
-  background-color: var(--quaternary-color);
+  z-index: 1000;
 }
 
 .headerInner {
   display: flex;
-  justify-content: space-between; /* лого зліва, actions справа */
   align-items: center;
-  max-width: 1400px;
-  width: 100%;
+  justify-content: space-between;
   margin: 0 auto;
   padding: 16px 32px;
-}
-
-.logo img {
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  width: 100%;
+  color: var(--text-inverse);
 }
 
 .nav {
   display: flex;
-  gap: 5px;
   align-items: center;
-
+  gap: 24px;
 }
 
 .link {
   position: relative;
   font-weight: 600;
-  font-size: 14px;
-  color: var(--text-secondary);
-  padding: 4px 6px;
-  border-radius: 6px;
+  font-size: 15px;
+  color: var(--text-primary);
   transition: color 0.3s ease;
-
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0;
-    height: 100%;
-    background: var(--secondary-color);
-    border-radius: 6px;
-    z-index: -1;
-    transition: width 0.3s ease;
-  }
 
   &:hover {
     color: var(--text-accent);
-
-    &::before {
-      width: 100%;
-    }
   }
 }
 
-.actions {
+.logo {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 40px;
+  img {
+    max-height: 60px;
+    object-fit: contain;
+  }
 }
 
-.actionsNav{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.actionsNav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .currencySwitch {
   position: relative;
-  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  .currencySelect {
-    appearance: none; // ховаємо стандартну стрілку
-    background: var(--quaternary-color);
-    border: 1.5px solid var(--primary-color);
-    color: var(--primary-color);
-    padding: 8px 36px 8px 14px;
-    border-radius: 8px;
+  .toggle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 92px;
+    height: 38px;
+    border-radius: 9999px;
+    background: linear-gradient(145deg, #012d29, #04413d);
     cursor: pointer;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: all 0.25s ease;
-    outline: none;
+    padding: 4px;
+    box-shadow:
+            inset 0 0 6px rgba(0, 0, 0, 0.4),
+            0 0 18px rgba(50, 214, 154, 0.25);
+    transition: all 0.3s ease;
 
     &:hover {
-      border-color: var(--accent-color);
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    &:focus {
-      box-shadow: 0 0 0 3px rgba(0, 140, 255, 0.2);
+      box-shadow:
+              inset 0 0 10px rgba(50, 214, 154, 0.35),
+              0 0 24px rgba(50, 214, 154, 0.35);
     }
   }
 
-  // кастомна стрілочка
-  &::after {
-    content: "▾";
+  .labelLeft,
+  .labelRight {
+    flex: 1;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    z-index: 2;
+    user-select: none;
+    transition: color 0.3s ease;
+  }
+
+  .thumb {
     position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.8rem;
-    color: var(--primary-color);
-    pointer-events: none;
+    top: 3px;
+    left: 3px;
+    width: 44px;
+    height: 32px;
+    border-radius: 9999px;
+    background: linear-gradient(145deg, #21e4a0, #2ddbb6);
+    box-shadow: 0 0 18px rgba(50, 214, 154, 0.6),
+    0 0 36px rgba(50, 214, 154, 0.25);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .active {
+    .thumb {
+      left: calc(100% - 47px);
+      background: linear-gradient(145deg, #2ddbb6, #21e4a0);
+      box-shadow: 0 0 18px rgba(94, 234, 212, 0.8),
+      0 0 40px rgba(50, 214, 154, 0.4);
+    }
+
+    .labelLeft {
+      color: #ffffff;
+    }
+
+    .labelRight {
+      color: #ffffff;
+    }
+  }
+
+  &:not(.active) {
+    .labelLeft {
+      color: #ffffff;
+    }
+
+    .labelRight {
+      color: #ffffff;
+    }
   }
 }
+
+
+
 
 
 .menuButton {
   display: none;
+  color: var(--text-inverse);
   background: none;
   border: none;
-  font-size: 28px;
+  font-size: 24px;
   cursor: pointer;
-  color: var(--secondary-color);
-}
-
-.balanceText {
-  color: var(--secondary-color);
-  font-weight: 600;
-}
-
-.button {
-  color: var(--text-inverse);
-}
-
-@media (max-width: 1440px) {
-  .nav {
-    gap: 5px;
-  }
 }
 
 @media (max-width: 1024px) {
   .nav {
     display: none;
   }
-  .actions {
+  .actionsNav {
     display: none;
   }
   .menuButton {

@@ -9,7 +9,7 @@ import { footerContent } from "@/resources/content";
 import { footerStyles } from "@/resources/styles-config";
 import {SmartLinkProps} from "@/types/smart-link";
 import {media} from "@/resources/media";
-import {FaApplePay, FaCcAmex, FaCcMastercard, FaCcVisa, FaGooglePay} from "react-icons/fa";
+import {FaApplePay, FaCcAmex, FaCcMastercard, FaCcVisa, FaFacebookF, FaGooglePay, FaInstagram, FaLinkedinIn, FaTwitter} from "react-icons/fa";
 
 const SmartLink: React.FC<SmartLinkProps> = ({
                                                  href,
@@ -159,6 +159,7 @@ const Footer: React.FC = () => {
                             style={{ width: "var(--footer-logo-w)", height: "var(--footer-logo-h)" }}
                         />
                     </SmartLink>
+
                     <div className={styles["footer__columns"]}>
                         {columns.map((col) => (
                             <div className={styles["footer__column"]} key={col.title}>
@@ -170,16 +171,60 @@ const Footer: React.FC = () => {
                                 ))}
                             </div>
                         ))}
+
                         {legal && (
                             <div className={styles["footer__column"]}>
-                                <div className={styles["footer__column-title"]}>Company</div>
                                 <LegalBlock />
                             </div>
                         )}
                         <PaymentMethods />
+                        {/* 🔹 Колонка соцмереж з React Icons */}
+                        <div className={styles["footer__column"]}>
+                            <div className={styles["footer__column-title"]}>Follow Us</div>
+                            <div className={styles["footer__socials"]}>
+                                <a
+                                    href="https://facebook.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Facebook"
+                                    className={styles["footer__social-link"]}
+                                >
+                                    <FaFacebookF />
+                                </a>
+                                <a
+                                    href="https://instagram.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Instagram"
+                                    className={styles["footer__social-link"]}
+                                >
+                                    <FaInstagram />
+                                </a>
+                                <a
+                                    href="https://linkedin.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="LinkedIn"
+                                    className={styles["footer__social-link"]}
+                                >
+                                    <FaLinkedinIn />
+                                </a>
+                                <a
+                                    href="https://twitter.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Twitter"
+                                    className={styles["footer__social-link"]}
+                                >
+                                    <FaTwitter />
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
+
+
             {footerStyles.type === "center" && (
                 <div className={clsx(styles["footer__inner"], styles["footer__inner--center"])}>
                     <SmartLink href={logo.href} className={styles["footer__logo"]} ariaLabel="Logo">

@@ -20,6 +20,9 @@ import team3 from "@/assets/images/team3.jpg";
 import template1 from "../../public/templates/classic.png";
 import template2 from "../../public/templates/modern.png";
 import template3 from "../../public/templates/creative.png";
+import coach1 from "@/assets/images/coach1.jpg";
+import coach2 from "@/assets/images/coach2.jpg";
+import coach3 from "@/assets/images/coach3.jpg";
 
 export const media = {
     logo: logo,
@@ -40,6 +43,10 @@ export const media = {
     review2: review2,
     review3: review3,
 
+    coach1: coach1,
+    coach2: coach2,
+    coach3: coach3,
+
     team1: team1,
     team2: team2,
     team3: team3,
@@ -49,6 +56,7 @@ export const media = {
     template3: template3,
 
     CVMakerDemo: '/videos/cv-maker-demo.mp4',
+    coachWork: '/videos/coach-work.mp4',
 
 }
 

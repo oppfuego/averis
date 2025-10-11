@@ -13,50 +13,29 @@ interface TimelineProps {
     steps: Step[];
 }
 
-const stepVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
-    visible: (i: number) => ({
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: {
-            delay: i * 0.25,
-            duration: 0.6,
-            ease: [0.42, 0, 1, 1],
-        },
-    }),
-};
+const Timeline: React.FC<TimelineProps> = ({ title, steps }) => {
+    return (
+        <section className={styles.timelineSection}>
+            {title && <h2 className={styles.title}>{title}</h2>}
 
-const Timeline: React.FC<TimelineProps> = ({ title, steps }) => (
-    <section className={styles.wrapper}>
-        {title && <h2 className={styles.sectionTitle}>{title}</h2>}
-
-        <div className={styles.timeline}>
-            {steps.map((step, idx) => (
-                <motion.div
-                    key={idx}
-                    className={`${styles.step} ${idx % 2 === 0 ? styles.top : styles.bottom}`}
-                    custom={idx}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.3 }}
-                    variants={stepVariants}
-                >
-                    <div className={styles.content}>
-                        <h4>{step.title}</h4>
-                        <p>{step.description}</p>
-                    </div>
+            <div className={styles.cardsGrid}>
+                {steps.map((step, index) => (
                     <motion.div
-                        className={styles.circle}
-                        whileHover={{ scale: 1.2, rotate: 10 }}
-                        transition={{ type: "spring", stiffness: 300 }}
+                        key={index}
+                        className={styles.card}
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.2, duration: 0.6, ease: "easeOut" }}
+                        viewport={{ once: true, amount: 0.3 }}
                     >
-                        {idx + 1}
+                        <div className={styles.number}>{index + 1}</div>
+                        <h4 className={styles.cardTitle}>{step.title}</h4>
+                        <p className={styles.cardDescription}>{step.description}</p>
                     </motion.div>
-                </motion.div>
-            ))}
-        </div>
-    </section>
-);
+                ))}
+            </div>
+        </section>
+    );
+};
 
 export default Timeline;

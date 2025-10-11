@@ -1,30 +1,40 @@
 "use client";
 import React from "react";
 import styles from "./HighlightStrip.module.scss";
-import { motion } from "framer-motion";
 
-interface HighlightStripProps {
-    messages: string[];
+interface HighlightItem {
+    icon: string;     // шлях до іконки або emoji
+    text: string;     // текст
+    color?: string;   // фон іконки
 }
 
-const HighlightStrip: React.FC<HighlightStripProps> = ({ messages }) => {
+interface HighlightStripProps {
+    items: HighlightItem[];
+}
+
+const HighlightStrip: React.FC<HighlightStripProps> = ({ items }) => {
+    // дублюємо масив для безкінечного скролу
+    const repeatedItems = [...items, ...items];
+
     return (
         <div className={styles.strip}>
             <div className={styles.track}>
-                {messages.concat(messages).map((msg, i) => (
-                    <motion.span
-                        key={i}
-                        className={styles.item}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{
-                            duration: 0.6,
-                            delay: i * 0.15,
-                            ease: "easeOut",
-                        }}
-                    >
-                        {msg}
-                    </motion.span>
+                {repeatedItems.map((item, index) => (
+                    <div key={index} className={styles.card}>
+                        <div
+                            className={styles.iconBox}
+                            style={{
+                                background: item.color || "linear-gradient(135deg, #e0f7e9, #c0f2d1)",
+                            }}
+                        >
+                            {item.icon.startsWith("/") ? (
+                                <img src={item.icon} alt={item.text} className={styles.iconImg} />
+                            ) : (
+                                <span className={styles.iconEmoji}>{item.icon}</span>
+                            )}
+                        </div>
+                        <p className={styles.text}>{item.text}</p>
+                    </div>
                 ))}
             </div>
         </div>

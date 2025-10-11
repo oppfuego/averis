@@ -118,15 +118,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
                             size="md"
                             startDecorator={sign}
                         />
-                        <Select
-                            value={currency}
-                            onChange={(_, val) => val && setCurrency(val as "GBP" | "EUR")}
-                            size="md"
-                            sx={{ minWidth: 90 }}
-                        >
-                            <Option value="GBP">£ GBP</Option>
-                            <Option value="EUR">€ EUR</Option>
-                        </Select>
+
                     </div>
                     <p className={styles.dynamicPrice}>
                         {sign}

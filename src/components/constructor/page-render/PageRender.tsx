@@ -66,7 +66,7 @@ function RenderCustom(b: CustomBlock) {
             );
 
         case "HighlightStrip":
-            return <HighlightStrip messages={b.messages ?? []} />;
+            return <HighlightStrip items={b.items ?? []} />;
 
         case "Marquee":
             return <Marquee items={b.items ?? []} />;
@@ -109,7 +109,14 @@ function RenderCustom(b: CustomBlock) {
             );
 
         case "TestimonialsSlider":
-            return <TestimonialsSlider testimonials={b.testimonials} />;
+            return (
+                <TestimonialsSlider
+                    title={b.title}
+                    description={b.description}
+                    testimonials={b.testimonials}
+                />
+            );
+
 
         case "StoryTimeline":
             return <StoryTimeline steps={b.steps ?? []} />;
@@ -136,6 +143,7 @@ function RenderCustom(b: CustomBlock) {
                     primaryCta={b.primaryCta}
                     secondaryCta={b.secondaryCta}
                     image={b.image}
+                    align={b.align} // ➕ передаємо напрям
                 />
             );
 
@@ -178,7 +186,7 @@ function RenderSlider(b: SliderBlock) {
 }
 
 function RenderFaq(b: FaqBlock) {
-    return <FAQ items={b.items} />;
+    return <FAQ items={b.items} image={b.image ? resolveMedia(b.image) : undefined} />;
 }
 
 function RenderCard(b: CardBlock) {
@@ -223,7 +231,14 @@ function RenderSection(b: SectionBlock) {
     const left = b.left ? renderBlock(b.left, "left") : undefined;
     const right = b.right ? renderBlock(b.right, "right") : undefined;
     return (
-        <Section align={mapAlign(b.align)} gap={b.gap} left={left} right={right} />
+        <Section
+            title={b.title}
+            description={b.description}
+            align={mapAlign(b.align)}
+            gap={b.gap}
+            left={left}
+            right={right}
+        />
     );
 }
 

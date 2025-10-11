@@ -1,174 +1,259 @@
-import {PageSchema} from "@/components/constructor/page-render/types";
-import {COMPANY_NAME} from "@/resources/constants";
+import { PageSchema } from "@/components/constructor/page-render/types";
+import { COMPANY_NAME } from "@/resources/constants";
 
 const schema: PageSchema = {
     meta: {
-        title: `${COMPANY_NAME} — Instant CVs or Expert Review`,
-        description: `${COMPANY_NAME} lets you instantly create ATS-friendly CVs with our templates, or choose the optional manager review for a perfected CV within 24 hours.`,
+        title: `${COMPANY_NAME} — Personalized Training with Real Coaches & Smart AI`,
+        description: `${COMPANY_NAME} connects you with certified trainers who design fully personalized fitness and nutrition programs — supported by AI for fast insights and progress tracking.`,
         keywords: [
-            "cv maker",
-            "resume builder",
-            "ATS resume",
-            "instant cv",
-            "professional resume",
-            "career success",
-            "cv review",
+            "personal trainer",
+            "custom fitness plan",
+            "nutrition coach",
+            "AI fitness assistant",
+            "workout plan",
+            "meal plan",
+            "body transformation",
+            "training with experts",
         ],
         canonical: "/",
         ogImage: {
             title: COMPANY_NAME,
-            description: `Get your CV instantly — or let our experts polish it within 24 hours.`,
+            description: `Get your personal trainer & AI-powered workout plan today.`,
             bg: "#0a2540",
             color: "#ffffff",
         },
     },
 
     blocks: [
-        // 🟢 Hero
         {
             type: "custom",
             component: "HeroSection",
-            title: "Two Ways to Build Your Career",
-            highlight: "Instant CV or Expert Review",
-            description:
-                `Fill in your details and get an ATS-ready CV instantly.  
-                 Or choose our Manager Review option and receive a perfected CV crafted by our team within 24 hours.`,
-            primaryCta: {text: "Create My CV Now", link: "/get-started"},
-            secondaryCta: {text: "See Templates", link: "/templates"},
+            title: "Train Smarter with Expert Coaches",
+            highlight: "Personal Trainer + Smart AI Assistant",
+            description: `Achieve real results with programs tailored by certified trainers — supported by AI for smart adjustments and progress analysis.  
+Whether your goal is to lose weight, build muscle, or regain balance — your trainer designs a plan built entirely around you.`,
+            primaryCta: { text: "Start with My Trainer", link: "/get-started" },
+            secondaryCta: { text: "Discover AI Option", link: "/plans" },
             image: "image1",
+            align: "right",
         },
 
-        // 🟢 Highlight strip
+        // 🟢 MOTIVATIONAL MARQUEE
         {
             type: "custom",
             component: "HighlightStrip",
-            messages: [
-                "⚡ Instant CV in seconds",
-                "🎨 50+ modern templates",
-                "📑 ATS & recruiter-approved",
-                "🕒 Optional 24h manager review",
+            items: [
+                { icon: "🏋️‍♀️", text: "1-on-1 Personalized Training" },
+                { icon: "🥗", text: "Tailored Nutrition Plans" },
+                { icon: "📈", text: "AI-Assisted Progress Tracking" },
+                { icon: "💬", text: "Constant Coach Support" },
+                { icon: "🔥", text: "Visible Results in Weeks" },
             ],
         },
 
-        // 🟢 Why us
+        // 🟢 WHY CHOOSE TRAINERS
         {
             type: "custom",
             component: "ValuesIcons",
-            title: "Why Choose Us?",
-            description: `Whether you need a quick CV or expert polish, ${COMPANY_NAME} has you covered.`,
+            title: "Why Work With Our Trainers?",
+            description: `${COMPANY_NAME} empowers your journey with human expertise — AI is here to assist, but real coaches guide you.`,
             values: [
                 {
-                    icon: "⚡",
-                    title: "Instant CV",
-                    text: "Get a professional ATS-ready CV in seconds."
+                    icon: "👨‍🏫",
+                    title: "Certified Professionals",
+                    text: "All our coaches are qualified and specialized in strength, mobility, and nutrition science.",
                 },
                 {
-                    icon: "🕒",
-                    title: "24h Review",
-                    text: "HR specialists polish your CV within 24 hours."
+                    icon: "🧠",
+                    title: "AI-Supported Insights",
+                    text: "Our system tracks your progress and recommends when to adjust load or rest days.",
                 },
                 {
-                    icon: "📑",
-                    title: "ATS Approved",
-                    text: "Pass recruiter filters with modern templates."
+                    icon: "💪",
+                    title: "Completely Personalized",
+                    text: "No templates. Every plan is made for your goals, injuries, and available equipment.",
                 },
                 {
-                    icon: "🎨",
-                    title: "Templates for every taste",
-                    text: "Choose from modern, recruiter-tested designs."
-                }
-            ]
+                    icon: "🤝",
+                    title: "Motivation & Accountability",
+                    text: "You’re never alone — your trainer checks in, adapts your plan, and keeps you on track.",
+                },
+            ],
         },
 
+        // 🟢 HOW IT WORKS
         {
             type: "custom",
             component: "Timeline",
             title: "How It Works",
             steps: [
                 {
-                    title: "Fill the Form",
-                    description: "Enter your experience, education, and skills.",
+                    title: "Create Your Account",
+                    description: "Register to access your dashboard and connect with a trainer.",
                 },
                 {
-                    title: "Instant CV",
-                    description: "Download your CV immediately in your chosen template.",
+                    title: "Buy Tokens",
+                    description:
+                        "Use tokens to book a plan, nutrition add-on, or follow-up consultation.",
                 },
                 {
-                    title: "Manager Review (Optional)",
-                    description: "An HR expert refines your CV for maximum impact.",
+                    title: "Fill Out Your Fitness Profile",
+                    description:
+                        "Share your goals, schedule, medical conditions, and preferences.",
                 },
                 {
-                    title: "Delivery in 24h",
-                    description: "Get your polished CV in your inbox within 24 hours.",
+                    title: "Trainer Creates Your Plan",
+                    description:
+                        "Within 24h you receive a fully tailored workout designed by your coach.",
+                },
+                {
+                    title: "Add AI Assistant (Optional)",
+                    description:
+                        "AI helps track your performance and dynamically adjust sets, reps, and rest times.",
+                },
+                {
+                    title: "Get Optional Nutrition Plan",
+                    description:
+                        "Your coach can add a meal plan synced to your training goals and dietary style.",
                 },
             ],
         },
 
+        // 🟢 TRAINER STORY / COMPANY MISSION
         {
-            type: "custom",
-            component: "VideoDemo",
-            title: "See It in Action",
+            type: "section",
+            title: "Our Mission — Human Expertise First",
+            description: `We believe real transformation starts with connection — between you and a coach who understands your body, mindset, and rhythm.`,
+            left: {
+                type: "custom",
+                component: "InfoBlock",
+                title: `How ${COMPANY_NAME} Started`,
+                image: "image2",
+                description: `${COMPANY_NAME} began as a small community of trainers passionate about science-based coaching.  
+We saw how many people were overwhelmed by misinformation, random online workouts, and diets that didn’t last.  
+So we built a platform where real coaches design programs with AI support — merging human experience and technology.`,
+                bullets: [
+                    "Over 150 certified trainers and nutritionists",
+                    "Science-based programs for all levels",
+                    "AI analytics for progress tracking",
+                    "Thousands of transformations achieved worldwide",
+                ],
+            },
+            right: {
+                type: "custom",
+                component: "StoryTimeline",
+                steps: [
+                    { year: "2019", title: "Idea Born", description: "A group of trainers builds an online hub for clients." },
+                    { year: "2020", title: "Trainer Network", description: "Certified coaches join from across the globe." },
+                    { year: "2022", title: "AI Integration", description: "Smart assistant introduced to help analyze results." },
+                    { year: "2024", title: "Full Lifestyle Coaching", description: "Training, nutrition, mindset — all in one system." },
+                ],
+            },
+        },
+
+        {
+            type: "section",
+            title: "Meet Our Trainers",
             description:
-                "Watch how you can instantly create a CV — and how our expert review option works for extra polish.",
-            video: "CVMakerDemo"
+                "Our team combines science, motivation, and care. Every trainer is certified, verified, and passionate about your success.",
+            left: {
+                type: "slider",
+                images: ["coach1", "coach2", "coach3", "coach4"],
+            },
+            right: {
+                type: "custom",
+                component: "InfoBlock",
+                title: "Only Certified Professionals",
+                description:
+                    "Each trainer is carefully selected for their experience, empathy, and results. You’ll be matched with the right expert based on your goals, lifestyle, and fitness level.",
+                bullets: [
+                    "NASM, ACE, ISSA certified professionals",
+                    "Specializations: fat loss, muscle gain, rehabilitation, endurance",
+                    "Live feedback and plan adjustment",
+                ],
+            },
         },
 
 
+        // 🟢 NUTRITION INTEGRATION
+        {
+            type: "custom",
+            component: "MissionBanner",
+            title: "Fuel Your Body the Right Way",
+            description:
+                "Pair your workout with a personalized meal plan designed by a certified nutritionist. Get daily recipes, calorie goals, and grocery lists tailored to your preferences.",
+            image: "nutritionBanner",
+        },
+
+        // 🟢 VIDEO DEMO
+        {
+            type: "custom",
+            component: "VideoDemo",
+            title: "See How Coaching Works",
+            description:
+                "Watch how our trainers create personalized programs, monitor your form, and help you progress using AI insights.",
+            video: "coachWork",
+        },
+
+        // 🟢 PRICING PLANS
         {
             type: "grid",
-            columns: 2,
+            columns: 4,
             gap: "2rem",
             cards: [
                 {
                     type: "pricing",
                     variant: "starter",
-                    title: "Starter",
+                    title: "AI Plan",
                     price: "€9",
                     tokens: 900,
-                    badgeTop: "Starter Plan",
-                    description: "Create your first professional CV instantly with our templates.",
+                    badgeTop: "AI-Generated Plan",
+                    description:
+                        "Instant training program generated by AI based on your answers — great for self-starters.",
                     features: [
-                        "1 instant ATS-ready CV",
-                        "Access to modern templates",
-                        "Basic formatting options"
+                        "Instant workout plan",
+                        "AI adjustments",
+                        "Basic progress tracking",
                     ],
-                    buttonText: "Start Now",
-                    buttonLink: "/checkout?plan=starter",
+                    buttonText: "Try AI Plan",
+                    buttonLink: "/checkout?plan=ai",
                 },
                 {
                     type: "pricing",
                     variant: "pro",
-                    title: "Pro",
-                    price: "€49",
-                    tokens: 4900,
-                    badgeTop: "Pro Plan",
-                    description: "Perfect for job seekers who apply frequently and need flexibility.",
+                    title: "Trainer Plan",
+                    price: "€59",
+                    tokens: 5900,
+                    badgeTop: "Most Popular",
+                    description:
+                        "Work directly with a certified trainer. Get personalized plan, feedback, and continuous motivation.",
                     features: [
-                        "Unlimited CV generations per month",
-                        "Multiple export formats (PDF, DOCX)",
-                        "Custom design options",
-                        "Priority email support"
+                        "1-on-1 coaching by a professional",
+                        "Weekly check-ins and modifications",
+                        "Access to chat with your trainer",
+                        "Priority feedback within 24h",
                     ],
-                    buttonText: "Go Pro",
-                    buttonLink: "/checkout?plan=pro",
+                    buttonText: "Get Trainer Plan",
+                    buttonLink: "/checkout?plan=trainer",
                 },
                 {
                     type: "pricing",
                     variant: "premium",
-                    title: "Premium",
+                    title: "Full Coaching Pack",
                     price: "€99",
                     tokens: 9900,
-                    badgeTop: "Recommended",
-                    description: "Get expert-level CVs and stand out in competitive job markets.",
+                    badgeTop: "Complete Transformation",
+                    description:
+                        "Personal training + nutrition coaching + AI analytics for maximum results.",
                     features: [
-                        "Unlimited CVs with all templates",
-                        "1-on-1 HR expert review (24h)",
-                        "Advanced personalization & styling",
-                        "Cover letter builder included",
-                        "Dedicated priority support"
+                        "Trainer-designed training plan",
+                        "Personalized nutrition plan",
+                        "24h delivery and feedback",
+                        "Smart progress tracking",
+                        "Priority support",
                     ],
-                    buttonText: "Choose Premium",
-                    buttonLink: "/checkout?plan=premium",
+                    buttonText: "Choose Full Pack",
+                    buttonLink: "/checkout?plan=full",
                 },
                 {
                     type: "pricing",
@@ -176,94 +261,140 @@ const schema: PageSchema = {
                     title: "Custom Plan",
                     price: "dynamic",
                     tokens: 0,
-                    badgeTop: "Custom Plan",
-                    description: "Flexible pricing — pay only for what you use.",
+                    badgeTop: "Flexible Option",
+                    description:
+                        "Mix and match services — training, nutrition, or AI assistance as you prefer.",
                     features: [
-                        "Choose your CV amount",
-                        "Instant calculation of tokens",
-                        "No expiration on credits"
+                        "Choose training or nutrition focus",
+                        "Flexible token usage",
+                        "Pay only for what you need",
                     ],
-                    buttonText: "Buy Custom",
+                    buttonText: "Customize Plan",
                     buttonLink: "/checkout?plan=custom",
                 },
             ],
         },
 
-
-        // 🟢 Final CTA
+        // 🟢 COMMUNITY / TRACKER
         {
             type: "section",
-            align: "center",
+            title: `Join the ${COMPANY_NAME} Community`,
+            description:
+                "Share progress, ask questions, and celebrate achievements with thousands of members transforming together.",
             left: {
-                type: "text",
-                title: `Get Your CV — Your Way`,
-                description: `Instant download or manager-reviewed within 24h.  
-                               Thousands of job seekers already trust ${COMPANY_NAME}.`,
-                centerTitle: true,
-                centerDescription: true,
+                type: "custom",
+                component: "InfoBlock",
+                title: "Progress Tracker & Social Support",
+                image: "image3",
+                description:
+                    "Our built-in tracker monitors your workouts, nutrition, and progress photos. Stay motivated through daily challenges and trainer feedback.",
+                bullets: [
+                    "Visual progress tracking dashboard",
+                    "Monthly challenges with prizes",
+                    "Private support chat with your coach",
+                    "AI insights for recovery and sleep",
+                ],
+            },
+            right: {
+                type: "card",
+                image: "image4",
+                title: "Track Every Rep & Meal",
+                description:
+                    "Monitor progress with beautiful analytics — powered by AI, guided by your trainer.",
+                buttonText: "Start Tracking",
+                buttonLink: "/profile",
             },
         },
 
+        // 🟢 TESTIMONIALS
         {
             type: "custom",
             component: "TestimonialsSlider",
+            title: "Real People. Real Results.",
+            description:
+                "See how our members achieved their goals with dedicated trainers and science-based plans.",
             testimonials: [
                 {
-                    name: "Yaroslav Krupa",
-                    role: "Marketing Specialist",
+                    name: "Anna Rossi",
+                    role: "Entrepreneur",
                     image: "review1",
-                    text: "I got an instant CV and landed interviews the same week!",
+                    text: "My trainer helped me get back in shape after years of struggle. Weekly calls kept me motivated!",
+                    rating: 5,
                 },
                 {
-                    name: "John Smith",
-                    role: "Software Engineer",
+                    name: "Liam Carter",
+                    role: "Student",
                     image: "review2",
-                    text: "The instant CV worked, but the manager review made it perfect.",
+                    text: "AI plan was a great start, but adding a trainer made all the difference — real human feedback matters.",
+                    rating: 5,
                 },
                 {
-                    name: "Maria Lopez",
-                    role: "Project Manager",
+                    name: "Sophia Nguyen",
+                    role: "Designer",
                     image: "review3",
-                    text: "Loved the option to get expert feedback — worth the wait!",
+                    text: "The full pack with nutrition changed my habits completely — finally feel healthy and strong.",
+                    rating: 5,
+                },
+                {
+                    name: "Mark Evans",
+                    role: "Engineer",
+                    image: "review4",
+                    text: "Best decision I made. My trainer adapted the plan to my injuries and I’ve gained strength safely.",
+                    rating: 5,
                 },
             ],
         },
 
+        // 🟢 FAQ
         {
             type: "faq",
+            image: "image5",
             items: [
                 {
-                    question: "What is the difference between Instant CV and Manager Review?",
+                    question: "Why choose a trainer instead of AI?",
                     answer:
-                        "Instant CV is generated instantly based on your data using a modern template. Manager Review is an expert HR check that takes up to 24 hours to make your CV fully professional."
+                        "AI helps automate and analyze — but only a human coach can truly understand your needs, emotions, and physical limitations. Trainers adapt your plan in real time for maximum results.",
                 },
                 {
-                    question: "Are your templates ATS-friendly?",
+                    question: "Can I contact my trainer directly?",
                     answer:
-                        "Yes, all our templates are optimized for Applicant Tracking Systems (ATS) to ensure your resume passes recruiter filters."
+                        "Yes! You’ll have a private chat with your trainer for feedback, form checks, and motivation.",
                 },
                 {
-                    question: "Can I download my CV in PDF format?",
+                    question: "How often will my plan be updated?",
                     answer:
-                        "Yes, you can export your CV in PDF format — the universal standard accepted by most employers."
+                        "Your trainer reviews and adjusts your plan weekly or as needed depending on your progress.",
                 },
                 {
-                    question: "Is my data stored securely?",
+                    question: "Can I combine training and nutrition later?",
                     answer:
-                        "We take security seriously. All your information is protected and stored in compliance with GDPR standards."
+                        "Absolutely. You can add a personalized meal plan anytime using your tokens.",
                 },
                 {
-                    question: "Do you also provide help with cover letters?",
+                    question: "Are there beginner-friendly options?",
                     answer:
-                        "Yes, with our Premium plan you can build a professional cover letter to match your CV."
-                }
-            ]
+                        "Yes, our coaches work with all levels — from absolute beginners to athletes returning from injury.",
+                },
+            ],
         },
+
+        // 🟢 FINAL CTA
+        {
+            type: "custom",
+            component: "MissionBanner",
+            title: "Your Transformation Starts Now",
+            description:
+                `Join thousands transforming their bodies and mindset with ${COMPANY_NAME}. Choose your trainer, get your plan, and begin the journey today.`,
+            image: "ctaBanner",
+        },
+
+        // 🟢 CONTACT
         {
             type: "custom",
             component: "ContactForm",
-            title: "Need Help?",
-            description: "Contact our support team for assistance.",
+            title: "Need Help Choosing a Trainer?",
+            description:
+                "Our support team will help you find the best coach or explain how tokens and plans work.",
         },
     ],
 };

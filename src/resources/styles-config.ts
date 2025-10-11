@@ -20,7 +20,7 @@ export const googleFonts: GoogleFont[] = [
     { name: "Open Sans", css: "'Open Sans', sans-serif", url: "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap" },
 ];
 
-export const currentFontIndex = 2;
+export const currentFontIndex = 1;
 export const currentFont = googleFonts[currentFontIndex];
 
 // Кольори для кнопок
@@ -52,9 +52,9 @@ export const buttonColors: Record<ButtonColor, string> = {
 export const headerStyles = {
     type: "sticky" as HeaderType,
     sideBarDirection: "top" as SideBarDirection,
-    linkColor: "var(--text-inverse)",
+    linkColor: "var(--text-primary)",
     linkHoverColor: "var(--link-hover)",
-    scrollMode: "solid" as HeaderScrollMode,
+    scrollMode: "blur" as HeaderScrollMode,
     scrollBackground: "var(--quaternary-color)",
     scrollBlur: "50px",
 };
@@ -73,7 +73,7 @@ export const drawerConfig = {
 
 // Footer
 export const footerStyles = {
-    type: "corporate" as FooterType,
+    type: "columns" as FooterType,
     showTopBorder: true,
     showBottomBorder: true,
     maxWidth: 1400,
@@ -82,7 +82,7 @@ export const footerStyles = {
     columnsGap: 50,
     logo: { width: 240, height: 100, align: "center" as FooterLogoAlign },
     colors: {
-        bg: "var(--quaternary-color)",
+        bg: "var(--primary-color)",
         title: "var(--text-secondary)",
         text: "var(--secondary-color)",
         muted: "var(--text-inverse)",

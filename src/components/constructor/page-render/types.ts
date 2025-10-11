@@ -51,6 +51,7 @@ export type SliderBlock = {
 
 export type FaqBlock = {
     type: "faq";
+    image?: string;
     items: { question: string; answer: string }[];
 };
 
@@ -67,6 +68,8 @@ export type AlignInput = "left" | "right" | "center" | "start" | "end";
 
 export type SectionBlock = {
     type: "section";
+    title?: string;
+    description?: string;
     align?: AlignInput;
     gap?: string;
     left?: PageBlock;
@@ -180,7 +183,11 @@ export type CardSliderBlock = {
 export type HighlightStripBlock = {
     type: "custom";
     component: "HighlightStrip";
-    messages: string[];
+    items: {
+        icon: string;
+        text: string;
+        color?: string;
+    }[];
 };
 
 export type MarqueeBlock = {
@@ -223,16 +230,20 @@ export type HeroSectionBlock = {
     secondaryCta?: { text: string; link: string };
     image?: string;
     mediaType?: "image" | "video";
+    align?: "left" | "right";
 };
 
-export type TestimonialsSlider = {
+export type TestimonialsSliderBlock = {
     type: "custom";
     component: "TestimonialsSlider";
+    title?: string;
+    description?: string;
     testimonials: {
         name: string;
         role?: string;
         image?: string;
         text: string;
+        rating?: number;
     }[];
 };
 
@@ -250,7 +261,7 @@ export type CustomBlock =
     | TimelineBlock
     | LogoBlock
     | HeroSectionBlock
-    | TestimonialsSlider
+    | TestimonialsSliderBlock
     | VideoDemoBlock
     | InfoBlock;
 

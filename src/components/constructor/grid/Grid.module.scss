@@ -1,6 +1,7 @@
 .grid {
   display: grid !important;
   width: 100% !important;
+  padding: var(--main-padding);
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr) !important;

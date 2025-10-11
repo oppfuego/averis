@@ -135,6 +135,9 @@
   color: var(--legal);
   font-size: var(--footer-link-fs);
   font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .footer__legal-label {
@@ -249,7 +252,7 @@
   font-size: 42px;
   opacity: 0.9;
   transition: all 0.2s ease-in-out;
-  color: var(--primary-color);
+  color: var(--text-primary);
 
   &:hover {
     opacity: 1;
@@ -358,3 +361,67 @@
     grid-template-columns: 1fr;
   }
 }
+
+.footer__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(4, 93, 86, 0.15);
+  color: var(--social);
+  transition: all 0.25s ease-in-out;
+  font-size: var(--footer-icon-size);
+
+  &:hover {
+    background: var(--primary-color);
+    color: var(--background-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(50, 214, 154, 0.45);
+  }
+
+  svg,
+  i {
+    font-size: var(--footer-icon-size);
+  }
+}
+
+/* Робимо соцмережі частиною загальної сітки колонок */
+.footer__columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--columns-gap);
+  width: 100%;
+}
+
+.footer__column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 🔹 Адаптивність */
+@media (max-width: 768px) {
+  .footer__columns {
+    grid-template-columns: 1fr 1fr; /* соцмережі стануть у другу колонку */
+  }
+}
+
+@media (max-width: 480px) {
+  .footer__columns {
+    grid-template-columns: 1fr; /* усе в один стовпець */
+  }
+
+  .footer__socials {
+    justify-content: center;
+  }
+}
+
