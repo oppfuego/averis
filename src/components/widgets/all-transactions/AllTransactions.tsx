@@ -1,6 +1,8 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import styles from "./AllTransactions.module.scss";
+import { FaArrowDown, FaArrowUp, FaCoins, FaRegClock } from "react-icons/fa";
 
 interface Transaction {
     _id: string;
@@ -40,7 +42,11 @@ export default function TransactionHistory() {
 
     return (
         <section className={styles.transactionsSection}>
-            <h3 className={styles.title}>Transaction History</h3>
+            <div className={styles.header}>
+                <h3>Transaction History</h3>
+                <p>Track all your top-ups and token usage</p>
+            </div>
+
             <div className={styles.transactionsList}>
                 {transactions.map((t) => (
                     <div
@@ -49,20 +55,37 @@ export default function TransactionHistory() {
                             t.type === "add" ? styles.add : styles.spend
                         }`}
                     >
-                        <div className={styles.row}>
-                            <span className={styles.amount}>
-                                {t.type === "add" ? "+" : "-"}
-                                {t.amount} tokens
-                            </span>
-                            <span className={styles.badge}>
-                                {t.type === "add" ? "Top-up" : "Spend"}
-                            </span>
+                        <div className={styles.iconWrapper}>
+                            {t.type === "add" ? (
+                                <FaArrowDown className={styles.iconAdd} />
+                            ) : (
+                                <FaArrowUp className={styles.iconSpend} />
+                            )}
                         </div>
-                        <div className={styles.row}>
-                            <span className={styles.date}>{formatDate(t.createdAt)}</span>
-                            <span className={styles.balance}>
-                                Balance: {t.balanceAfter}
-                            </span>
+
+                        <div className={styles.info}>
+                            <div className={styles.rowTop}>
+                <span className={styles.amount}>
+                  {t.type === "add" ? "+" : "-"}
+                    {t.amount} tokens
+                </span>
+                                <span
+                                    className={`${styles.badge} ${
+                                        t.type === "add" ? styles.badgeAdd : styles.badgeSpend
+                                    }`}
+                                >
+                  {t.type === "add" ? "Top-up" : "Spend"}
+                </span>
+                            </div>
+
+                            <div className={styles.rowBottom}>
+                <span className={styles.date}>
+                  <FaRegClock /> {formatDate(t.createdAt)}
+                </span>
+                                <span className={styles.balance}>
+                  <FaCoins /> {t.balanceAfter} balance
+                </span>
+                            </div>
                         </div>
                     </div>
                 ))}

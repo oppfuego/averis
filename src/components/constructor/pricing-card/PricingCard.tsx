@@ -7,8 +7,6 @@ import ButtonUI from "@/components/ui/button/ButtonUI";
 import { useAlert } from "@/context/AlertContext";
 import { useUser } from "@/context/UserContext";
 import Input from "@mui/joy/Input";
-import Select from "@mui/joy/Select";
-import Option from "@mui/joy/Option";
 import { useCurrency } from "@/context/CurrencyContext";
 
 const TOKENS_PER_GBP = 100;
@@ -41,14 +39,21 @@ const PricingCard: React.FC<PricingCardProps> = ({
                                                  }) => {
     const { showAlert } = useAlert();
     const user = useUser();
-    const { currency, setCurrency, sign, convertFromGBP, convertToGBP } = useCurrency();
-    const [customAmount, setCustomAmount] = useState<number>(20);
+    const { currency, sign, convertFromGBP, convertToGBP } = useCurrency();
 
+    // 🔹 Початкове значення — 0.01
+    const [customAmount, setCustomAmount] = useState<number>(0.01);
     const isCustom = price === "dynamic";
 
-    // 💰 конвертація фіксованих планів
-    const basePriceGBP = useMemo(() => (isCustom ? 0 : parseFloat(price.replace(/[^0-9.]/g, ""))), [price, isCustom]);
-    const convertedPrice = useMemo(() => (isCustom ? 0 : convertFromGBP(basePriceGBP)), [basePriceGBP, convertFromGBP, isCustom]);
+    const basePriceGBP = useMemo(
+        () => (isCustom ? 0 : parseFloat(price.replace(/[^0-9.]/g, ""))),
+        [price, isCustom]
+    );
+
+    const convertedPrice = useMemo(
+        () => (isCustom ? 0 : convertFromGBP(basePriceGBP)),
+        [basePriceGBP, convertFromGBP, isCustom]
+    );
 
     const handleBuy = async () => {
         if (!user) {
@@ -108,17 +113,21 @@ const PricingCard: React.FC<PricingCardProps> = ({
 
             {isCustom ? (
                 <>
-                    <div style={{ display: "flex", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                    <div className={styles.inputWrapper}>
                         <Input
                             type="number"
                             value={customAmount}
-                            onChange={(e) => setCustomAmount(Number(e.target.value))}
-                            slotProps={{ input: { min: 0.01, step: 0.01 } }}
+                            min={0.01}
+                            step={0.01}
+                            onChange={(e) =>
+                                setCustomAmount(
+                                    e.target.value === "" ? 0.01 : Math.max(0.01, Number(e.target.value))
+                                )
+                            }
                             placeholder="Enter amount"
                             size="md"
                             startDecorator={sign}
                         />
-
                     </div>
                     <p className={styles.dynamicPrice}>
                         {sign}
@@ -129,7 +138,8 @@ const PricingCard: React.FC<PricingCardProps> = ({
             ) : (
                 <p className={styles.price}>
                     {sign}
-                    {convertedPrice.toFixed(2)} <span className={styles.tokens}>/ {tokens} tokens</span>
+                    {convertedPrice.toFixed(2)}{" "}
+                    <span className={styles.tokens}>/ {tokens} tokens</span>
                 </p>
             )}
 

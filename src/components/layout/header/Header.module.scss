@@ -21,42 +21,36 @@
   margin: 0 auto;
   padding: 16px 32px;
   width: 100%;
-  color: var(--text-inverse);
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.link {
-  position: relative;
-  font-weight: 600;
-  font-size: 15px;
-  color: var(--text-primary);
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: var(--text-accent);
-  }
 }
 
 .logo {
+  flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+
   img {
     max-height: 60px;
     object-fit: contain;
   }
 }
 
-.actionsNav {
+.nav {
+  flex: 2;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.actionsNav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
   gap: 12px;
 }
+
 
 .currencySwitch {
   position: relative;

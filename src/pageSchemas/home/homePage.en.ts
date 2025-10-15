@@ -1,5 +1,5 @@
-import { PageSchema } from "@/components/constructor/page-render/types";
-import { COMPANY_NAME } from "@/resources/constants";
+import {PageSchema} from "@/components/constructor/page-render/types";
+import {COMPANY_NAME} from "@/resources/constants";
 
 const schema: PageSchema = {
     meta: {
@@ -32,8 +32,7 @@ const schema: PageSchema = {
             highlight: "Personal Trainer + Smart AI Assistant",
             description: `Achieve real results with programs tailored by certified trainers — supported by AI for smart adjustments and progress analysis.  
 Whether your goal is to lose weight, build muscle, or regain balance — your trainer designs a plan built entirely around you.`,
-            primaryCta: { text: "Start with My Trainer", link: "/get-started" },
-            secondaryCta: { text: "Discover AI Option", link: "/plans" },
+            primaryCta: {text: "Start with My Trainer", link: "/get-started"},
             image: "image1",
             align: "right",
         },
@@ -43,11 +42,11 @@ Whether your goal is to lose weight, build muscle, or regain balance — your tr
             type: "custom",
             component: "HighlightStrip",
             items: [
-                { icon: "🏋️‍♀️", text: "1-on-1 Personalized Training" },
-                { icon: "🥗", text: "Tailored Nutrition Plans" },
-                { icon: "📈", text: "AI-Assisted Progress Tracking" },
-                { icon: "💬", text: "Constant Coach Support" },
-                { icon: "🔥", text: "Visible Results in Weeks" },
+                {icon: "🏋️‍♀️", text: "1-on-1 Personalized Training"},
+                {icon: "🥗", text: "Tailored Nutrition Plans"},
+                {icon: "📈", text: "AI-Assisted Progress Tracking"},
+                {icon: "💬", text: "Constant Coach Support"},
+                {icon: "🔥", text: "Visible Results in Weeks"},
             ],
         },
 
@@ -143,10 +142,26 @@ So we built a platform where real coaches design programs with AI support — me
                 type: "custom",
                 component: "StoryTimeline",
                 steps: [
-                    { year: "2019", title: "Idea Born", description: "A group of trainers builds an online hub for clients." },
-                    { year: "2020", title: "Trainer Network", description: "Certified coaches join from across the globe." },
-                    { year: "2022", title: "AI Integration", description: "Smart assistant introduced to help analyze results." },
-                    { year: "2024", title: "Full Lifestyle Coaching", description: "Training, nutrition, mindset — all in one system." },
+                    {
+                        year: "2019",
+                        title: "Idea Born",
+                        description: "A group of trainers builds an online hub for clients."
+                    },
+                    {
+                        year: "2020",
+                        title: "Trainer Network",
+                        description: "Certified coaches join from across the globe."
+                    },
+                    {
+                        year: "2022",
+                        title: "AI Integration",
+                        description: "Smart assistant introduced to help analyze results."
+                    },
+                    {
+                        year: "2024",
+                        title: "Full Lifestyle Coaching",
+                        description: "Training, nutrition, mindset — all in one system."
+                    },
                 ],
             },
         },

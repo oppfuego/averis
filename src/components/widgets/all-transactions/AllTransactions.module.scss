@@ -1,94 +1,169 @@
 .transactionsSection {
   margin-top: 2rem;
-}
-
-.title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-}
-
-.transactionsList {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
-.transactionCard {
-  background: var(--surface-color);
-  border: 1px solid var(--border-color);
-  border-radius: 0.75rem;
-  padding: 1.25rem;
-  box-shadow: 0 4px 10px var(--shadow-color);
+.header {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  gap: 0.3rem;
 
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
   }
 
-  &.add {
-    border-left: 4px solid #22c55e;
-  }
-
-  &.spend {
-    border-left: 4px solid #ef4444;
+  p {
+    color: var(--text-muted);
+    font-size: 1rem;
   }
 }
 
-.row {
+/* Сітка */
+.transactionsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.2rem;
+}
+
+/* Картка */
+.transactionCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(145deg, var(--surface-color), var(--surface-muted));
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* Іконка типу */
+.iconWrapper {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+
+  svg {
+    font-size: 1.3rem;
+  }
+}
+
+.iconAdd {
+  color: #22c55e;
+}
+
+.iconSpend {
+  color: #ef4444;
+}
+
+/* Інформаційна частина */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.rowTop {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .amount {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--text-primary);
 }
 
+/* Бейдж */
 .badge {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  background: var(--surface-muted);
-  padding: 0.2rem 0.6rem;
-  border-radius: 6px;
+  border-radius: 8px;
+  padding: 0.3rem 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.badgeAdd {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.badgeSpend {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+/* Нижній ряд */
+.rowBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: var(--text-secondary);
+  font-size: 0.9rem;
+
+  svg {
+    margin-right: 0.3rem;
+    opacity: 0.7;
+  }
 }
 
 .date {
-  font-size: 0.85rem;
-  color: var(--text-muted);
+  display: flex;
+  align-items: center;
 }
 
 .balance {
-  font-size: 0.9rem;
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
   color: var(--secondary-color);
 }
 
+/* Порожній стан */
 .emptyState {
   text-align: center;
   padding: 3rem 2rem;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   background: var(--surface-muted);
   border: 2px dashed var(--border-color);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 1.2rem;
 
   .emptyIcon {
-    font-size: 2rem;
+    font-size: 2.4rem;
     color: var(--text-muted);
   }
 
   p {
     color: var(--text-secondary);
   }
+}
+
+/* Тип операції */
+.add {
+  border-left: 4px solid #22c55e;
+}
+
+.spend {
+  border-left: 4px solid #ef4444;
 }

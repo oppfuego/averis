@@ -60,9 +60,6 @@ const Footer: React.FC = () => {
             <div className={styles.paymentsContent}>
                 <FaCcVisa className={styles.paymentIcon} />
                 <FaCcMastercard className={styles.paymentIcon} />
-                <FaCcAmex className={styles.paymentIcon} />
-                <FaGooglePay className={styles.paymentIcon} />
-                <FaApplePay className={styles.paymentIcon} />
             </div>
         </div>
     );

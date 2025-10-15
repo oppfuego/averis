@@ -1,180 +1,193 @@
 import {PageSchema} from "@/components/constructor/page-render/types";
-import { COMPANY_NAME } from "@/resources/constants";
+import {COMPANY_NAME} from "@/resources/constants";
 
 const schema: PageSchema = {
     meta: {
-        title: `About Us — ${COMPANY_NAME}`,
-        description:
-            `${COMPANY_NAME} combines instant AI-generated resumes with professional HR review. Create your CV instantly or choose the optional expert service for a polished version within 24 hours.`,
+        title: `About ${COMPANY_NAME} — Our Story & Philosophy`,
+        description: `${COMPANY_NAME} is a modern fitness ecosystem that connects people with real trainers and AI-driven tools for lifelong health. Learn how we began, what drives us, and how we build a smarter, human-first approach to fitness.`,
         keywords: [
-            `${COMPANY_NAME}`,
-            "create resume",
-            "online resume",
-            "CV templates",
-            "resume builder",
-            "professional resume",
-            "AI CV",
-            "HR review",
+            "about fitness company",
+            "our story",
+            "trainer philosophy",
+            "AI in fitness",
+            "personal training company",
+            "wellness innovation",
         ],
         canonical: "/about-us",
         ogImage: {
             title: `${COMPANY_NAME}`,
-            description: "Instant CVs + optional expert review in 24h",
+            description: "Where human strength meets smart innovation.",
             bg: "#0a2540",
             color: "#ffffff",
         },
     },
+
     blocks: [
+        // 🔹 HERO
         {
             type: "custom",
             component: "HeroSection",
-            title: `About ${COMPANY_NAME}`,
-            highlight: "Our Mission & Vision",
-            description: `At ${COMPANY_NAME}, we believe that every professional deserves a fair chance to showcase their skills.  
-   Our platform helps you instantly generate ATS-friendly CVs, while our HR experts ensure your application stands out with personalized reviews.`,
-            image: "image2",
+            title: `Who We Are`,
+            highlight: `${COMPANY_NAME}`,
+            description: `We are a global community of professional trainers, nutritionists, and developers united by one belief — that health should be personal, intelligent, and sustainable.  
+${COMPANY_NAME} was built to make expert-level fitness accessible to everyone, anywhere, through the perfect balance of human insight and AI technology.`,
+            image: "image1",
+            align: "left",
         },
 
+        // 🔹 OUR STORY
         {
             type: "section",
-            left: {
-                type: "media",
-                mediaType: "image",
-                src: "image5",
-                alt: "Example of a professional resume",
-            },
-            right: {
-                type: "custom",
-                component: "InfoBlock",
-                title: `Why ${COMPANY_NAME}?`,
-                description: "We provide flexibility: instant results when you need speed, or expert refinement when you want the highest quality.",
-                bullets: [
-                    "A tool for instantly creating resumes based on pre-designed templates",
-                    "Optional HR manager review in 24h",
-                    "Resumes tailored to your industry",
-                ],
-            },
-        },
-
-        // 🔹 Our Story
-        {
-            type: "section",
-            left: {
-                type: "custom",
-                component: "StoryTimeline",
-                steps: [
-                    {year: "2018", title: "Founded", description: "Founded by HR experts"},
-                    {year: "2019", title: "CV Generator", description: "Launched instant CV generator"},
-                    {year: "2021", title: "HR Review", description: "Added HR review service"},
-                    {year: "2023", title: "Worldwide", description: "100k+ CVs worldwide"},
-                ],
-            },
-            right: {
-                type: "custom",
-                component: "InfoBlock",
-                title: "Our Story",
-                image: "image2",
-                description: `${COMPANY_NAME} was born from a simple but powerful idea: 
-Not everyone has the time, resources, or design skills to craft a professional CV.  
-Many job seekers lose opportunities not because they lack talent, but because their resumes fail 
-to pass automated filters or attract recruiters' attention.  
-
-To solve this, we combined automation with human expertise — creating a platform that delivers instant, 
-ATS-ready CVs while also offering optional personalized reviews from experienced HR professionals.  
-
-From day one, our mission has been to empower people from all industries and backgrounds to showcase their strengths 
-and land opportunities they truly deserve.`,
-                bullets: [
-                    "Founded by HR experts with 10+ years of experience in recruitment and career consulting",
-                    "Built to bridge the gap between AI automation and human insight",
-                    "Driven by a mission to help job seekers worldwide at every stage of their career",
-                    "Trusted by thousands of professionals globally across tech, healthcare, finance, and more",
-                ],
-            },
-        },
-
-        // 🔹 Our Vision
-        {
-            type: "section",
+            title: "Our Story — From Gyms to Global Coaching",
+            description: `It started as a small group of personal trainers frustrated by the chaos of the fitness world.  
+Too many people were chasing trends — restrictive diets, random workout apps, unrealistic transformations.  
+We wanted to bring fitness back to its roots: real people helping other people achieve real, lasting results.`,
             left: {
                 type: "custom",
                 component: "InfoBlock",
-                title: "Our Vision",
-                description: `We believe professional career tools should be accessible to everyone. Whether you need a quick CV today or a polished expert-reviewed version, ${COMPANY_NAME} gives you both options.`,
+                image: "aboutStory",
+                title: `How ${COMPANY_NAME} Came to Life`,
+                description: `When our founders noticed how many people were lost in quick-fix promises, they decided to build a solution that blends technology with empathy.  
+The first version of ${COMPANY_NAME} launched as a platform connecting verified trainers with clients looking for structure, motivation, and accountability.  
+As it evolved, we introduced AI-assisted analytics — not to replace trainers, but to empower them with data and insights that make programs more precise.`,
                 bullets: [
-                    "Accessible resumes for all candidates",
-                    "Balance between speed and quality",
-                    "Empowering people to land their dream jobs",
+                    "Launched by trainers for trainers and clients",
+                    "Designed around long-term transformation, not temporary results",
+                    "Rooted in science, empathy, and innovation",
                 ],
             },
             right: {
                 type: "media",
                 mediaType: "image",
-                src: "image4",
-                alt: `Vision of ${COMPANY_NAME}`,
+                src: "image2",
+                alt: "Company Story",
             },
         },
 
-        // 🔹 Our Values
+        // 🔹 MISSION
+        {
+            type: "custom",
+            component: "MissionBanner",
+            title: "Our Mission",
+            description: `${COMPANY_NAME} exists to bridge the gap between technology and human coaching.  
+We empower certified trainers with intelligent tools — allowing them to focus on what matters most: understanding each client, adjusting every detail, and building habits that last.  
+Our mission is simple but ambitious: to make expert coaching scalable without losing its soul.`,
+            image: "missionBanner",
+        },
+
+        // 🔹 TRAINERS & PHILOSOPHY
+        {
+            type: "section",
+            title: `The Trainers Behind ${COMPANY_NAME}`,
+            description: `Every transformation begins with a real human connection.  
+Our trainers are certified professionals from around the world — experts not only in physical performance, but also in motivation, psychology, and sustainable progress.`,
+            left: {
+                type: "custom",
+                component: "InfoBlock",
+                image: "image1",
+                title: "Who Our Trainers Are",
+                description: `Each coach who joins ${COMPANY_NAME} passes a strict verification process — background checks, certifications, experience proof, and mentoring interviews.  
+We look for people who understand that coaching is more than sets and reps — it’s about empathy, discipline, and consistency.`,
+                bullets: [
+                    "Certified under NASM, ACE, ISSA, or similar global institutions",
+                    "Experienced in strength, mobility, nutrition, and recovery",
+                    "Skilled in adapting programs to medical conditions or lifestyle constraints",
+                    "Committed to real communication — video feedback, chat, and emotional support",
+                ],
+            },
+            right: {
+                type: "custom",
+                component: "InfoBlock",
+                image: "image1",
+                title: "Our Coaching Philosophy",
+                description: `At ${COMPANY_NAME}, coaching is a partnership — not a transaction.  
+Our trainers don’t just send you a PDF; they design evolving plans that grow with your progress, mood, and schedule.  
+With AI insights, they can adjust your training in real-time, but it’s their human understanding that keeps you motivated.`,
+                bullets: [
+                    "Each plan is uniquely built for your goals, time, and mindset",
+                    "AI helps measure — but trainers help interpret and adapt",
+                    "We prioritize healthy longevity over aesthetic obsession",
+                ],
+            },
+        },
+
+        // 🔹 VALUES
         {
             type: "custom",
             component: "ValuesIcons",
+            title: "Our Core Values",
+            description: `We believe fitness should improve not only your body, but your mind, discipline, and quality of life.`,
             values: [
-                {icon: "⚡", title: "Instant Access", text: "Generate a CV immediately when speed matters most"},
-                {icon: "👩‍💼", title: "Expert Touch", text: "Optional HR manager review with 24h delivery"},
-                {icon: "📑", title: "ATS-Optimized", text: "Every CV is recruiter-friendly and passes ATS scans"},
-                {icon: "🤝", title: "Trust", text: "Thousands of job seekers already rely on us"},
+                {
+                    icon: "🤝",
+                    title: "Human First",
+                    text: "Every feature we create supports real relationships between clients and trainers.",
+                },
+                {
+                    icon: "📚",
+                    title: "Education Over Perfection",
+                    text: "We teach clients to understand their bodies — because knowledge builds confidence.",
+                },
+                {
+                    icon: "⚙️",
+                    title: "Technology With Purpose",
+                    text: "AI is our tool, not our identity. It enhances human expertise, not replaces it.",
+                },
+                {
+                    icon: "🔥",
+                    title: "Consistency Beats Intensity",
+                    text: "We focus on long-term progress, not overnight results.",
+                },
             ],
         },
 
-        // 🔹 What Sets Us Apart
+        // 🔹 VIDEO SECTION
+        {
+            type: "custom",
+            component: "VideoDemo",
+            title: `Inside ${COMPANY_NAME}`,
+            description: `Watch how our coaches build real plans, analyze progress with AI tools, and support clients across all fitness levels.  
+We believe in transparency — what you see here is exactly how we work.`,
+            video: "coachWork",
+        },
+
+        // 🔹 FUTURE VISION
         {
             type: "section",
-            align: "center",
+            title: "Our Vision for the Future",
+            description: `${COMPANY_NAME} isn’t just a company — it’s a movement to redefine modern fitness.  
+We’re building a world where technology empowers personal well-being, not replaces it.  
+Where every trainer can reach more people, and every person can access expert guidance without barriers.`,
             left: {
-                type: "text",
-                title: "What Sets Us Apart",
-                description: `Unlike pure automation tools, ${COMPANY_NAME} gives you a choice. Get an AI-generated CV instantly, or opt for a manager-reviewed version that combines automation with human expertise.`,
-                centerTitle: true,
-                centerDescription: true,
+                type: "custom",
+                component: "InfoBlock",
+                title: "What’s Next for Us",
+                description: `We’re expanding ${COMPANY_NAME} into holistic wellness — integrating recovery, sleep, nutrition, and mindset programs.  
+Soon, every member will have access to a complete ecosystem: a human coach, an AI assistant, and a supportive community — all synchronized toward one goal: your better self.`,
+                bullets: [
+                    "Expanding partnerships with certified coaches worldwide",
+                    "Developing new AI modules for recovery and stress management",
+                    "Launching educational programs for beginner trainers",
+                    "Building sustainable community challenges for members",
+                ],
+            },
+            right: {
+                type: "media",
+                mediaType: "image",
+                src: "image1",
+                alt: "Future fitness vision",
             },
         },
 
-        // 🔹 Meet the Team
+        // 🔹 FINAL CTA
         {
             type: "custom",
-            component: "TeamGrid",
-            title: "Meet Our Team",
-            description: `Behind ${COMPANY_NAME} is a passionate team of HR experts and developers who combine technology with human insight.`,
-            members: [
-                { name: "Anna Kowalski", role: "HR Manager", bio: "10+ years in recruitment & career coaching.", image: "team1" },
-                { name: "John Doe", role: "Lead Developer", bio: "Building scalable resume tech solutions.", image: "team2" },
-                { name: "Maria Lopez", role: "Designer", bio: "Crafting clean, professional CV templates.", image: "team3" }
-            ]
+            component: "MissionBanner",
+            title: "We’re Redefining Fitness Together",
+            description: `At ${COMPANY_NAME}, we believe true strength comes from connection — to your trainer, your body, and your purpose.  
+Join us in creating a new fitness culture: intelligent, compassionate, and human.`,
+            image: "ctaAbout",
         },
-
-        // 🔹 How It Works
-        {
-            type: "custom",
-            component: "Timeline",
-            steps: [
-                { title: "1. Provide Your Details", description: "Fill out the form with your work experience, education, and skills." },
-                { title: "2. Choose Your Option", description: "Download your instant CV — or select manager review for expert refinement." },
-                { title: "3. Expert Processing (Optional)", description: "Our HR consultants review and polish your CV." },
-                { title: "4. Delivery", description: "Instant download available, or polished PDF sent within 24 hours." },
-            ],
-        },
-
-        // 🔹 FAQ
-        {
-            type: "faq",
-            items: [
-                { question: "How fast can I get my CV?", answer: "You can download your CV instantly. If you choose expert review, it’s ready within 24 hours." },
-                { question: "Is my CV ATS-friendly?", answer: "Yes, all generated CVs are optimized to pass ATS (Applicant Tracking System) scans." },
-                { question: "Can I edit my CV after generating it?", answer: "Absolutely. You can edit, update, and regenerate your CV anytime." },
-                { question: "Do you offer refunds?", answer: "Yes, we have a satisfaction guarantee. If you’re not happy, contact support for assistance." }
-            ]
-        }
     ],
 };
 

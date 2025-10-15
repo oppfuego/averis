@@ -137,6 +137,24 @@
   object-fit: cover;
   border-radius: inherit;
 }
+.centered {
+  justify-content: center;
+  text-align: center;
+
+  .left {
+    align-items: center;
+  }
+
+  .title {
+    text-align: center;
+  }
+
+  .faqList {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+
 
 /* 📱 Responsive tweaks */
 @media (max-width: 768px) {

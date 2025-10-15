@@ -3,93 +3,71 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { formSchemaCV } from "./formSchemaCV";
-import Textarea from "@mui/joy/Textarea";
-import Input from "@mui/joy/Input";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
+import Input from "@mui/joy/Input";
 import ButtonUI from "@/components/ui/button/ButtonUI";
 import styles from "./ManualGenerator.module.scss";
 import { useAlert } from "@/context/AlertContext";
-import { mockCVData } from "./MOC";
 import { useUser } from "@/context/UserContext";
 
-type ReviewType = "default" | "manager";
+const BASE_COST = 30;
 
-const EXTRA_OPTIONS = [
-    { name: "coverLetter", label: "Cover Letter", cost: 10 },
-    { name: "linkedin", label: "LinkedIn Summary", cost: 15 },
-    { name: "keywords", label: "Keyword Optimization", cost: 12 },
-    { name: "atsCheck", label: "ATS Compatibility Report", cost: 12 },
-    { name: "jobAdaptation", label: "Adapt CV to Job Description", cost: 20 },
-    { name: "achievements", label: "Achievements Booster", cost: 10 },
-    { name: "skillsGap", label: "Skills Gap Analysis", cost: 15 },
-];
-
-const BASE_COST: Record<ReviewType, number> = {
-    default: 30,
-    manager: 60,
+// === Categorized extra options ===
+const EXTRA_CATEGORIES = {
+    training: [
+        { name: "adaptation", label: "Home / Gym Adaptation", cost: 10 },
+        { name: "tracking", label: "Progress Tracking", cost: 10 },
+        { name: "recovery", label: "Recovery Guide", cost: 8 },
+        { name: "warmupPlan", label: "Warm-up Routine", cost: 5 },
+        { name: "cooldownPlan", label: "Cool-down & Stretching", cost: 5 },
+        { name: "injuryPrevention", label: "Injury Prevention Guide", cost: 7 },
+        { name: "equipmentAlternatives", label: "No-Equipment Alternatives", cost: 6 },
+        { name: "weeklyAdjustments", label: "Weekly Adjustment Tips", cost: 10 },
+        { name: "progressReport", label: "Progress Report Template", cost: 10 },
+    ],
+    nutrition: [
+        { name: "nutrition", label: "Nutrition Plan", cost: 15 },
+        { name: "mealSchedule", label: "Meal Timing Schedule", cost: 12 },
+        { name: "hydrationPlan", label: "Hydration Plan", cost: 6 },
+        { name: "supplementGuide", label: "Supplement Recommendations", cost: 10 },
+    ],
+    mindset: [
+        { name: "motivation", label: "Motivation Plan", cost: 5 },
+        { name: "goalBreakdown", label: "Goal Breakdown Strategy", cost: 8 },
+        { name: "disciplineTracker", label: "Discipline & Habit Tracker", cost: 8 },
+        { name: "mindsetTips", label: "Mindset Tips Collection", cost: 5 },
+    ],
 };
 
 const schema = Yup.object().shape({
     fullName: Yup.string().required("Required"),
-    phone: Yup.string().required("Required"),
-    cvStyle: Yup.string().required("Required"),
-    industry: Yup.string().required("Required"),
-    experienceLevel: Yup.string().required("Required"),
-    summary: Yup.string().required("Required"),
-    workExperience: Yup.string().required("Required"),
-    education: Yup.string().required("Required"),
-    skills: Yup.string().required("Required"),
-    reviewType: Yup.mixed<ReviewType>()
-        .oneOf(["default", "manager"])
-        .required("Required"),
+    goal: Yup.string().required("Required"),
+    fitnessLevel: Yup.string().required("Required"),
+    days: Yup.number().min(1).required("Required"),
+    planType: Yup.string().oneOf(["coach", "ai"]).required("Required"),
 });
-
-const toBase64 = (file: File) =>
-    new Promise<string>((resolve, reject) => {
-        const r = new FileReader();
-        r.onload = () => resolve(String(r.result));
-        r.onerror = reject;
-        r.readAsDataURL(file);
-    });
 
 interface FormValues {
     fullName: string;
-    phone: string;
-    photo: string;
-    cvStyle: string;
-    fontStyle: string;
-    themeColor: string;
-    industry: string;
-    experienceLevel: string;
-    summary: string;
-    workExperience: string;
-    education: string;
-    skills: string;
-    reviewType: ReviewType;
+    goal: string;
+    fitnessLevel: string;
+    days: number;
+    planType: "coach" | "ai";
     extras: string[];
 }
 
-const ManualGeneratorCV = () => {
+const ManualWorkoutForm = () => {
     const { showAlert } = useAlert();
     const user = useUser();
     const [loading, setLoading] = useState(false);
 
     const initialValues: FormValues = {
         fullName: "",
-        phone: "",
-        photo: "",
-        cvStyle: "Classic",
-        fontStyle: "Default",
-        themeColor: "Default",
-        industry: "IT",
-        experienceLevel: "Mid-level",
-        summary: "",
-        workExperience: "",
-        education: "",
-        skills: "",
-        reviewType: "default",
+        goal: "",
+        fitnessLevel: "Beginner",
+        days: 7,
+        planType: "coach",
         extras: [],
     };
 
@@ -100,25 +78,18 @@ const ManualGeneratorCV = () => {
             onSubmit={async (values) => {
                 setLoading(true);
                 try {
-                    // ✅ 1. Обчислюємо totalTokens перед payload
-                    let extras = [...values.extras];
-                    if (values.fontStyle !== "Default" && !extras.includes("customFont"))
-                        extras.push("customFont");
-                    if (values.themeColor !== "Default" && !extras.includes("customColor"))
-                        extras.push("customColor");
+                    const allExtras = Object.values(EXTRA_CATEGORIES).flat();
+                    const extraCost = values.extras.reduce((sum, name) => {
+                        const opt = allExtras.find((o) => o.name === name);
+                        return sum + (opt?.cost || 0);
+                    }, 0);
 
-                    const totalTokens =
-                        BASE_COST[values.reviewType] +
-                        extras.reduce((sum, name) => {
-                            const opt = EXTRA_OPTIONS.find((o) => o.name === name);
-                            return sum + (opt?.cost || 0);
-                        }, 0);
+                    const durationCost = Math.floor(values.days / 7) * 10;
+                    const totalTokens = BASE_COST + extraCost + durationCost;
 
-                    // ✅ 2. Формуємо payload після обчислення totalTokens
-                    const payload = { ...values, email: user?.email, totalTokens };
+                    const payload = { ...values, totalTokens, email: user?.email };
 
-                    // ✅ 3. Відправляємо запит
-                    const res = await fetch("/api/cv/create-order", {
+                    const res = await fetch("/api/workout/create-order", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         credentials: "include",
@@ -129,258 +100,236 @@ const ManualGeneratorCV = () => {
                     if (res.ok) {
                         showAlert(
                             "Success",
-                            values.reviewType === "manager"
-                                ? "Your request was accepted. A specialist will prepare your CV and deliver it in 24 hours."
-                                : "Your CV was generated successfully and is ready to download.",
+                            values.planType === "coach"
+                                ? "Your plan will be reviewed by a coach and delivered in PDF within 24 hours."
+                                : "Your AI-based training plan is ready instantly in PDF format.",
                             "success"
                         );
                     } else {
-                        showAlert("Error", data.message || "Failed to create CV order", "error");
+                        showAlert("Error", data.message || "Failed to create plan", "error");
                     }
-                } catch (e) {
-                    showAlert("Error", "Network or server error", "error");
+                } catch {
+                    showAlert("Error", "Network or server issue", "error");
+                } finally {
+                    setLoading(false);
                 }
-                setLoading(false);
             }}
         >
-            {({ values, setFieldValue, setValues }) => {
-                // 🔹 автоматичне оновлення extras (Appearance)
-                let extras = [...values.extras];
-                if (values.fontStyle !== "Default" && !extras.includes("customFont"))
-                    extras.push("customFont");
-                else if (values.fontStyle === "Default")
-                    extras = extras.filter((x) => x !== "customFont");
+            {({ values, setFieldValue }) => {
+                const allExtras = Object.values(EXTRA_CATEGORIES).flat();
+                const extraCost = values.extras.reduce((sum, name) => {
+                    const opt = allExtras.find((o) => o.name === name);
+                    return sum + (opt?.cost || 0);
+                }, 0);
 
-                if (values.themeColor !== "Default" && !extras.includes("customColor"))
-                    extras.push("customColor");
-                else if (values.themeColor === "Default")
-                    extras = extras.filter((x) => x !== "customColor");
-
-                const totalTokens =
-                    BASE_COST[values.reviewType] +
-                    extras.reduce((sum: number, name: string) => {
-                        const opt = EXTRA_OPTIONS.find((o) => o.name === name);
-                        return sum + (opt?.cost || 0);
-                    }, 0);
+                const durationCost = Math.floor(values.days / 7) * 10;
+                const totalTokens = BASE_COST + extraCost + durationCost;
 
                 return (
                     <Form className={styles.form}>
-                        {/* 👤 Personal Info */}
-                        <div className={styles.section}>
-                            <h3 className={styles.sectionTitle}>👤 Personal Info</h3>
-                            {formSchemaCV.personal.map((f) => (
-                                <div key={f.name} className={styles.fullWidth}>
-                                    <label className={styles.label}>{f.label}</label>
-                                    {f.type === "file" ? (
-                                        <div className={styles.fileInputWrapper}>
-                                            <label className={styles.fileInputCustom}>
-                                                📷 Select photo
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={async (e) => {
-                                                        const file = e.target.files?.[0];
-                                                        if (file)
-                                                            setFieldValue("photo", await toBase64(file));
-                                                    }}
-                                                />
-                                            </label>
-                                            {values.photo && (
-                                                <>
-                                                    <img
-                                                        src={values.photo}
-                                                        alt="preview"
-                                                        className={styles.photoPreview}
-                                                    />
-                                                    <span className={styles.fileDisplay}>
-                                                    Photo selected
-                                                </span>
-                                                </>
-                                            )}
-                                        </div>
-                                    ) : (
-                                        <Field
-                                            name={f.name}
-                                            as={Input}
-                                            placeholder={f.label}
-                                            className={styles.inputBase}
-                                        />
-                                    )}
-                                </div>
-                            ))}
-                        </div>
+                        {/* === HEADER === */}
+                        <header className={styles.header}>
+                            <h2>Training Plan Configuration</h2>
+                            <p>
+                                Choose your training type, define fitness parameters, and customize
+                                additional modules. Each section you add will be included in your
+                                personalized PDF plan.
+                            </p>
+                        </header>
 
-                        {/* ⚙️ CV Settings */}
-                        <div className={styles.section}>
-                            <h3 className={styles.sectionTitle}>⚙️ CV Settings</h3>
-                            <div className={styles.selectGrid}>
-                                {formSchemaCV.selectors.map((f) => (
-                                    <div key={f.name} className={styles.formGroup}>
-                                        <label className={styles.label}>{f.label}</label>
-                                        <Select
-                                            value={values[f.name]}
-                                            onChange={(_, v) => setFieldValue(f.name, v)}
-                                            className={styles.inputBase}
-                                        >
-                                            {f.options.map((opt: string) => (
-                                                <Option key={opt} value={opt}>
-                                                    {opt}
-                                                </Option>
-                                            ))}
-                                        </Select>
-                                    </div>
-                                ))}
+                        {/* === GRID SECTION === */}
+                        <div className={styles.grid}>
+                            <div className={styles.block}>
+                                <h3>Personal Information</h3>
+                                <div className={styles.inputGroup}>
+                                    <label>Full Name</label>
+                                    <Field
+                                        name="fullName"
+                                        as={Input}
+                                        placeholder="Enter your name"
+                                    />
+                                </div>
+                                <div className={styles.inputGroup}>
+                                    <label>Goal</label>
+                                    <Field
+                                        name="goal"
+                                        as={Input}
+                                        placeholder="e.g. Muscle gain, weight loss, endurance"
+                                    />
+                                </div>
+                                <div className={styles.inputGroup}>
+                                    <label>Fitness Level</label>
+                                    <Select
+                                        value={values.fitnessLevel}
+                                        onChange={(_, v) => setFieldValue("fitnessLevel", v)}
+                                    >
+                                        <Option value="Beginner">Beginner</Option>
+                                        <Option value="Intermediate">Intermediate</Option>
+                                        <Option value="Advanced">Advanced</Option>
+                                    </Select>
+                                </div>
+                            </div>
+
+                            <div className={styles.block}>
+                                <h3>Plan Details</h3>
+                                <div className={styles.radioGroup}>
+                                    <label
+                                        className={`${styles.radioCard} ${
+                                            values.planType === "coach" ? styles.active : ""
+                                        }`}
+                                    >
+                                        <input
+                                            type="radio"
+                                            name="planType"
+                                            value="coach"
+                                            checked={values.planType === "coach"}
+                                            onChange={() => setFieldValue("planType", "coach")}
+                                        />
+                                        <div>
+                                            <strong>Coach Plan</strong>
+                                            <p>Delivered in 24 hours with expert verification</p>
+                                        </div>
+                                    </label>
+
+                                    <label
+                                        className={`${styles.radioCard} ${
+                                            values.planType === "ai" ? styles.active : ""
+                                        }`}
+                                    >
+                                        <input
+                                            type="radio"
+                                            name="planType"
+                                            value="ai"
+                                            checked={values.planType === "ai"}
+                                            onChange={() => setFieldValue("planType", "ai")}
+                                        />
+                                        <div>
+                                            <strong>AI Instant Plan</strong>
+                                            <p>Auto-generated instantly in PDF format</p>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div className={styles.inputGroup}>
+                                    <label>Duration</label>
+                                    <Select
+                                        value={values.days}
+                                        onChange={(_, v) => setFieldValue("days", v)}
+                                    >
+                                        <Option value={1}>1 day</Option>
+                                        <Option value={7}>1 week</Option>
+                                        <Option value={14}>2 weeks</Option>
+                                        <Option value={21}>3 weeks</Option>
+                                        <Option value={28}>4 weeks</Option>
+                                    </Select>
+                                    <span className={styles.note}>Each week adds +10 tokens</span>
+                                </div>
                             </div>
                         </div>
 
-                        {/* 🔍 Review Type */}
-                        <div className={styles.section}>
-                            <h3 className={styles.sectionTitle}>🔍 Review Type</h3>
-                            <Select
-                                value={values.reviewType}
-                                onChange={(_, v) => setFieldValue("reviewType", v as ReviewType)}
-                                className={styles.inputBase}
-                            >
-                                <Option value="default">Instant CV (30 tokens)</Option>
-                                <Option value="manager">
-                                    Manager Review – 24h (60 tokens)
-                                </Option>
-                            </Select>
-                            <p
-                                style={{
-                                    fontSize: "0.85rem",
-                                    color: "var(--text-muted)",
-                                    marginTop: "0.4rem",
-                                }}
-                            >
-                                {values.reviewType === "manager"
-                                    ? "🧠 A professional will review and enhance your CV for 24-hour delivery."
-                                    : "⚡ Instant AI CV generation with no manual review."}
-                            </p>
-                        </div>
-
-                        {/* ✨ Additional Services */}
-                        <div className={styles.section}>
-                            <h3 className={styles.sectionTitle}>✨ Additional Services</h3>
-                            <div className={styles.extrasList}>
-                                {EXTRA_OPTIONS.slice(0, 8).map((opt) => {
-                                    const managerOnly = [
-                                        "keywords",
-                                        "atsCheck",
-                                        "jobAdaptation",
-                                        "achievements",
-                                        "skillsGap",
-                                    ].includes(opt.name);
-
-                                    const isDisabled =
-                                        managerOnly && values.reviewType !== "manager";
-
-                                    return (
-                                        <label
-                                            key={opt.name}
-                                            className={`${styles.extraItem} ${
-                                                isDisabled ? styles.disabled : ""
-                                            }`}
-                                        >
+                        {/* === ADDITIONAL OPTIONS BY CATEGORY === */}
+                        <div className={styles.sectionGroup}>
+                            <div className={styles.section}>
+                                <h3>Training Modules</h3>
+                                <div className={styles.optionsGrid}>
+                                    {EXTRA_CATEGORIES.training.map((opt) => (
+                                        <label key={opt.name} className={styles.option}>
                                             <input
                                                 type="checkbox"
-                                                disabled={isDisabled}
                                                 checked={values.extras.includes(opt.name)}
                                                 onChange={(e) => {
                                                     if (e.target.checked)
-                                                        setFieldValue("extras", [
-                                                            ...values.extras,
-                                                            opt.name,
-                                                        ]);
+                                                        setFieldValue("extras", [...values.extras, opt.name]);
                                                     else
                                                         setFieldValue(
                                                             "extras",
-                                                            values.extras.filter(
-                                                                (x) => x !== opt.name
-                                                            )
+                                                            values.extras.filter((x) => x !== opt.name)
                                                         );
                                                 }}
                                             />
-                                            <span>{opt.label}</span>
-                                            <span className={styles.badge}>+{opt.cost}</span>
-                                            {isDisabled && (
-                                                <span className={styles.lockHint}>
-                                                🔒 Available for Manager Review
-                                            </span>
-                                            )}
+                                            <span className={styles.optionLabel}>{opt.label}</span>
+                                            <span className={styles.optionCost}>+{opt.cost}</span>
                                         </label>
-                                    );
-                                })}
-                            </div>
-                        </div>
-
-                        {/* 🎨 Appearance */}
-                        <div className={styles.section}>
-                            <div className={styles.premiumNotice}>
-                                💎 Selecting custom font or color adds +5 tokens each. Default
-                                choices are free.
-                            </div>
-                            <h3 className={styles.sectionTitle}>🎨 Appearance Settings</h3>
-                            <div className={styles.selectGrid}>
-                                <div className={styles.formGroup}>
-                                    <label className={styles.label}>Font Style</label>
-                                    <Select
-                                        value={values.fontStyle}
-                                        onChange={(_, v) => setFieldValue("fontStyle", v)}
-                                        className={styles.inputBase}
-                                    >
-                                        <Option value="Default">Default (Helvetica)</Option>
-                                        <Option value="Times-Roman">Times New Roman</Option>
-                                        <Option value="Courier">Courier</Option>
-                                    </Select>
-                                </div>
-                                <div className={styles.formGroup}>
-                                    <label className={styles.label}>Primary Color</label>
-                                    <Select
-                                        value={values.themeColor}
-                                        onChange={(_, v) => setFieldValue("themeColor", v)}
-                                        className={styles.inputBase}
-                                    >
-                                        <Option value="Default">Default Blue</Option>
-                                        <Option value="#DC2626">Red</Option>
-                                        <Option value="#059669">Green</Option>
-                                        <Option value="#7C3AED">Purple</Option>
-                                        <Option value="#F59E0B">Gold</Option>
-                                    </Select>
+                                    ))}
                                 </div>
                             </div>
+
+                            <div className={styles.section}>
+                                <h3>Nutrition Modules</h3>
+                                <div className={styles.optionsGrid}>
+                                    {EXTRA_CATEGORIES.nutrition.map((opt) => (
+                                        <label key={opt.name} className={styles.option}>
+                                            <input
+                                                type="checkbox"
+                                                checked={values.extras.includes(opt.name)}
+                                                onChange={(e) => {
+                                                    if (e.target.checked)
+                                                        setFieldValue("extras", [...values.extras, opt.name]);
+                                                    else
+                                                        setFieldValue(
+                                                            "extras",
+                                                            values.extras.filter((x) => x !== opt.name)
+                                                        );
+                                                }}
+                                            />
+                                            <span className={styles.optionLabel}>{opt.label}</span>
+                                            <span className={styles.optionCost}>+{opt.cost}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className={styles.section}>
+                                <h3>Mindset & Performance</h3>
+                                <div className={styles.optionsGrid}>
+                                    {EXTRA_CATEGORIES.mindset.map((opt) => (
+                                        <label key={opt.name} className={styles.option}>
+                                            <input
+                                                type="checkbox"
+                                                checked={values.extras.includes(opt.name)}
+                                                onChange={(e) => {
+                                                    if (e.target.checked)
+                                                        setFieldValue("extras", [...values.extras, opt.name]);
+                                                    else
+                                                        setFieldValue(
+                                                            "extras",
+                                                            values.extras.filter((x) => x !== opt.name)
+                                                        );
+                                                }}
+                                            />
+                                            <span className={styles.optionLabel}>{opt.label}</span>
+                                            <span className={styles.optionCost}>+{opt.cost}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
 
-                        {/* 💳 Summary */}
-                        <div className={styles.section}>
-                            <h3 className={styles.sectionTitle}>💳 Summary</h3>
-                            <p className={styles.tokenSummary}>
-                                Total tokens: <strong>{totalTokens}</strong>
-                            </p>
+                        {/* === SUMMARY === */}
+                        <div className={styles.summary}>
+                            <div className={styles.summaryContent}>
+                                <div>
+                                    <p>Base cost: 30 tokens</p>
+                                    <p>Extras: +{extraCost} tokens</p>
+                                    <p>Duration: +{durationCost} tokens</p>
+                                </div>
+                                <h4>
+                                    Total: <span>{totalTokens}</span> tokens
+                                </h4>
+                            </div>
                         </div>
 
-                        {/* Actions */}
+                        {/* === SUBMIT === */}
                         <div className={styles.actions}>
-                            <ButtonUI
-                                type="button"
-                                color="secondary"
-                                textColor="backgroundLight"
-                                variant="soft"
-                                hoverEffect="shadow"
-                                onClick={() => setValues(mockCVData)}
-                            >
-                                Fill with Mock Data
-                            </ButtonUI>
-
                             <ButtonUI
                                 type="submit"
                                 color="primary"
-                                textColor="backgroundLight"
                                 variant="solid"
+                                textColor="backgroundLight"
                                 hoverEffect="glow"
                                 loading={loading}
                             >
-                                Submit Request
+                                Generate Training Plan
                             </ButtonUI>
                         </div>
                     </Form>
@@ -390,4 +339,4 @@ const ManualGeneratorCV = () => {
     );
 };
 
-export default ManualGeneratorCV;
+export default ManualWorkoutForm;

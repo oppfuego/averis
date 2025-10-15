@@ -1,55 +1,52 @@
 .balanceCard {
-  background: #fff;
-  border-radius: 1rem;
-  padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, #222, #333);
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  width: 100%;
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 1.2rem;
   }
 
-  &__info {
-    p {
-      font-size: 0.95rem;
-      color: #6b7280;
-      margin: 0;
+  .left {
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      opacity: 0.9;
     }
 
-    h2 {
+    .amount {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
       font-size: 1.8rem;
-      font-weight: 700;
-      margin: 0.25rem 0 0;
-      color: var(--primary-color);
+      font-weight: 800;
+      color: #ffd369;
 
       span {
-        font-size: 1.2rem;
-        font-weight: 600;
+        font-size: 1rem;
+        opacity: 0.8;
+        color: #fff;
+      }
+
+      svg {
+        font-size: 1.6rem;
+        color: #ffd369;
       }
     }
   }
 
-  &__actions {
+  .right {
     display: flex;
     align-items: center;
     gap: 1rem;
-  }
-
-  &__topUpBtn {
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
-    color: #fff;
-    padding: 0.6rem 1.4rem;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: 0.2s;
-    text-decoration: none;
-
-    &:hover {
-      background: linear-gradient(135deg, #4338ca, #4f46e5);
-    }
   }
 }

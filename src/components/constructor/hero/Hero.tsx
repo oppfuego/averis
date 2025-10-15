@@ -7,6 +7,7 @@ import ButtonUI from "@/components/ui/button/ButtonUI";
 import Image from "next/image";
 import { media } from "@/resources/media";
 import type { StaticImageData } from "next/image";
+import Link from "next/link";
 
 interface HeroSectionProps {
     title: string;
@@ -15,7 +16,7 @@ interface HeroSectionProps {
     primaryCta?: { text: string; link: string };
     secondaryCta?: { text: string; link: string };
     image?: string;
-    align?: "left" | "right"; // ➕ додаємо параметр
+    align?: "left" | "right";
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({
@@ -25,7 +26,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                                                      primaryCta,
                                                      secondaryCta,
                                                      image,
-                                                     align = "right", // за замовчуванням фото справа
+                                                     align = "right",
                                                  }) => {
     const bgImage = image
         ? (media as Record<string, string | StaticImageData>)[image]
@@ -36,7 +37,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             ? bgImage
             : (bgImage as StaticImageData)?.src || "";
 
-    // Динамічний клас орієнтації
     const orientationClass =
         align === "left" ? styles.hero__reverse : styles.hero__default;
 
@@ -55,30 +55,36 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                             <span className={styles.hero__highlight}>{highlight}</span>
                         )}
                     </h1>
+
                     <p className={styles.hero__desc}>{description}</p>
 
                     <div className={styles.hero__actions}>
                         {primaryCta && (
-                            <ButtonUI
-                                variant="solid"
-                                color="secondary"
-                                size="lg"
-                                hoverEffect="none"
-                                hoverColor="primary"
-                            >
-                                {primaryCta.text}
-                            </ButtonUI>
+                            <Link href={primaryCta.link} className={styles.hero__link}>
+                                <ButtonUI
+                                    variant="solid"
+                                    color="secondary"
+                                    size="lg"
+                                    hoverEffect="none"
+                                    hoverColor="primary"
+                                >
+                                    {primaryCta.text}
+                                </ButtonUI>
+                            </Link>
                         )}
+
                         {secondaryCta && (
-                            <ButtonUI
-                                variant="outlined"
-                                color="primary"
-                                size="lg"
-                                hoverEffect="none"
-                                hoverTextColor="secondary"
-                            >
-                                {secondaryCta.text}
-                            </ButtonUI>
+                            <Link href={secondaryCta.link} className={styles.hero__link}>
+                                <ButtonUI
+                                    variant="outlined"
+                                    color="primary"
+                                    size="lg"
+                                    hoverEffect="none"
+                                    hoverTextColor="secondary"
+                                >
+                                    {secondaryCta.text}
+                                </ButtonUI>
+                            </Link>
                         )}
                     </div>
                 </motion.div>
@@ -95,6 +101,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                             alt="Hero Illustration"
                             fill
                             className={styles.hero__image}
+                            priority
                         />
                     )}
                 </motion.div>

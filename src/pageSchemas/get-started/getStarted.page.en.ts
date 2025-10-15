@@ -1,64 +1,54 @@
-import {PageSchema} from "@/components/constructor/page-render/types";
-import {COMPANY_NAME} from "@/resources/constants";
+import { PageSchema } from "@/components/constructor/page-render/types";
+import { COMPANY_NAME } from "@/resources/constants";
 
 const schema: PageSchema = {
     meta: {
         title: `Get Started — ${COMPANY_NAME}`,
-        description: `Learn how ${COMPANY_NAME} helps you create a professional CV instantly, with an optional expert review delivered within 24 hours.`,
+        description: `Learn how to begin your personalized fitness journey with ${COMPANY_NAME}. Connect with certified trainers, set your goals, and start your transformation today.`,
         keywords: [
             `${COMPANY_NAME} get started`,
-            "cv maker onboarding",
-            "resume builder steps",
-            "instant cv",
-            "manager review cv",
-            "professional cv service",
+            "personal trainer onboarding",
+            "AI fitness setup",
+            "create training plan",
+            "nutrition setup",
+            "fitness journey start",
         ],
         canonical: "/get-started",
         ogImage: {
             title: `Get Started with ${COMPANY_NAME}`,
-            description: "Instant CVs + optional expert review in 24h.",
+            description: "Personal trainer + AI assistant — your journey starts here.",
             bg: "#0a2540",
             color: "#ffffff",
         },
     },
-    blocks: [
 
+    blocks: [
+        // 🔹 HERO
         {
             type: "custom",
             component: "HeroSection",
             title: `Get Started with ${COMPANY_NAME}`,
-            highlight: "Our Mission & Vision",
-            description: `With ${COMPANY_NAME}, you can either generate your CV instantly using our professional templates, 
-    or select the Manager Review option to receive a polished version carefully refined by HR experts within just 24 hours.`,
-            image: "image5",
+            highlight: "Your Personalized Fitness Journey Begins Here",
+            description: `In just a few steps, you’ll connect with your certified trainer, define your goals, and receive a custom plan that adapts as you progress.  
+Whether you train at home, in a gym, or outdoors — ${COMPANY_NAME} builds your roadmap to long-term health and performance.`,
+            image: "image1",
+            align: "right",
         },
 
-        // 🟣 HighlightStrip
+        // 🔹 HIGHLIGHT STRIP
         {
             type: "custom",
             component: "HighlightStrip",
-            messages: [
-                "⚡ Instant CV download",
-                "🎨 50+ professional templates",
-                "👩‍💼 Optional HR review (24h)",
-                "📑 ATS-optimized resumes",
-                "✅ Trusted by job seekers worldwide",
+            items: [
+                { icon: "💪", text: "Fully Personalized Training Plans" },
+                { icon: "🥗", text: "Optional Nutrition Coaching" },
+                { icon: "🤖", text: "AI-Assisted Progress Tracking" },
+                { icon: "📱", text: "Access Anytime, Anywhere" },
+                { icon: "🎯", text: "Visible Results Within Weeks" },
             ],
         },
 
-        // 🟣 ValuesIcons
-        {
-            type: "custom",
-            component: "ValuesIcons",
-            values: [
-                {icon: "⚡", title: "Instant Results", text: "Get your CV right away after filling the form"},
-                {icon: "👩‍💼", title: "Expert Option", text: "Let HR specialists refine your CV in 24h"},
-                {icon: "📑", title: "ATS-Friendly", text: "Optimized to pass Applicant Tracking Systems"},
-                {icon: "🎨", title: "Modern Templates", text: "Choose sleek, recruiter-approved designs"},
-            ],
-        },
-
-        // 🟣 Grid — How it works
+        // 🔹 HOW IT WORKS (Grid)
         {
             type: "grid",
             columns: 3,
@@ -66,70 +56,146 @@ const schema: PageSchema = {
             cards: [
                 {
                     image: "image1",
-                    title: "1. Sign Up",
-                    description: "Create your account to start building your CV.",
+                    title: "1. Create Your Account",
+                    description:
+                        "Sign up to access your personal dashboard and connect with a trainer who fits your goals.",
                 },
                 {
-                    image: "image2",
-                    title: "2. Choose a Template",
-                    description: "Select from modern recruiter-approved designs.",
+                    image: "image1",
+                    title: "2. Complete Your Fitness Profile",
+                    description:
+                        "Share your lifestyle, equipment, and experience level. The more we know, the better your plan.",
                 },
                 {
-                    image: "image3",
-                    title: "3. Fill Out the Form",
-                    description: "Provide your skills, education, and experience.",
+                    image: "image1",
+                    title: "3. Match With a Trainer",
+                    description:
+                        "We pair you with a certified coach who specializes in your training style — from strength to rehabilitation.",
                 },
                 {
-                    image: "image4",
-                    title: "4a. Instant CV",
-                    description: "Download your ATS-friendly CV immediately.",
+                    image: "image1",
+                    title: "4. Receive Your Plan",
+                    description:
+                        "Your trainer builds a structured program with exercises, sets, and progressions tailored to your body.",
                 },
                 {
-                    image: "image5",
-                    title: "4b. Manager Review (Optional)",
-                    description: "Our HR experts polish and send your CV within 24h.",
+                    image: "image1",
+                    title: "5. Add Nutrition (Optional)",
+                    description:
+                        "Combine training with a personalized meal plan designed by a professional nutritionist.",
                 },
                 {
-                    image: "image6",
-                    title: "5. Apply with Confidence",
-                    description: "Use your CV to stand out and land interviews.",
+                    image: "image1",
+                    title: "6. Track & Improve",
+                    description:
+                        "Use our AI tools to log workouts, analyze trends, and stay connected with your trainer for adjustments.",
                 },
             ],
         },
 
-        // 🟣 Final CTA
+        // 🔹 INFO BLOCK — WHY IT WORKS
+        {
+            type: "section",
+            left: {
+                type: "custom",
+                component: "InfoBlock",
+                title: "Built Around You",
+                description: `${COMPANY_NAME} adapts to your pace, goals, and schedule.  
+No generic templates — every plan is handcrafted by a real trainer and evolves with smart AI insights.`,
+                bullets: [
+                    "Custom intensity, rest, and progression",
+                    "Instant chat with your trainer for feedback",
+                    "Automatic performance tracking",
+                ],
+                image: "trainerSupport",
+            },
+            right: {
+                type: "custom",
+                component: "InfoBlock",
+                title: "Backed by Real Experts",
+                description: `All trainers on ${COMPANY_NAME} are certified and experienced in strength, mobility, and nutrition coaching.  
+Our internal review team ensures that every client receives expert-level attention and safe, effective plans.`,
+                bullets: [
+                    "Verified professional certifications (NASM, ACE, ISSA)",
+                    "Experience across fitness levels and goals",
+                    "Continuous education in modern training science",
+                ],
+                image: "expertTrainers",
+            },
+        },
+
+        // 🔹 VALUES
+        {
+            type: "custom",
+            component: "ValuesIcons",
+            title: `Why ${COMPANY_NAME} Works`,
+            description: "A smarter system built on three simple principles.",
+            values: [
+                {
+                    icon: "🧠",
+                    title: "Human + AI Synergy",
+                    text: "We blend the precision of analytics with the intuition of real trainers.",
+                },
+                {
+                    icon: "🤝",
+                    title: "Accountability & Motivation",
+                    text: "Stay on track with weekly feedback, progress calls, and real-time support.",
+                },
+                {
+                    icon: "📈",
+                    title: "Adaptive Progression",
+                    text: "Your plan evolves automatically as your body and performance improve.",
+                },
+            ],
+        },
+
+        // 🔹 VIDEO
+        {
+            type: "custom",
+            component: "VideoDemo",
+            title: "See How Easy It Is to Start",
+            description:
+                "Watch how clients connect with trainers, set up their goals, and start training — all within minutes.",
+            video: "fitPlannerDemo",
+        },
+
+        // 🔹 CTA SECTION
         {
             type: "section",
             align: "center",
             left: {
                 type: "text",
-                title: "Start Your Career the Right Way",
-                description:
-                    `Sign up today, fill in your details, and either download your CV instantly or let our HR team perfect it within 24 hours.`,
+                title: "Begin Your Transformation Today",
+                description: `Create your free account, meet your trainer, and start your personalized plan within 24 hours.  
+Choose between AI guidance or full coaching — the path is yours.`,
                 centerTitle: true,
                 centerDescription: true,
             },
         },
 
-        // 🟣 FAQ
+        // 🔹 FAQ
         {
             type: "faq",
             items: [
                 {
-                    question: "How fast will I get my CV?",
-                    answer: "Instantly if you use the automatic builder. If you choose Manager Review, you’ll receive the polished CV within 24 hours.",
+                    question: "Do I need equipment to start?",
+                    answer:
+                        "No. Your trainer will design the plan around your available equipment — from bodyweight to full gym setups.",
                 },
                 {
-                    question: "Can I try multiple templates?",
-                    answer: "Yes. You can preview and switch templates before downloading.",
+                    question: "Can I change my trainer later?",
+                    answer:
+                        "Yes. You can switch trainers anytime based on preferences or new goals.",
                 },
                 {
-                    question: "Do I need design skills?",
-                    answer: "Not at all. Everything is handled automatically, and if you choose review, our HR team polishes the design and content.",
+                    question: "How fast will I get my plan?",
+                    answer:
+                        "Within 24 hours after completing your fitness profile, your trainer prepares your personalized program.",
                 },
                 {
-                    question: "Is it ATS-friendly?",
-                    answer: "Yes. Both instant and reviewed CVs are recruiter-approved and ATS-optimized.",
+                    question: "What if I only want AI guidance?",
+                    answer:
+                        "You can start with the AI plan and upgrade to a human coach whenever you’re ready for personalized attention.",
                 },
             ],
         },

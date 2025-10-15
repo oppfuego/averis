@@ -11,12 +11,14 @@
   border: 1px solid var(--border);
   border-radius: 1.5rem;
   padding: 2.5rem 2rem 2rem;
-  overflow: hidden;
+  overflow: visible; /* ✅ дозволяє натискати на Input */
+  isolation: isolate; /* ✅ створює новий стек */
   height: 100%;
   transition: all 0.4s ease;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06),
-  0 10px 25px rgba(0, 0, 0, 0.12),
-  inset 0 0 30px rgba(255, 255, 255, 0.02);
+  box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.06),
+          0 10px 25px rgba(0, 0, 0, 0.12),
+          inset 0 0 30px rgba(255, 255, 255, 0.02);
 
   &:hover {
     transform: translateY(-8px) scale(1.02);
@@ -33,9 +35,25 @@
     opacity: 0;
     transition: opacity 0.5s ease;
     z-index: 0;
+    pointer-events: none; /* ✅ не блокує кліки */
   }
+
   &:hover::after {
     opacity: 0.25;
+  }
+
+  .inputWrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    z-index: 3;
+    margin-bottom: 0.6rem;
+
+    input,
+    .MuiInput-root {
+      position: relative;
+      z-index: 3; /* ✅ над псевдоелементом */
+    }
   }
 
   .badgeTop {
@@ -86,6 +104,8 @@
     color: var(--text-secondary);
     font-weight: 600;
     margin-top: 0.6rem;
+    z-index: 3;
+    position: relative;
   }
 
   .description {
@@ -142,7 +162,7 @@
 
   button {
     margin-top: auto;
-    z-index: 2;
+    z-index: 3;
     background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
     color: #fff !important;
     font-weight: 700;

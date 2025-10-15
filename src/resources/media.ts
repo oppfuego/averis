@@ -23,6 +23,7 @@ import template3 from "../../public/templates/creative.png";
 import coach1 from "@/assets/images/coach1.jpg";
 import coach2 from "@/assets/images/coach2.jpg";
 import coach3 from "@/assets/images/coach3.jpg";
+import coach4 from "@/assets/images/coach4.jpg";
 
 export const media = {
     logo: logo,
@@ -46,6 +47,7 @@ export const media = {
     coach1: coach1,
     coach2: coach2,
     coach3: coach3,
+    coach4: coach4,
 
     team1: team1,
     team2: team2,
@@ -57,6 +59,7 @@ export const media = {
 
     CVMakerDemo: '/videos/cv-maker-demo.mp4',
     coachWork: '/videos/coach-work.mp4',
+    fitPlannerDemo: '/videos/fit-planner-demo.mp4',
 
 }
 

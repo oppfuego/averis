@@ -54,16 +54,7 @@ const Header: React.FC = () => {
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
                 <div className={styles.headerInner}>
-                    {/* Ліва частина — навігація */}
-                    <nav className={styles.nav}>
-                        {headerContent.links.map((link) => (
-                            <a key={link.label} href={link.href} className={styles.link}>
-                                {link.label}
-                            </a>
-                        ))}
-                    </nav>
-
-                    {/* Центр — логотип */}
+                    {/* Ліва частина — логотип */}
                     <a href={headerContent.logo.href} className={styles.logo}>
                         <Image
                             width={200}
@@ -72,6 +63,15 @@ const Header: React.FC = () => {
                             alt={headerContent.logo.alt}
                         />
                     </a>
+
+                    {/* Центр — навігація */}
+                    <nav className={styles.nav}>
+                        {headerContent.links.map((link) => (
+                            <a key={link.label} href={link.href} className={styles.link}>
+                                {link.label}
+                            </a>
+                        ))}
+                    </nav>
 
                     {/* Права частина — кнопки */}
                     <div className={styles.actionsNav}>
@@ -86,9 +86,6 @@ const Header: React.FC = () => {
                                 <div className={styles.thumb} />
                             </div>
                         </div>
-
-
-
                     </div>
 
                     {/* Mobile menu */}

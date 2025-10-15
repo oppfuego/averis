@@ -1,4 +1,5 @@
 "use client";
+
 import { IoIosArrowDown } from "react-icons/io";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -22,9 +23,14 @@ const FAQ: React.FC<FAQProps> = ({ items, image }) => {
         setOpenIndex(openIndex === idx ? null : idx);
     };
 
+    // ✅ якщо фото немає — додаємо клас для центрування
+    const wrapperClass = image
+        ? styles.wrapper
+        : `${styles.wrapper} ${styles.centered}`;
+
     return (
         <section className={styles.section}>
-            <div className={styles.wrapper}>
+            <div className={wrapperClass}>
                 <div className={styles.left}>
                     <h2 className={styles.title}>Frequently Asked Questions</h2>
 
@@ -77,8 +83,9 @@ const FAQ: React.FC<FAQProps> = ({ items, image }) => {
                     </div>
                 </div>
 
-                <div className={styles.right}>
-                    {image && (
+                {/* 🖼️ показуємо праву частину лише якщо є зображення */}
+                {image && (
+                    <div className={styles.right}>
                         <div className={styles.imageWrapper}>
                             <Image
                                 src={image}
@@ -88,8 +95,8 @@ const FAQ: React.FC<FAQProps> = ({ items, image }) => {
                                 className={styles.image}
                             />
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
         </section>
     );

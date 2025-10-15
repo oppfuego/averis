@@ -25,60 +25,19 @@
   }
 }
 
-.userBalance {
+/* 🔹 Контейнер користувача */
+.userContainer {
   display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  font-size: 13px;
-  color: var(--text-inverse);
+  align-items: center;
+  gap: 10px;
 
-  @media screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     flex-direction: column;
-    align-items: flex-start;
     width: 100%;
-    gap: 4px;
   }
 }
 
-.tokenIcon {
-  font-size: 14px;
-  color: #f5b301;
-  margin-left: 5px;
-}
-
-.balanceText {
-  font-weight: 500;
-  color: #555;
-  margin: 0;
-}
-
-.buyLink {
-  font-size: 12px;
-  color: #0070f3;
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    color: #0070f3;
-  }
-}
-
-.linkContainer {
-  display: flex;
-  text-decoration: none;
-}
-
-
-.link {
-  color: var(--secondary-color);
-  font-size: 26px;
-  transition: 0.2s;
-
-  &:hover {
-    color: var(--background-light);
-  }
-}
-
+/* 🔹 Картка користувача */
 .userCard {
   display: flex;
   align-items: center;
@@ -114,25 +73,17 @@
   color: var(--secondary-color);
 }
 
-.userInfo {
-  display: flex;
-  font-size: 16px;
-  line-height: 1.2;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-}
-
-.username {
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
 .userBalance {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-size: 14px;
+  color: var(--text-primary);
+}
+
+.tokenIcon {
+  font-size: 16px;
+  color: #f5b301;
 }
 
 .balanceText {
@@ -140,21 +91,24 @@
   color: var(--secondary-color);
 }
 
-.buyLink {
-  font-size: 12px;
-  color: var(--link-color);
-  text-decoration: none;
-  cursor: pointer;
-  transition: color 0.2s ease-in-out;
+/* 🔹 Кнопка для тренувань */
+.dashboardButton {
+  width: 160px;
 
-  &:hover {
-    color: var(--link-hover);
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  button {
+    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    color: #fff !important;
+    font-weight: 700;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(50, 214, 154, 0.3);
+    }
   }
 }
-
-.userContainer{
-  display: flex;
-  align-items: center;
-    gap: 10px;
-}
-

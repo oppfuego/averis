@@ -16,17 +16,21 @@
     gap: 4rem;
 
     @media (max-width: 992px) {
-      flex-direction: column-reverse;
+      flex-direction: column;
       text-align: center;
       align-items: center;
       justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      padding-top: 20px;
     }
   }
 
   &__content {
     flex: 1.2;
     z-index: 2;
-    text-align: left; // 🔹 за замовчуванням текст ліворуч
+    text-align: left;
   }
 
   &__title {
@@ -65,10 +69,6 @@
     color: var(--text-secondary);
     margin-bottom: 2.5rem;
     max-width: 560px;
-
-    @media (max-width: 992px) {
-      margin: 0 auto 2.5rem;
-    }
   }
 
   &__actions {
@@ -94,6 +94,10 @@
       width: 100%;
       height: 340px;
     }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   &__image {
@@ -107,7 +111,6 @@
     transform: scale(1.04);
   }
 
-  // 🟢 Варіанти орієнтації
   &__default {
     .hero__inner {
       flex-direction: row;
@@ -136,7 +139,6 @@
       border-radius: 20px 80px 80px 20px;
     }
 
-    // 🟣 Вирівнюємо текст вправо
     .hero__content {
       text-align: right;
       align-items: flex-end;
