@@ -12,12 +12,15 @@ function cleanText(raw: string) {
     if (!raw) return "";
 
     return String(raw)
+        .normalize("NFKC")
         // убрать суррогатные пары (в т.ч. эмодзи и символы вне BMP)
         .replace(/[\uD800-\uDFFF]/g, "")
         // variation selectors (часто остаются от эмодзи)
         .replace(/[\uFE00-\uFE0F]/g, "")
-        // управляющие символы
+        // управляющие символы + Latin-1 C1
         .replace(/[\u0000-\u001F\u007F-\u009F]/g, "")
+        // soft hyphen
+        .replace(/\u00AD/g, "")
         // невидимые zero-width и подобные
         .replace(/[\u200B-\u200D\u2060]/g, "")
         // неразрывный пробел -> обычный пробел
@@ -34,6 +37,32 @@ function cleanText(raw: string) {
         .replace(/\s{2,}/g, " ")
         .replace(/\n{2,}/g, "\n")
         .trim();
+}
+
+// допоміжний рендер для екстрас: логічні заголовки і абзаци
+function renderExtrasContent(text: string, styles: PDFStyles) {
+    const cleaned = cleanText(text);
+    const lines = cleaned.split(/\n+/).map((l) => cleanText(l)).filter((l) => l.trim());
+
+    return (
+        <>
+            {lines.map((line, idx) => {
+                const isHeading = /[:：]\s*$/.test(line) || /^[A-ZА-ЯІЇЄ0-9][^:]{2,20}:$/.test(line);
+                if (isHeading) {
+                    return (
+                        <Text key={`h-${idx}`} style={styles.extrasHeading}>
+                            {line.replace(/[:：]\s*$/, "").trim()}
+                        </Text>
+                    );
+                }
+                return (
+                    <Text key={`p-${idx}`} style={styles.extrasParagraph}>
+                        {line.trim()}
+                    </Text>
+                );
+            })}
+        </>
+    );
 }
 
 // 🧩 Таблиця (універсальна)
@@ -137,12 +166,12 @@ function renderTrainingDaysCoach(text: string, styles: PDFStyles) {
                     <View style={styles.dayRow}>
                         <View style={styles.dayCol}>
                             {colLeft.map((b, idx) => (
-                                <Text key={`l-${idx}`} style={styles.bullet}>{b.replace(/^-/,'•').trim()}</Text>
+                                <Text key={`l-${idx}`} style={styles.bullet}>{b.replace(/^-/, '•').trim()}</Text>
                             ))}
                         </View>
                         <View style={styles.dayCol}>
                             {colRight.map((b, idx) => (
-                                <Text key={`r-${idx}`} style={styles.bullet}>{b.replace(/^-/,'•').trim()}</Text>
+                                <Text key={`r-${idx}`} style={styles.bullet}>{b.replace(/^-/, '•').trim()}</Text>
                             ))}
                         </View>
                     </View>
@@ -161,7 +190,7 @@ function renderTrainingDaysCoach(text: string, styles: PDFStyles) {
 }
 
 // ===== EXTRAS: AI =====
-function renderExtrasAI(extras: Record<string, string>, styles: PDFStyles) {
+function renderExtrasAI(extras: Record<string, string>, styles: PDFStyles, opts: { fullName: string; goal: string }) {
     const entries = Object.entries(extras);
     if (entries.length === 0) return null;
 
@@ -177,7 +206,8 @@ function renderExtrasAI(extras: Record<string, string>, styles: PDFStyles) {
                 if (key === "tracking") {
                     return (
                         <Page key={key} style={styles.extrasPage}>
-                            <Text style={styles.extrasTitle}>Progress Tracking</Text>
+                            <Text style={styles.extrasTitle}>{`${title} — for ${opts.fullName}`}</Text>
+                            <Text style={styles.extrasMeta}>{`Goal: ${opts.goal}`}</Text>
                             <View style={styles.extrasContent}>
                                 <Text style={styles.extrasParagraph}>
                                     {cleanText("Keep track of your workouts, nutrition, and progress daily.")}
@@ -200,7 +230,8 @@ function renderExtrasAI(extras: Record<string, string>, styles: PDFStyles) {
                 if (key === "disciplineTracker") {
                     return (
                         <Page key={key} style={styles.extrasPage}>
-                            <Text style={styles.extrasTitle}>Discipline Tracker</Text>
+                            <Text style={styles.extrasTitle}>{`${title} — for ${opts.fullName}`}</Text>
+                            <Text style={styles.extrasMeta}>{`Goal: ${opts.goal}`}</Text>
                             <View style={styles.extrasContent}>
                                 <Table
                                     styles={styles}
@@ -220,16 +251,12 @@ function renderExtrasAI(extras: Record<string, string>, styles: PDFStyles) {
                     );
                 }
 
-                const lines = cleaned.split(/\n+/).filter((l) => l.trim());
                 return (
                     <Page key={key} style={styles.extrasPage}>
-                        <Text style={styles.extrasTitle}>{title}</Text>
+                        <Text style={styles.extrasTitle}>{`${title} — for ${opts.fullName}`}</Text>
+                        <Text style={styles.extrasMeta}>{`Goal: ${opts.goal}`}</Text>
                         <View style={styles.extrasContent}>
-                            {lines.map((line, i) => (
-                                <Text key={i} style={styles.extrasParagraph}>
-                                    {cleanText(line.trim())}
-                                </Text>
-                            ))}
+                            {renderExtrasContent(cleaned, styles)}
                         </View>
                     </Page>
                 );
@@ -238,8 +265,8 @@ function renderExtrasAI(extras: Record<string, string>, styles: PDFStyles) {
     );
 }
 
-// ===== EXTRAS: COACH (нова структура сіткою) =====
-function renderExtrasCoach(extras: Record<string, string>, styles: PDFStyles) {
+// ===== EXTRAS: COACH (нова структура, без пустих правих колонок) =====
+function renderExtrasCoach(extras: Record<string, string>, styles: PDFStyles, opts: { fullName: string; goal: string }) {
     const entries = Object.entries(extras);
     if (entries.length === 0) return null;
 
@@ -255,7 +282,8 @@ function renderExtrasCoach(extras: Record<string, string>, styles: PDFStyles) {
                 if (key === "tracking") {
                     return (
                         <Page key={key} style={styles.extrasPage}>
-                            <Text style={styles.extrasTitle}>Progress Tracking</Text>
+                            <Text style={styles.extrasTitle}>{`${title} — for ${opts.fullName}`}</Text>
+                            <Text style={styles.extrasMeta}>{`Goal: ${opts.goal}`}</Text>
                             <View style={styles.extrasContent}>
                                 <Table
                                     styles={styles}
@@ -275,7 +303,8 @@ function renderExtrasCoach(extras: Record<string, string>, styles: PDFStyles) {
                 if (key === "disciplineTracker") {
                     return (
                         <Page key={key} style={styles.extrasPage}>
-                            <Text style={styles.extrasTitle}>Discipline Tracker</Text>
+                            <Text style={styles.extrasTitle}>{`${title} — for ${opts.fullName}`}</Text>
+                            <Text style={styles.extrasMeta}>{`Goal: ${opts.goal}`}</Text>
                             <View style={styles.extrasContent}>
                                 <Table
                                     styles={styles}
@@ -292,26 +321,13 @@ function renderExtrasCoach(extras: Record<string, string>, styles: PDFStyles) {
                     );
                 }
 
-                const lines = cleaned.split(/\n+/).filter((l) => l.trim());
-                // перетворюємо в сітку 2xN
-                const rows: string[][] = [];
-                for (let i = 0; i < lines.length; i += 2) {
-                    rows.push([lines[i], lines[i + 1] || ""]);
-                }
-
+                // Коуч: верстаємо у один стовпчик з логічними заголовками
                 return (
                     <Page key={key} style={styles.extrasPage}>
-                        <Text style={styles.extrasTitle}>{title}</Text>
+                        <Text style={styles.extrasTitle}>{`${title} — for ${opts.fullName}`}</Text>
+                        <Text style={styles.extrasMeta}>{`Goal: ${opts.goal}`}</Text>
                         <View style={styles.extrasContent}>
-                            {rows.map((pair, ri) => (
-                                <View key={ri} style={styles.extrasGridRow}>
-                                    {pair.map((cell, ci) => (
-                                        <View key={ci} style={styles.extrasGridCell}>
-                                            <Text style={styles.extrasParagraph}>{cell}</Text>
-                                        </View>
-                                    ))}
-                                </View>
-                            ))}
+                            {renderExtrasContent(cleaned, styles)}
                         </View>
                     </Page>
                 );
@@ -361,7 +377,7 @@ export async function downloadTrainingPDF(order: UniversalOrderType) {
             </Page>
 
             {/* EXTRAS */}
-            {isCoach ? renderExtrasCoach(extras, styles) : renderExtrasAI(extras, styles)}
+            {isCoach ? renderExtrasCoach(extras, styles, { fullName, goal }) : renderExtrasAI(extras, styles, { fullName, goal })}
 
             {/* FINAL MOTIVATION */}
             <Page style={styles.page}>
