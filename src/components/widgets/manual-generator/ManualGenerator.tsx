@@ -13,7 +13,13 @@ import { useUser } from "@/context/UserContext";
 
 const BASE_COST = 30;
 
-// === Categorized extra options ===
+const LANGUAGES = [
+    { value: "English", label: "English (default)", cost: 0 },
+    { value: "Ukrainian", label: "Ukrainian", cost: 5 },
+    { value: "German", label: "German", cost: 5 },
+    { value: "French", label: "French", cost: 5 },
+];
+
 const EXTRA_CATEGORIES = {
     training: [
         { name: "adaptation", label: "Home / Gym Adaptation", cost: 10 },
@@ -46,6 +52,7 @@ const schema = Yup.object().shape({
     fitnessLevel: Yup.string().required("Required"),
     days: Yup.number().min(1).required("Required"),
     planType: Yup.string().oneOf(["coach", "ai"]).required("Required"),
+    language: Yup.string().oneOf(LANGUAGES.map((l) => l.value)),
 });
 
 interface FormValues {
@@ -54,6 +61,7 @@ interface FormValues {
     fitnessLevel: string;
     days: number;
     planType: "coach" | "ai";
+    language: string;
     extras: string[];
 }
 
@@ -68,7 +76,19 @@ const ManualWorkoutForm = () => {
         fitnessLevel: "Beginner",
         days: 7,
         planType: "coach",
+        language: "English",
         extras: [],
+    };
+
+    // 🧩 Mock data for testing
+    const mockData: FormValues = {
+        fullName: "John Doe",
+        goal: "Build lean muscle and improve endurance",
+        fitnessLevel: "Intermediate",
+        days: 21,
+        planType: "ai",
+        language: "English",
+        extras: ["tracking", "nutrition", "motivation"],
     };
 
     return (
@@ -85,11 +105,26 @@ const ManualWorkoutForm = () => {
                     }, 0);
 
                     const durationCost = Math.floor(values.days / 7) * 10;
-                    const totalTokens = BASE_COST + extraCost + durationCost;
+                    const languageCost = values.language && values.language !== "English" ? 5 : 0;
+                    const totalTokens = BASE_COST + extraCost + durationCost + languageCost;
 
-                    const payload = { ...values, totalTokens, email: user?.email };
+                    const payload = {
+                        category: "training",
+                        planType: values.planType === "coach" ? "reviewed" : "instant",
+                        language: values.language || "English",
+                        extras: values.extras,
+                        totalTokens,
+                        email: user?.email,
+                        fields: {
+                            fullName: values.fullName,
+                            goal: values.goal,
+                            fitnessLevel: values.fitnessLevel,
+                            days: values.days,
+                            language: values.language || "English",
+                        },
+                    };
 
-                    const res = await fetch("/api/workout/create-order", {
+                    const res = await fetch("/api/universal/create-order", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         credentials: "include",
@@ -102,7 +137,7 @@ const ManualWorkoutForm = () => {
                             "Success",
                             values.planType === "coach"
                                 ? "Your plan will be reviewed by a coach and delivered in PDF within 24 hours."
-                                : "Your AI-based training plan is ready instantly in PDF format.",
+                                : "Your instant training plan is ready in PDF format.",
                             "success"
                         );
                     } else {
@@ -115,7 +150,7 @@ const ManualWorkoutForm = () => {
                 }
             }}
         >
-            {({ values, setFieldValue }) => {
+            {({ values, setFieldValue, setValues }) => {
                 const allExtras = Object.values(EXTRA_CATEGORIES).flat();
                 const extraCost = values.extras.reduce((sum, name) => {
                     const opt = allExtras.find((o) => o.name === name);
@@ -123,19 +158,29 @@ const ManualWorkoutForm = () => {
                 }, 0);
 
                 const durationCost = Math.floor(values.days / 7) * 10;
-                const totalTokens = BASE_COST + extraCost + durationCost;
+                const languageCost = values.language && values.language !== "English" ? 5 : 0;
+                const totalTokens = BASE_COST + extraCost + durationCost + languageCost;
 
                 return (
                     <Form className={styles.form}>
-                        {/* === HEADER === */}
                         <header className={styles.header}>
                             <h2>Training Plan Configuration</h2>
                             <p>
-                                Choose your training type, define fitness parameters, and customize
-                                additional modules. Each section you add will be included in your
-                                personalized PDF plan.
+                                Choose your training type, define fitness parameters, and customize modules.
+                                You can also fill with demo data to test the flow.
                             </p>
                         </header>
+
+                        <div className={styles.actionsInline}>
+                            <ButtonUI
+                                type="button"
+                                variant="outline"
+                                color="secondary"
+                                onClick={() => setValues(mockData)}
+                            >
+                                🧪 Fill with Mock Data
+                            </ButtonUI>
+                        </div>
 
                         {/* === GRID SECTION === */}
                         <div className={styles.grid}>
@@ -143,11 +188,7 @@ const ManualWorkoutForm = () => {
                                 <h3>Personal Information</h3>
                                 <div className={styles.inputGroup}>
                                     <label>Full Name</label>
-                                    <Field
-                                        name="fullName"
-                                        as={Input}
-                                        placeholder="Enter your name"
-                                    />
+                                    <Field name="fullName" as={Input} placeholder="Enter your name" />
                                 </div>
                                 <div className={styles.inputGroup}>
                                     <label>Goal</label>
@@ -168,6 +209,22 @@ const ManualWorkoutForm = () => {
                                         <Option value="Advanced">Advanced</Option>
                                     </Select>
                                 </div>
+                                <div className={styles.inputGroup}>
+                                    <label>Language</label>
+                                    <Select
+                                        value={values.language}
+                                        onChange={(_, v) => setFieldValue("language", v || "English")}
+                                    >
+                                        {LANGUAGES.map((lang) => (
+                                            <Option key={lang.value} value={lang.value}>
+                                                {lang.label}
+                                            </Option>
+                                        ))}
+                                    </Select>
+                                    <span className={styles.note}>
+                    English is free, other languages cost +5 tokens
+                  </span>
+                                </div>
                             </div>
 
                             <div className={styles.block}>
@@ -187,7 +244,7 @@ const ManualWorkoutForm = () => {
                                         />
                                         <div>
                                             <strong>Coach Plan</strong>
-                                            <p>Delivered in 24 hours with expert verification</p>
+                                            <p>Delivered in 24h with expert verification</p>
                                         </div>
                                     </label>
 
@@ -227,91 +284,45 @@ const ManualWorkoutForm = () => {
                             </div>
                         </div>
 
-                        {/* === ADDITIONAL OPTIONS BY CATEGORY === */}
+                        {/* === EXTRAS === */}
                         <div className={styles.sectionGroup}>
-                            <div className={styles.section}>
-                                <h3>Training Modules</h3>
-                                <div className={styles.optionsGrid}>
-                                    {EXTRA_CATEGORIES.training.map((opt) => (
-                                        <label key={opt.name} className={styles.option}>
-                                            <input
-                                                type="checkbox"
-                                                checked={values.extras.includes(opt.name)}
-                                                onChange={(e) => {
-                                                    if (e.target.checked)
-                                                        setFieldValue("extras", [...values.extras, opt.name]);
-                                                    else
-                                                        setFieldValue(
-                                                            "extras",
-                                                            values.extras.filter((x) => x !== opt.name)
-                                                        );
-                                                }}
-                                            />
-                                            <span className={styles.optionLabel}>{opt.label}</span>
-                                            <span className={styles.optionCost}>+{opt.cost}</span>
-                                        </label>
-                                    ))}
+                            {Object.entries(EXTRA_CATEGORIES).map(([category, options]) => (
+                                <div key={category} className={styles.section}>
+                                    <h3>
+                                        {category.charAt(0).toUpperCase() + category.slice(1)} Modules
+                                    </h3>
+                                    <div className={styles.optionsGrid}>
+                                        {options.map((opt) => (
+                                            <label key={opt.name} className={styles.option}>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={values.extras.includes(opt.name)}
+                                                    onChange={(e) => {
+                                                        if (e.target.checked)
+                                                            setFieldValue("extras", [...values.extras, opt.name]);
+                                                        else
+                                                            setFieldValue(
+                                                                "extras",
+                                                                values.extras.filter((x) => x !== opt.name)
+                                                            );
+                                                    }}
+                                                />
+                                                <span className={styles.optionLabel}>{opt.label}</span>
+                                                <span className={styles.optionCost}>+{opt.cost}</span>
+                                            </label>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div className={styles.section}>
-                                <h3>Nutrition Modules</h3>
-                                <div className={styles.optionsGrid}>
-                                    {EXTRA_CATEGORIES.nutrition.map((opt) => (
-                                        <label key={opt.name} className={styles.option}>
-                                            <input
-                                                type="checkbox"
-                                                checked={values.extras.includes(opt.name)}
-                                                onChange={(e) => {
-                                                    if (e.target.checked)
-                                                        setFieldValue("extras", [...values.extras, opt.name]);
-                                                    else
-                                                        setFieldValue(
-                                                            "extras",
-                                                            values.extras.filter((x) => x !== opt.name)
-                                                        );
-                                                }}
-                                            />
-                                            <span className={styles.optionLabel}>{opt.label}</span>
-                                            <span className={styles.optionCost}>+{opt.cost}</span>
-                                        </label>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className={styles.section}>
-                                <h3>Mindset & Performance</h3>
-                                <div className={styles.optionsGrid}>
-                                    {EXTRA_CATEGORIES.mindset.map((opt) => (
-                                        <label key={opt.name} className={styles.option}>
-                                            <input
-                                                type="checkbox"
-                                                checked={values.extras.includes(opt.name)}
-                                                onChange={(e) => {
-                                                    if (e.target.checked)
-                                                        setFieldValue("extras", [...values.extras, opt.name]);
-                                                    else
-                                                        setFieldValue(
-                                                            "extras",
-                                                            values.extras.filter((x) => x !== opt.name)
-                                                        );
-                                                }}
-                                            />
-                                            <span className={styles.optionLabel}>{opt.label}</span>
-                                            <span className={styles.optionCost}>+{opt.cost}</span>
-                                        </label>
-                                    ))}
-                                </div>
-                            </div>
+                            ))}
                         </div>
 
-                        {/* === SUMMARY === */}
                         <div className={styles.summary}>
                             <div className={styles.summaryContent}>
                                 <div>
-                                    <p>Base cost: 30 tokens</p>
-                                    <p>Extras: +{extraCost} tokens</p>
-                                    <p>Duration: +{durationCost} tokens</p>
+                                    <p>Base: 30 tokens</p>
+                                    <p>Extras: +{extraCost}</p>
+                                    <p>Duration: +{durationCost}</p>
+                                    <p>Language: +{languageCost}</p>
                                 </div>
                                 <h4>
                                     Total: <span>{totalTokens}</span> tokens
@@ -319,7 +330,6 @@ const ManualWorkoutForm = () => {
                             </div>
                         </div>
 
-                        {/* === SUBMIT === */}
                         <div className={styles.actions}>
                             <ButtonUI
                                 type="submit"

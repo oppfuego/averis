@@ -47,7 +47,7 @@ export const AllOrdersProvider: React.FC<{ children: React.ReactNode }> = ({ chi
             setCvOrders(Array.isArray(normalizedCv) ? normalizedCv : []);
 
             // 🔹 (опціонально) AI ордери
-            const resAi = await fetch("/api/ai/get-all-orders", {
+            const resAi = await fetch("/api/universal/get-orders", {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
