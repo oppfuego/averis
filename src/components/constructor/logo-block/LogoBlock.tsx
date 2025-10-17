@@ -13,7 +13,7 @@ interface LogoBlockProps {
 const LogoBlock: React.FC<LogoBlockProps> = ({
                                                  width = 180,
                                                  height = 60,
-                                                 alt = "CVMaker Logo",
+                                                 alt = "Averis Logo",
                                              }) => {
     return (
         <div className={styles.logoWrapper}>
