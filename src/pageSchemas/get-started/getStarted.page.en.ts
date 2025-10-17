@@ -55,37 +55,37 @@ Whether you train at home, in a gym, or outdoors — ${COMPANY_NAME} builds your
             gap: "2rem",
             cards: [
                 {
-                    image: "image1",
+                    image: "image12",
                     title: "1. Create Your Account",
                     description:
                         "Sign up to access your personal dashboard and connect with a trainer who fits your goals.",
                 },
                 {
-                    image: "image1",
+                    image: "image4",
                     title: "2. Complete Your Fitness Profile",
                     description:
                         "Share your lifestyle, equipment, and experience level. The more we know, the better your plan.",
                 },
                 {
-                    image: "image1",
+                    image: "image14",
                     title: "3. Match With a Trainer",
                     description:
                         "We pair you with a certified coach who specializes in your training style — from strength to rehabilitation.",
                 },
                 {
-                    image: "image1",
+                    image: "image9",
                     title: "4. Receive Your Plan",
                     description:
                         "Your trainer builds a structured program with exercises, sets, and progressions tailored to your body.",
                 },
                 {
-                    image: "image1",
+                    image: "image13",
                     title: "5. Add Nutrition (Optional)",
                     description:
                         "Combine training with a personalized meal plan designed by a professional nutritionist.",
                 },
                 {
-                    image: "image1",
+                    image: "image11",
                     title: "6. Track & Improve",
                     description:
                         "Use our AI tools to log workouts, analyze trends, and stay connected with your trainer for adjustments.",

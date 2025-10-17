@@ -31,7 +31,7 @@ const schema: PageSchema = {
             highlight: `${COMPANY_NAME}`,
             description: `We are a global community of professional trainers, nutritionists, and developers united by one belief — that health should be personal, intelligent, and sustainable.  
 ${COMPANY_NAME} was built to make expert-level fitness accessible to everyone, anywhere, through the perfect balance of human insight and AI technology.`,
-            image: "image1",
+            image: "image6",
             align: "left",
         },
 
@@ -45,7 +45,6 @@ We wanted to bring fitness back to its roots: real people helping other people a
             left: {
                 type: "custom",
                 component: "InfoBlock",
-                image: "aboutStory",
                 title: `How ${COMPANY_NAME} Came to Life`,
                 description: `When our founders noticed how many people were lost in quick-fix promises, they decided to build a solution that blends technology with empathy.  
 The first version of ${COMPANY_NAME} launched as a platform connecting verified trainers with clients looking for structure, motivation, and accountability.  
@@ -84,7 +83,7 @@ Our trainers are certified professionals from around the world — experts not o
             left: {
                 type: "custom",
                 component: "InfoBlock",
-                image: "image1",
+                image: "image7",
                 title: "Who Our Trainers Are",
                 description: `Each coach who joins ${COMPANY_NAME} passes a strict verification process — background checks, certifications, experience proof, and mentoring interviews.  
 We look for people who understand that coaching is more than sets and reps — it’s about empathy, discipline, and consistency.`,
@@ -98,7 +97,7 @@ We look for people who understand that coaching is more than sets and reps — i
             right: {
                 type: "custom",
                 component: "InfoBlock",
-                image: "image1",
+                image: "image8",
                 title: "Our Coaching Philosophy",
                 description: `At ${COMPANY_NAME}, coaching is a partnership — not a transaction.  
 Our trainers don’t just send you a PDF; they design evolving plans that grow with your progress, mood, and schedule.  
@@ -174,7 +173,7 @@ Soon, every member will have access to a complete ecosystem: a human coach, an A
             right: {
                 type: "media",
                 mediaType: "image",
-                src: "image1",
+                src: "image2",
                 alt: "Future fitness vision",
             },
         },

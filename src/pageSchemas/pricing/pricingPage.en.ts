@@ -31,7 +31,7 @@ const schema: PageSchema = {
             highlight: "For Every Goal & Lifestyle",
             description: `Select between fully guided coaching, AI-assisted programs, or a flexible custom plan.  
 Every option helps you train smarter, stay motivated, and see results faster.`,
-            image: "image1",
+            image: "image4",
             align: "right",
         },
 
@@ -143,7 +143,7 @@ Your coach ensures every session, rest, and meal fits your body and your mindset
             right: {
                 type: "media",
                 mediaType: "image",
-                src: "image1",
+                src: "image14",
                 alt: "Trainer helping client",
             },
         },
