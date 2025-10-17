@@ -1,9 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import { Input, Textarea } from "@mui/joy";
 import { motion } from "framer-motion";
-import Confetti from "react-confetti";
 import ButtonUI from "@/components/ui/button/ButtonUI";
 import { validationSchema, initialValues, sendContactRequest } from "./schema";
 import { useAlert } from "@/context/AlertContext";
@@ -11,28 +10,36 @@ import { FaMapMarkerAlt, FaEnvelope, FaPhone } from "react-icons/fa";
 import { COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_PHONE } from "@/resources/constants";
 import styles from "./ContactForm.module.scss";
 
-const ContactUsForm = () => {
+interface ContactFormValues {
+    name: string;
+    secondName: string;
+    email: string;
+    phone: string;
+    message?: string;
+}
+
+const ContactUsForm: React.FC = () => {
     const { showAlert } = useAlert();
-    const [showConfetti, setShowConfetti] = useState(false);
     const [successMsg, setSuccessMsg] = useState("");
 
-    const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    const handleSubmit = async (
+        values: ContactFormValues,
+        { setSubmitting, resetForm }: FormikHelpers<ContactFormValues>
+    ) => {
         try {
             await sendContactRequest(values);
             resetForm();
             setSuccessMsg("🎉 Message sent successfully!");
-            setShowConfetti(true);
             showAlert("Success", "Your message has been sent!", "success");
-            setTimeout(() => setShowConfetti(false), 6000);
         } catch {
             showAlert("Error", "Something went wrong. Try again.", "error");
+        } finally {
+            setSubmitting(false);
         }
-        setSubmitting(false);
     };
 
     return (
         <section className={styles.contactSection}>
-            {showConfetti && <Confetti />}
             <motion.div
                 className={styles.header}
                 initial={{ opacity: 0, y: 30 }}
@@ -46,7 +53,6 @@ const ContactUsForm = () => {
                 </p>
             </motion.div>
 
-            {/* Contact info cards */}
             <div className={styles.infoGrid}>
                 <motion.div className={styles.infoCard} whileHover={{ y: -5 }}>
                     <FaMapMarkerAlt className={styles.icon} />
@@ -67,7 +73,6 @@ const ContactUsForm = () => {
                 </motion.div>
             </div>
 
-            {/* Floating form */}
             <motion.div
                 className={styles.formWrapper}
                 initial={{ opacity: 0, y: 50 }}
@@ -77,7 +82,7 @@ const ContactUsForm = () => {
                 {successMsg ? (
                     <div className={styles.successMsg}>{successMsg}</div>
                 ) : (
-                    <Formik
+                    <Formik<ContactFormValues>
                         initialValues={initialValues}
                         validationSchema={validationSchema}
                         onSubmit={handleSubmit}
@@ -86,25 +91,31 @@ const ContactUsForm = () => {
                             <Form className={styles.form}>
                                 <div className={styles.row}>
                                     <Field name="name">
-                                        {({ field }) => (
-                                            <Input {...field} placeholder="First Name" fullWidth />
+                                        {({ field }: FieldProps) => (
+                                            <Input {...field} placeholder="First Name" fullWidth error={!!errors.name && touched.name} />
                                         )}
                                     </Field>
                                     <Field name="secondName">
-                                        {({ field }) => (
-                                            <Input {...field} placeholder="Last Name" fullWidth />
+                                        {({ field }: FieldProps) => (
+                                            <Input {...field} placeholder="Last Name" fullWidth error={!!errors.secondName && touched.secondName} />
                                         )}
                                     </Field>
                                 </div>
 
                                 <Field name="email">
-                                    {({ field }) => (
-                                        <Input {...field} type="email" placeholder="Email" fullWidth />
+                                    {({ field }: FieldProps) => (
+                                        <Input {...field} type="email" placeholder="Email" fullWidth error={!!errors.email && touched.email} />
+                                    )}
+                                </Field>
+
+                                <Field name="phone">
+                                    {({ field }: FieldProps) => (
+                                        <Input {...field} type="tel" placeholder="Phone" fullWidth error={!!errors.phone && touched.phone} />
                                     )}
                                 </Field>
 
                                 <Field name="message">
-                                    {({ field }) => (
+                                    {({ field }: FieldProps) => (
                                         <Textarea {...field} placeholder="Your message" minRows={5} />
                                     )}
                                 </Field>
