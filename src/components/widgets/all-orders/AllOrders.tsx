@@ -12,7 +12,7 @@ import {CVOrderType} from "@/backend/types/cv.types";
 import {UniversalOrderType} from "@/backend/types/universal.types";
 
 const AllOrders: React.FC = () => {
-    const {cvOrders, aiOrders, loading, refreshOrders} = useAllOrders();
+    const {aiOrders, loading, refreshOrders} = useAllOrders();
 
     // ❇️ Universal orders — переіменовуємо для зручності
     const universalOrders = aiOrders as unknown as UniversalOrderType[];
@@ -70,14 +70,14 @@ const AllOrders: React.FC = () => {
 
             if (data?.order) await downloadUniversalPDF(data.order);
         } catch (err: any) {
-            console.error("❌ Universal Download error:", err.message);
+            console.error("❌ Training Download error:", err.message);
         }
     };
 
 
     if (loading) return <p className={styles.loading}>Loading orders...</p>;
 
-    if (cvOrders.length === 0 && universalOrders.length === 0)
+    if (universalOrders.length === 0)
         return (
             <div className={styles.emptyState}>
                 <span className={styles.emptyIcon}>📭</span>
@@ -100,54 +100,10 @@ const AllOrders: React.FC = () => {
                 </ButtonUI>
             </div>
 
-            {/* ====================== CV ORDERS ====================== */}
-            {cvOrders.length > 0 && (
-                <>
-                    <h4 className={styles.sectionTitle}>CV Orders</h4>
-                    <div className={styles.ordersGrid}>
-                        {cvOrders.map((order) => (
-                            <div key={order._id.toString()} className={styles.card}>
-                                <div className={styles.cardHeader}>
-                                    <div className={styles.idWrapper}>
-                                        <span className={styles.orderId}>#{formatId(order._id.toString())}</span>
-                                        <span
-                                            className={`${styles.badge} ${
-                                                order.reviewType === "manager" ? styles.manager : styles.instant
-                                            }`}
-                                        >
-                      {order.reviewType === "manager" ? "Manager Review" : "Instant"}
-                    </span>
-                                    </div>
-                                    <button
-                                        className={styles.downloadBtn}
-                                        onClick={() => handleDownloadCV(order)}
-                                        aria-label="Download"
-                                    >
-                                        <FaFileDownload/>
-                                    </button>
-                                </div>
-
-                                <div className={styles.cardBody}>
-                                    <p className={styles.email}>{order.email}</p>
-                                    <div className={styles.meta}>
-                    <span className={styles.date}>
-                      <FaRegClock/> {formatDate(order.createdAt)} at {formatTime(order.createdAt)}
-                    </span>
-                                        <span className={styles.tokens}>
-                      <FaCoins/> {order.reviewType === "manager" ? "-60" : "-30"} tokens
-                    </span>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </>
-            )}
-
             {/* ====================== UNIVERSAL ORDERS ====================== */}
             {universalOrders.length > 0 && (
                 <>
-                    <h4 className={styles.sectionTitle}>Universal Orders</h4>
+                    <h4 className={styles.sectionTitle}>Training Orders</h4>
                     <div className={styles.ordersGrid}>
                         {universalOrders.map((order) => (
                             <div key={order._id} className={styles.card}>
