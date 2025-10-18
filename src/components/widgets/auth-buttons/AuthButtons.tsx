@@ -29,9 +29,9 @@ const AuthButtons: React.FC = () => {
                         <GrMoney className={styles.tokenIcon}/>
                         <span className={styles.balanceText}>{user?.tokens ?? 0} Tokens</span>
                     </div>
-                    <div className={styles.userIconWrapper}>
+                    {/*<div className={styles.userIconWrapper}>
                         <FaUser className={styles.userIcon}/>
-                    </div>
+                    </div>*/}
                 </Link>
 
             </div>

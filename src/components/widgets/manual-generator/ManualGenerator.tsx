@@ -167,11 +167,10 @@ const ManualWorkoutForm = () => {
                             <h2>Training Plan Configuration</h2>
                             <p>
                                 Choose your training type, define fitness parameters, and customize modules.
-                                You can also fill with demo data to test the flow.
                             </p>
                         </header>
 
-                        <div className={styles.actionsInline}>
+                        {/*<div className={styles.actionsInline}>
                             <ButtonUI
                                 type="button"
                                 variant="outline"
@@ -180,7 +179,7 @@ const ManualWorkoutForm = () => {
                             >
                                 🧪 Fill with Mock Data
                             </ButtonUI>
-                        </div>
+                        </div>*/}
 
                         {/* === GRID SECTION === */}
                         <div className={styles.grid}>

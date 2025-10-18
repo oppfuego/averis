@@ -49,7 +49,7 @@ const faqSchema: PageSchema = {
                 {
                     question: "What are tokens and how do they work?",
                     answer:
-                        "Tokens are your digital credits inside the ${COMPANY_NAME} system. You use them to book training sessions, add nutrition support, or unlock AI premium features. You can top them up anytime.",
+                        `Tokens are your digital credits inside the ${COMPANY_NAME} system. You use them to book training sessions, add nutrition support, or unlock AI premium features. You can top them up anytime.`,
                 },
                 {
                     question: "How soon will I get my personalized plan?",
@@ -69,7 +69,7 @@ const faqSchema: PageSchema = {
                 {
                     question: "Is my personal data safe?",
                     answer:
-                        "Yes. All your fitness and health information is stored securely and never shared with third parties. ${COMPANY_NAME} follows GDPR and international data protection standards.",
+                        `Yes. All your fitness and health information is stored securely and never shared with third parties. ${COMPANY_NAME} follows GDPR and international data protection standards.`,
                 },
                 {
                     question: "How can I contact support?",

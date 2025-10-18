@@ -21,6 +21,7 @@
   margin: 0 auto;
   padding: 16px 32px;
   width: 100%;
+  gap: 20px;
 }
 
 .logo {
@@ -40,7 +41,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: 15px;
+  font-size: 16px;
 }
 
 .actionsNav {
@@ -147,7 +149,7 @@
   cursor: pointer;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .nav {
     display: none;
   }

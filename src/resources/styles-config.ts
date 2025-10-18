@@ -80,7 +80,7 @@ export const footerStyles = {
     paddings: { x: 40, y: 10 },
     gap: 30,
     columnsGap: 50,
-    logo: { width: 240, height: 100, align: "center" as FooterLogoAlign },
+    logo: { width: 200, height: 100, align: "center" as FooterLogoAlign },
     colors: {
         bg: "var(--primary-color)",
         title: "var(--text-secondary)",

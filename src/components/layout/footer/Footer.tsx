@@ -77,6 +77,18 @@ const Footer: React.FC = () => {
                         <span>{legal.companyNumber}</span>
                     </div>
                 )}
+                {contact.email && (
+                    <div className={styles["footer__contact-item"]}>
+                        <strong>Email: </strong>
+                        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                    </div>
+                )}
+                {contact.phone && (
+                    <div className={styles["footer__contact-item"]}>
+                        <strong>Phone: </strong>
+                        <a href={`tel:${contact.phone}`}>{contact.phone}</a>
+                    </div>
+                )}
                 <LegalAddress />
             </div>
         ) : null;
@@ -174,45 +186,23 @@ const Footer: React.FC = () => {
                                 <LegalBlock />
                             </div>
                         )}
+
                         <PaymentMethods />
-                        {/* 🔹 Колонка соцмереж з React Icons */}
+
+                        {/* 🔹 Колонка соцмереж */}
                         <div className={styles["footer__column"]}>
                             <div className={styles["footer__column-title"]}>Follow Us</div>
                             <div className={styles["footer__socials"]}>
-                                <a
-                                    href="https://facebook.com"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label="Facebook"
-                                    className={styles["footer__social-link"]}
-                                >
+                                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={styles["footer__social-link"]}>
                                     <FaFacebookF />
                                 </a>
-                                <a
-                                    href="https://instagram.com"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label="Instagram"
-                                    className={styles["footer__social-link"]}
-                                >
+                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={styles["footer__social-link"]}>
                                     <FaInstagram />
                                 </a>
-                                <a
-                                    href="https://linkedin.com"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label="LinkedIn"
-                                    className={styles["footer__social-link"]}
-                                >
+                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className={styles["footer__social-link"]}>
                                     <FaLinkedinIn />
                                 </a>
-                                <a
-                                    href="https://twitter.com"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label="Twitter"
-                                    className={styles["footer__social-link"]}
-                                >
+                                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className={styles["footer__social-link"]}>
                                     <FaTwitter />
                                 </a>
                             </div>
@@ -220,7 +210,6 @@ const Footer: React.FC = () => {
                     </div>
                 </div>
             )}
-
 
             {footerStyles.type === "center" && (
                 <div className={clsx(styles["footer__inner"], styles["footer__inner--center"])}>

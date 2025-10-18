@@ -1,5 +1,6 @@
 import {media} from "@/resources/media";
 import {FaTwitter, FaFacebook, FaLinkedin} from "react-icons/fa";
+import {COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_LEGAL_NAME, COMPANY_NUMBER, COMPANY_PHONE} from "@/resources/constants";
 
 export const baseURL =
     typeof window !== "undefined"
@@ -18,7 +19,6 @@ export const headerContent = {
         {label: "Pricing", href: "/pricing"},
         {label: "Contact", href: "/contact-us"},
         {label: "Faq", href: "/faq"},
-
     ]
 };
 
@@ -45,15 +45,17 @@ export const footerContent = {
         },
     ],
     contact: {
-        email: "info@cv-makers.co.uk",
-        phone: "+1 234 567 890",
-        address: "Academy House, 11 Dunraven Place, Bridgend, Mid Glamorgan, United Kingdom, CF31 1JF",
+        email: COMPANY_EMAIL,
+        phone: COMPANY_PHONE,
+        address: COMPANY_ADDRESS,
     },
 
     legal: {
-        companyName: "PREMIUM SERVICE PROVIDERS LTD",
-        companyNumber: "15885598",
-        address: "1 Brook St, Nottingham, United Kingdom, NG1 1AR",
+        companyName: COMPANY_LEGAL_NAME,
+        companyNumber: COMPANY_NUMBER,
+        address: COMPANY_ADDRESS,
+        email: COMPANY_EMAIL,
+        phone: COMPANY_PHONE,
     },
     socials: [],
 };

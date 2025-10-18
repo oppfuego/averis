@@ -173,7 +173,7 @@ Soon, every member will have access to a complete ecosystem: a human coach, an A
             right: {
                 type: "media",
                 mediaType: "image",
-                src: "image2",
+                src: "image3",
                 alt: "Future fitness vision",
             },
         },

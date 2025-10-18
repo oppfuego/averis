@@ -1,23 +1,23 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { headerContent } from "@/resources/content";
+import React, {useEffect, useState} from "react";
+import {headerContent} from "@/resources/content";
 import styles from "./Header.module.scss";
-import { IconButton } from "@mui/material";
-import { FaBars } from "react-icons/fa";
-import { useUser } from "@/context/UserContext";
+import {IconButton} from "@mui/material";
+import {FaBars} from "react-icons/fa";
+import {useUser} from "@/context/UserContext";
 import Image from "next/image";
 import AuthButtons from "@/components/widgets/auth-buttons/AuthButtons";
-import { headerStyles } from "@/resources/styles-config";
+import {headerStyles} from "@/resources/styles-config";
 import DrawerMenu from "@/components/ui/drawer/Drawer";
-import { useCurrency } from "@/context/CurrencyContext";
-import { motion } from "framer-motion";
+import {useCurrency} from "@/context/CurrencyContext";
+import {motion} from "framer-motion";
 
 const Header: React.FC = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const user = useUser();
-    const { currency, setCurrency } = useCurrency();
+    const {currency, setCurrency} = useCurrency();
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -49,15 +49,15 @@ const Header: React.FC = () => {
                     .filter(Boolean)
                     .join(" ")}
                 style={scrolledStyle}
-                initial={{ opacity: 0, y: -40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+                initial={{opacity: 0, y: -40}}
+                animate={{opacity: 1, y: 0}}
+                transition={{duration: 0.6, ease: "easeOut"}}
             >
                 <div className={styles.headerInner}>
                     {/* Ліва частина — логотип */}
                     <a href={headerContent.logo.href} className={styles.logo}>
                         <Image
-                            width={200}
+                            width={190}
                             height={60}
                             src={headerContent.logo.src}
                             alt={headerContent.logo.alt}
@@ -71,11 +71,16 @@ const Header: React.FC = () => {
                                 {link.label}
                             </a>
                         ))}
+                        {user && (
+                            <a href="/dashboard" className={styles.link}>
+                                Dashboard
+                            </a>
+                        )}
                     </nav>
 
                     {/* Права частина — кнопки */}
                     <div className={styles.actionsNav}>
-                        <AuthButtons />
+                        <AuthButtons/>
                         <div className={styles.currencySwitch}>
                             <div
                                 className={`${styles.toggle} ${currency === "EUR" ? styles.active : ""}`}
@@ -83,7 +88,7 @@ const Header: React.FC = () => {
                             >
                                 <span className={styles.labelLeft}>GBP</span>
                                 <span className={styles.labelRight}>EUR</span>
-                                <div className={styles.thumb} />
+                                <div className={styles.thumb}/>
                             </div>
                         </div>
                     </div>
@@ -95,13 +100,13 @@ const Header: React.FC = () => {
                             aria-label="Open navigation"
                             className={styles.button}
                         >
-                            <FaBars className={styles.button} />
+                            <FaBars className={styles.button}/>
                         </IconButton>
                     </div>
                 </div>
             </motion.header>
 
-            <DrawerMenu open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+            <DrawerMenu open={drawerOpen} onClose={() => setDrawerOpen(false)}/>
         </>
     );
 };
