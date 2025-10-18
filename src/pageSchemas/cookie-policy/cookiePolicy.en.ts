@@ -1,28 +1,24 @@
 import { PageSchema } from "@/components/constructor/page-render/types";
-import {
-    COMPANY_NAME,
-    COMPANY_LEGAL_NAME,
-    COMPANY_NUMBER,
-    COMPANY_ADDRESS,
-    COMPANY_EMAIL,
-} from "@/resources/constants";
 
 const cookiePolicyEn: PageSchema = {
     meta: {
-        title: `Cookies Policy – ${COMPANY_NAME}`,
-        description: `Cookies Policy of ${COMPANY_NAME}: how we use cookies and similar technologies, categories, consent rules, third parties, and your rights.`,
+        title: "Cookies Policy – Averis",
+        description:
+            "Averis Cookies Policy: how we use cookies, storage, pixels, and SDKs, with full consent rules, categories, and your control options.",
         keywords: [
             "cookies policy",
             "cookies",
-            "privacy",
             "GDPR",
-            "consent",
             "tracking",
+            "privacy",
+            "consent",
+            "averis",
         ],
         canonical: "/cookies-policy",
         ogImage: {
-            title: `${COMPANY_NAME} – Cookies Policy`,
-            description: "Clear and transparent cookies practices for CV/resume services.",
+            title: "Averis – Cookies Policy",
+            description:
+                "Transparent cookies and consent policy for Averis AI fitness platform.",
             bg: "#ffffff",
             color: "#000000",
         },
@@ -31,87 +27,107 @@ const cookiePolicyEn: PageSchema = {
         {
             type: "text",
             title: "Cookies Policy",
-            description: "Effective date: 10 September 2025",
+            description: "Effective date: 18 October 2025",
         },
         {
             type: "text",
             title: "1. Overview",
-            description: `This Cookies Policy explains how ${COMPANY_NAME}, operated by ${COMPANY_LEGAL_NAME} (Company No. ${COMPANY_NUMBER}, registered office: ${COMPANY_ADDRESS}), uses cookies and similar technologies (such as localStorage, sessionStorage, pixels, and other identifiers) across our website and services. This Policy complements our Privacy Policy. By continuing to browse the site or interacting with the cookie banner, you can manage or provide consent to non-essential cookies as outlined below.`
-        },
-        {
-            type: "text",
-            title: "2. What Are Cookies?",
-            description: "Cookies are small text files or browser entries placed on your device when you visit a website. They enable essential site functionality (such as login sessions), help remember your preferences, support performance improvements, and — with your consent — activate analytics and marketing features."
-        },
-        {
-            type: "text",
-            title: "3. Categories of Cookies We Use",
-            description: "We use cookies only for limited, clearly defined purposes. The main categories include:",
+            description:
+                "This Cookies Policy explains how Averis (“we”, “us”, “our”) uses cookies and similar technologies (including localStorage, sessionStorage, pixels, and SDKs) on averis.co.uk and related services (the “Service”). It complements our Privacy Policy. By interacting with our cookie banner or the preferences center, you can manage consent to non-essential cookies as described below.",
             bullets: [
-                "Essential / Necessary — required for core platform features (e.g., login, security, session management). These are strictly necessary and do not require consent.",
-                "Functional — store user preferences such as language, layout, and interface settings.",
-                "Performance / Analytics — collect aggregated information about site usage (page views, load times, errors) to improve service reliability. Depending on the tool, these may rely on legitimate interests or user consent.",
-                "Marketing / Advertising — activated only with your consent; used for campaign tracking, remarketing, and personalised offers.",
-                "Security / Anti-abuse — help detect suspicious activity, fraud, bots, or misuse of the platform."
-            ]
+                "Controller: SHIREDON LIMITED (Company No. 15799662), Academy House, 11 Dunraven Place, Bridgend, Mid Glamorgan, United Kingdom, CF31 1JF.",
+                "Contact: info@averis.co.uk",
+            ],
         },
         {
             type: "text",
-            title: "4. Examples of Typical Cookies",
-            description: "The names, lifetimes, and providers of cookies may change. Current information is always available in the cookie settings panel on our website. Examples include:",
+            title: "2. What Are Cookies (and Similar Technologies)?",
+            description:
+                "Cookies are small files placed on your device by a website. They help the site run essential functions (e.g., login sessions, CSRF protection), remember preferences (e.g., language, UI choices), measure performance and reliability, and — where you consent — enable analytics and marketing/attribution.",
+            description2:
+                "Similar technologies (treated similarly for consent) include: localStorage/sessionStorage keys, SDK identifiers, tracking pixels, and device/browser identifiers.",
+        },
+        {
+            type: "text",
+            title: "3. Categories We Use",
             bullets: [
-                "session_id — Keeps you logged in/session • Essential • Lifetime: Session",
-                "csrf_token — Provides CSRF protection • Essential • Lifetime: Session",
-                "cookie_consent — Stores your cookie preferences • Functional • Lifetime: 6–12 months",
-                "ui_prefs — Saves UI/language settings • Functional • Lifetime: ~6 months",
-                "_ga, _gid — Basic analytics (Google) • Performance/Analytics • Lifetime: 1–24 months",
-                "campaign_src — Tracks marketing attribution • Marketing • Lifetime: 30–90 days"
-            ]
+                "Necessary / Essential – required for core functionality (authentication, security, session management, load balancing, consent logging). These do not require consent.",
+                "Functional – remember choices (language, theme, saved generator inputs where you opt in).",
+                "Performance / Analytics – help us understand usage, errors, and page speed so we can improve reliability. Depending on the tool, we rely on consent or legitimate interests (with strict configuration) where appropriate.",
+                "Marketing / Advertising – set only if you enable them; used for campaign attribution, remarketing, and measuring the effectiveness of our ads.",
+                "Security / Anti-abuse – detect unusual activity, mitigate fraud and bot traffic.",
+            ],
+        },
+        {
+            type: "text",
+            title: "4. Typical Cookies & Storage Keys (Examples)",
+            description:
+                "Names and lifetimes can vary by release and provider. The current, authoritative list appears in the Cookie Settings panel.",
+            bullets: [
+                "session_id — Maintains authenticated session • Necessary • Session",
+                "csrf_token — CSRF protection • Necessary • Session",
+                "consent_state — Stores your banner/settings choices • Necessary/Functional • 6–12 months",
+                "ui_prefs — Language, theme, layout • Functional • ~6 months",
+                "perf_metrics — Page performance & errors • Analytics • 1–3 months",
+                "campaign_src — UTM/campaign attribution • Marketing • 1–3 months",
+                "averis_token_hint (localStorage) — Optional: remembers last token pack view • Functional • Until cleared",
+                "averis_generator_prefs (localStorage) — Optional: saves workout generator inputs • Functional • Until cleared",
+            ],
         },
         {
             type: "text",
             title: "5. Consent and Lawful Basis",
             bullets: [
-                "Essential cookies are used without consent, as they are required for the Service to function.",
-                "Non-essential cookies (functional, analytics, marketing) are only activated after you provide consent via the cookie banner or settings panel, unless we rely on legitimate interests for limited analytics or security.",
-                "Our legal bases for cookie use include contract performance, consent, and legitimate interests (e.g., fraud prevention, service improvement, dispute defence)."
-            ]
+                "Essential cookies are strictly necessary and do not require consent.",
+                "Non-essential cookies (Functional, Analytics, Marketing) are set only after you consent via the banner or preferences center, unless we use a tightly-scoped analytics configuration relying on legitimate interests (no cross-site tracking, IP truncation, aggregated reports).",
+                "Our lawful bases may include performance of contract (to run the Service), consent, and legitimate interests (e.g., service improvement, fraud prevention). See our Privacy Policy for details.",
+            ],
         },
         {
             type: "text",
             title: "6. How We Record and Retain Consent",
-            description: "When you provide cookie consent, we log the version of the text shown, timestamp, IP address, and browser details as proof of your choice. Consent records are retained for at least 24 months, and up to 6 years where required for enterprise or dispute resolution purposes, in line with our Privacy Policy."
+            description:
+                "When you save a choice, we record the consent categories you selected, a policy/version reference, timestamp, IP address, and user-agent (for evidential purposes). We retain this record for at least 24 months, and up to 6 years in case of disputes, in line with our Privacy Policy and data-protection law.",
         },
         {
             type: "text",
             title: "7. Third Parties and International Transfers",
-            description: `We work with trusted third-party providers (e.g., payment processors, hosting/cloud platforms, analytics, marketing, customer support tools) that may place cookies or similar identifiers. Some providers are located outside the UK/EEA. In such cases, we rely on safeguards such as UK adequacy regulations, Standard Contractual Clauses (SCCs), or equivalent legal mechanisms. A current list of active providers is available in the cookie settings panel.`
+            description:
+                "We may use third-party providers (for example: payment processing, analytics, hosting/CDN, email delivery, marketing/attribution) that set or read cookies/identifiers. Some providers may process data outside the UK/EEA. Where transfers occur, we implement appropriate safeguards (e.g., UK adequacy decisions, UK/EU Standard Contractual Clauses, and supplementary measures as needed).",
+            description2:
+                "A current list of third-party providers and cookie details is available in the Cookie Settings panel on our site.",
         },
         {
             type: "text",
-            title: "8. How to Manage or Withdraw Cookie Consent",
+            title: "8. Managing or Withdrawing Consent",
             bullets: [
-                "Use the cookie banner or cookie settings panel on our website to accept, decline, or customise non-essential cookies.",
-                "You may withdraw or adjust your consent at any time via the cookie settings link in the footer.",
-                "You can also manage cookies directly through your browser settings or by using private/incognito mode.",
-                "Please note: disabling certain cookies may reduce functionality (e.g., automatic login or saved preferences)."
-            ]
+                "Use the cookie banner or Cookie Settings link (site footer) to accept, decline, or customise non-essential categories.",
+                "You can withdraw consent at any time in Cookie Settings; your new choice applies going forward.",
+                "You can also clear cookies via your browser settings or use private/incognito mode.",
+                "Note: disabling certain cookies may limit functionality (e.g., you may be logged out or preferences won’t persist).",
+            ],
         },
         {
             type: "text",
-            title: "9. Updates to this Policy",
-            description: "We may update this Cookies Policy periodically (for example, if new tools or technologies are introduced). Significant changes will be communicated by a notice on the website or, where appropriate, by email to registered users. The effective date will always be updated accordingly."
+            title: "9. Do Not Track / Global Privacy Controls",
+            description:
+                "If your browser sends Global Privacy Control (GPC) or similar signals, we will treat them as an opt-out from non-essential cookies where technically feasible and consistent with applicable law.",
         },
         {
             type: "text",
-            title: "10. Contact",
+            title: "10. Changes to this Policy",
+            description:
+                "We may update this Policy (for example, when we add or change integrations). Material changes will be announced by a prominent in-product notice or email to registered users. The Effective date above will always reflect the latest version. Changes operate prospectively.",
+        },
+        {
+            type: "text",
+            title: "11. Contact",
             bullets: [
-                `📧 ${COMPANY_EMAIL}`,
-                `📍 ${COMPANY_LEGAL_NAME}`,
-                COMPANY_ADDRESS ?? "Address not specified"
-            ]
-        }
-    ]
+                "Email: info@averis.co.uk",
+                "Postal address: SHIREDON LIMITED, Academy House, 11 Dunraven Place, Bridgend, Mid Glamorgan, United Kingdom, CF31 1JF",
+            ],
+        },
+    ],
 };
 
 export default cookiePolicyEn;

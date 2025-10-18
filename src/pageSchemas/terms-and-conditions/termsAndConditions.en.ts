@@ -1,28 +1,23 @@
 import { PageSchema } from "@/components/constructor/page-render/types";
-import {
-    COMPANY_NAME,
-    COMPANY_LEGAL_NAME,
-    COMPANY_NUMBER,
-    COMPANY_ADDRESS,
-    COMPANY_EMAIL,
-} from "@/resources/constants";
 
 const termsSchema: PageSchema = {
     meta: {
-        title: `Terms & Conditions – ${COMPANY_NAME}`,
-        description: `Official Terms & Conditions of ${COMPANY_NAME}. Rules of use, payments, refunds, liability, and user rights.`,
+        title: "Terms and Conditions – Averis",
+        description:
+            "Official Terms and Conditions for using Averis.co.uk – rules, payments, tokens, refunds, liability, and user rights.",
         keywords: [
-            "terms",
             "terms and conditions",
-            "service agreement",
+            "averis",
             "tokens",
-            "CV generation",
-            "refund policy",
+            "refunds",
+            "workout plan",
+            "AI fitness",
+            "digital content",
         ],
-        canonical: "/terms",
+        canonical: "/terms-and-conditions",
         ogImage: {
-            title: `${COMPANY_NAME} – Terms & Conditions`,
-            description: "Clear and transparent conditions for using our CV generation services.",
+            title: "Averis – Terms and Conditions",
+            description: "Full Terms and Conditions for Averis AI Workout Platform.",
             bg: "#ffffff",
             color: "#000000",
         },
@@ -30,111 +25,140 @@ const termsSchema: PageSchema = {
     blocks: [
         {
             type: "text",
-            title: "Terms & Conditions",
-            description: "Effective date: 10 September 2025",
+            title: "Terms and Conditions",
+            description:
+                "Effective date: 18 October 2025\n\nThese Terms and Conditions govern your access to and use of averis.co.uk and related services provided by SHIREDON LIMITED.",
         },
         {
             type: "text",
-            title: "1. General Provisions",
-            description: `1.1. These Terms and Conditions set out the rules for using the website ${COMPANY_NAME} and the services offered by ${COMPANY_LEGAL_NAME} (Company No. ${COMPANY_NUMBER}), registered at ${COMPANY_ADDRESS} (the “Company,” “we,” “us,” or “our”).\n\n1.2. By accessing our website, creating a CV draft, or purchasing token packages, you confirm your agreement with these Terms. If you do not agree, please do not use the Services.`,
+            title: "1. Introduction",
+            description:
+                "1.1. These Terms and Conditions (“Terms”) govern your access to and use of averis.co.uk, our related web pages, applications, and downloadable documents (the “Service”), operated by SHIREDON LIMITED (company number 15799662, registered office: Academy House, 11 Dunraven Place, Bridgend, Mid Glamorgan, United Kingdom, CF31 1JF) (“Averis”, “we”, “us”, “our”). These Terms constitute a legally binding agreement between Averis and each person who uses the Service (“you”, “User”, “Customer”).\n\n1.2. By creating an account, purchasing Tokens, or generating any workout plan or PDF through the Service, you agree to these Terms. If you do not agree, do not use the Service.",
         },
         {
             type: "text",
             title: "2. Definitions",
             bullets: [
-                "“Services” — tools and features that allow you to create, edit, improve, and export CVs/resumes in PDF or DOCX format, including AI-assisted improvements or personal manager support.",
-                "“Draft” — a preliminary version of a CV/resume created by the user.",
-                "“Final File” — the completed CV/resume in PDF or DOCX format downloaded by the user.",
-                "“Client,” “you” — any individual or entity using our Services or purchasing tokens.",
-                "“Tokens” — internal credits used to pay for Services (1 GBP or 1 EUR = 100 tokens).",
+                "Account – your user profile on the Service.",
+                "Tokens – our internal, prepaid digital credits that enable you to use specific features of the Service (e.g., plan generation, PDF export). Tokens are not cash, e-money, or financial instruments.",
+                "Workout Plan / Plan – any personalised or template workout program, exercise schedule, recommendations, trackers, and any related digital content generated or supplied via the Service, including PDFs.",
+                "Add-ons / Extras – optional paid features or modules (e.g., extended program duration, multiple goal variants, enriched analytics, nutrition companion module where available).",
+                "Order – a confirmed transaction to purchase Tokens and/or to redeem Tokens for Services.",
+                "Services – the Averis platform and its features including the fitness intake forms, AI-assisted plan generation, optional human-coach review (if available in your region/plan), PDF creation, and delivery of digital content.",
+                "Checkout Currency – GBP (£) or EUR (€), as selected at checkout.",
             ],
         },
         {
             type: "text",
-            title: "3. Right to Use and Account Registration",
-            description: `3.1. You must be at least 18 years old to register or purchase Services, or act as an authorized representative of a legal entity.\n\n3.2. You agree to provide accurate, up-to-date information during registration and keep it current.\n\n3.3. You are responsible for maintaining the confidentiality of your account credentials and for all activities conducted through your account.`,
+            title: "3. Eligibility & Account Registration",
+            description:
+                "3.1. You must be 18 years or older to use the Service. If you use the Service on behalf of a company or organisation, you confirm that you have authority to bind that entity.\n\n3.2. You must provide accurate, current information and keep your credentials secure. You are responsible for all activity under your Account.\n\n3.3. Notify us immediately of any suspected unauthorised access or security incident at info@averis.co.uk.",
         },
         {
             type: "text",
-            title: "4. Ordering, Tokens and Payment",
-            description: `4.1. Payments must be made via the methods listed on our website. Services become available only after full payment is received.\n\n4.2. Prices are shown in GBP or EUR. Taxes may apply as required by law.`,
+            title: "4. Tokens",
+            description:
+                "4.1. Tokens prepay access to features of the Service. Tokens have no cash value, are non-transferable, and may not be exchanged, traded, or resold.\n\n4.2. Tokens are issued after successful card payment. The current rate is displayed at the time of purchase (e.g., £1.00 ≈ 100 Tokens, €1.17 ≈ 100 Tokens).\n\n4.3. Features and Plans are priced in Tokens, with conversion shown for reference.\n\n4.4. If a generation fails for technical reasons attributable to us, Tokens are restored automatically or via support.\n\n4.5. Tokens do not expire unless otherwise stated; inactive accounts (24 months) may be archived.\n\n4.6. Promotional or bonus Tokens may be subject to additional rules shown at the time of offer.\n\n4.7. Standard generation price and extras are shown before confirmation; prices may change from time to time.",
         },
         {
             type: "text",
-            title: "5. Service Delivery",
-            description: `5.1. Drafts and final files are generated automatically after the required tokens are deducted.\n\n5.2. You are responsible for reviewing your Final File immediately after download.\n\n5.3. In the event of technical errors, the Company may offer regeneration of the file or a refund of the tokens used.`,
+            title: "5. Ordering, Payment & Checkout",
+            description:
+                "Accepted payment methods: Visa, Mastercard · Accepted currencies: GBP (£), EUR (€)\n\n5.1. Orders are subject to acceptance; we may refuse to prevent fraud or technical errors.\n\n5.2. By paying, you confirm you are authorised to use the selected card.\n\n5.3. Prices are shown in GBP or EUR; VAT may apply depending on billing country.\n\n5.4. Plans and PDFs are delivered electronically; generation time varies by system load.",
         },
         {
             type: "text",
-            title: "6. Cancellation and Refunds",
-            description: `6.1. Token packages may be canceled before use; refunds are issued minus any applicable payment provider fees.\n\n6.2. Tokens already spent on Services cannot be refunded.\n\n6.3. If a significant technical fault caused by us occurs, compensation or refunds may be provided in line with our refund policy.`,
+            title: "6. Cancellations, Refunds & Consumer Rights",
+            description:
+                "6.1. By starting a generation, you request immediate performance and acknowledge loss of the statutory right to cancel.\n\n6.2. Unused Token top-ups may be cancelled within 14 days of purchase if unused.\n\n6.3. Used Tokens are non-refundable unless required by law.\n\n6.4. If a PDF is defective, contact info@averis.co.uk within 14 days citing your Order ID.\n\n6.5. Unwarranted chargebacks may result in suspension or removal of equivalent Tokens.",
         },
         {
             type: "text",
-            title: "7. Intellectual Property",
-            description: `7.1. You retain all rights to the information and materials you upload or enter to create your CV/resume.\n\n7.2. We make no claim of ownership over your content and use it solely for providing Services.\n\n7.3. Final Files generated are fully yours once created.`,
+            title: "7. Health, Fitness & Safety Disclaimer",
+            description:
+                "7.1. Averis provides AI-generated workout plans for informational purposes only and does not provide medical advice.\n\n7.2. Consult a healthcare professional before starting any exercise program.\n\n7.3. You are responsible for ensuring proper form, safe environment, and appropriate equipment.\n\n7.4. Exercise carries risks; you accept these by using the Service.",
         },
         {
             type: "text",
-            title: "8. Confidentiality and Data Processing",
-            description: `8.1. We handle personal data in line with our Privacy Policy and relevant data protection laws (UK GDPR and the Data Protection Act 2018).\n\n8.2. Uploaded data is automatically deleted after processing unless required for technical support or legal obligations.`,
+            title: "8. Your Inputs & Acceptable Use",
+            description:
+                "8.1. You must provide lawful, truthful inputs and avoid uploading illegal or harmful content.\n\n8.2. You must not misuse the Service (e.g., reverse engineering, scraping, disrupting, or circumventing limits).",
         },
         {
             type: "text",
-            title: "9. Warranties and Disclaimer",
-            description: `9.1. We warrant that Services will be provided with reasonable care and in accordance with their descriptions.\n\n9.2. The Services are provided “as is.” We do not guarantee employment, interview invitations, or any specific career results from using the generated CV/resume.`,
+            title: "9. Intellectual Property & Licences",
+            description:
+                "9.1. The Service and its content are owned by Averis or its licensors.\n\n9.2. Upon valid redemption, you receive a personal, non-transferable licence to use your generated Plans and PDFs.\n\n9.3. You retain rights to your inputs and grant Averis a limited licence to use anonymised data for service improvement.",
         },
         {
             type: "text",
-            title: "10. Limitation of Liability",
-            description: `10.1. The Company shall not be liable for indirect or consequential damages, including loss of profit, data, or reputation, except in cases of gross negligence or willful misconduct.\n\n10.2. Our total liability is limited to the actual amount you paid for the token package used for the Service that gave rise to the claim.`,
+            title: "10. Warranties & Disclaimers",
+            description:
+                "10.1. We warrant that we are entitled to provide the Service.\n\n10.2. Except as stated, the Service is provided “as is” and “as available.”\n\n10.3. No specific health or fitness outcome is guaranteed.",
         },
         {
             type: "text",
-            title: "11. Indemnity",
-            description: `You agree to indemnify and hold harmless the Company from any claims, damages, or expenses (including reasonable legal fees) resulting from:\n(a) your breach of these Terms;\n(b) unauthorized use of third-party data; or\n(c) misuse of generated files.`,
+            title: "11. Limitation of Liability",
+            description:
+                "11.1. Nothing limits liability for death or injury caused by negligence or fraud.\n\n11.2. Our total liability in any 12-month period shall not exceed the total amount paid for Tokens/Services.\n\n11.3. We are not liable for indirect or consequential losses.",
         },
         {
             type: "text",
-            title: "12. Third-Party Links",
-            description: "Our website may include links to third-party websites or resources. We are not responsible for their content, accuracy, or availability.",
+            title: "12. Indemnity",
+            description:
+                "You agree to indemnify Averis and its staff against claims or damages arising from unlawful use of the Service or violation of these Terms.",
         },
         {
             type: "text",
-            title: "13. Suspension and Termination",
-            description: `13.1. We reserve the right to suspend or terminate your account if you breach these Terms, engage in fraudulent activity, or pose a risk to security.\n\n13.2. Termination does not relieve you of obligations accrued prior to termination.`,
+            title: "13. Data Protection & Privacy",
+            description:
+                "13.1. We process personal data in accordance with UK GDPR and the Data Protection Act 2018.\n\n13.2. By using the Service, you accept our Privacy Policy and acknowledge your data rights.",
         },
         {
             type: "text",
-            title: "14. Changes to These Terms",
-            description: "We may amend these Terms from time to time. Significant updates will be published on the website or sent via email. Continued use of the Service after such updates constitutes your acceptance.",
+            title: "14. Third-Party Services & Links",
+            description:
+                "The Service may include links or integrations with third-party services (e.g., payment processors). We are not responsible for their practices or content.",
         },
         {
             type: "text",
-            title: "15. Notices",
+            title: "15. Suspension & Termination",
+            description:
+                "15.1. We may suspend or terminate access if you breach these Terms or create security/fraud risks.\n\n15.2. Upon termination, your licence to use the Service ceases, and minimal records may be retained as required by law.",
+        },
+        {
+            type: "text",
+            title: "16. Changes to the Service or Terms",
+            description:
+                "16.1. We may update these Terms for legal, technical, or business reasons.\n\n16.2. Material updates will be communicated by email or in-product notice. Continued use constitutes acceptance.",
+        },
+        {
+            type: "text",
+            title: "17. Notices",
+            description:
+                "Formal notices: info@averis.co.uk or post to our registered office. We may contact you via email or in-app messages.",
+        },
+        {
+            type: "text",
+            title: "18. Governing Law & Jurisdiction",
+            description:
+                "These Terms are governed by the laws of England and Wales. Courts of England and Wales have exclusive jurisdiction, except that EU or UK consumers may bring claims locally.",
+        },
+        {
+            type: "text",
+            title: "19. Miscellaneous",
+            description:
+                "19.1. Invalid provisions do not affect validity of others.\n\n19.2. No delay or omission constitutes a waiver.\n\n19.3. You may not transfer your rights without written consent.\n\n19.4. These Terms are the full agreement between you and Averis.",
+        },
+        {
+            type: "text",
+            title: "20. Contact Details",
             bullets: [
-                `📧 ${COMPANY_EMAIL}`,
-                `📍 ${COMPANY_ADDRESS}`,
-            ],
-        },
-        {
-            type: "text",
-            title: "16. Governing Law and Jurisdiction",
-            description: "These Terms are governed by the laws of England and Wales. Any disputes shall be resolved exclusively in the courts of England and Wales, except where mandatory consumer protection laws apply in your country of residence.",
-        },
-        {
-            type: "text",
-            title: "17. Miscellaneous",
-            description: `17.1. If any provision of these Terms is found invalid or unenforceable, the remaining provisions will continue in effect.\n\n17.2. Failure to enforce any right does not constitute a waiver of that right.\n\n17.3. These Terms represent the complete agreement between you and the Company regarding the use of our Services.`,
-        },
-        {
-            type: "text",
-            title: "Company details",
-            bullets: [
-                `Company: ${COMPANY_LEGAL_NAME}`,
-                `Company number: ${COMPANY_NUMBER}`,
-                `Registered office: ${COMPANY_ADDRESS}`,
-                `Email: ${COMPANY_EMAIL}`,
+                "SHIREDON LIMITED",
+                "Registered office: Academy House, 11 Dunraven Place, Bridgend, Mid Glamorgan, United Kingdom, CF31 1JF",
+                "Company number: 15799662",
+                "Email: info@averis.co.uk",
+                "Tel: +44 7441 393249",
             ],
         },
     ],

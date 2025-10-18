@@ -1,146 +1,210 @@
 import { PageSchema } from "@/components/constructor/page-render/types";
-import {
-    COMPANY_NAME,
-    COMPANY_LEGAL_NAME,
-    COMPANY_NUMBER,
-    COMPANY_ADDRESS,
-    COMPANY_EMAIL,
-} from "@/resources/constants";
 
 const privacyPolicySchema: PageSchema = {
     meta: {
-        title: `Privacy Policy – ${COMPANY_NAME}`,
-        description: `Privacy Policy of ${COMPANY_NAME}: what data we collect, why we process it, how long we retain it, who we share it with, and your rights under UK GDPR.`,
+        title: "Privacy Policy – Averis",
+        description:
+            "Averis Privacy Policy: details on what data we collect, how we use it, retention, transfers, and your rights under UK GDPR.",
         keywords: [
             "privacy policy",
-            "data protection",
             "GDPR",
+            "data protection",
+            "averis",
+            "fitness AI",
             "personal data",
-            "CV services",
-            "resume data"
+            "uk gdpr",
         ],
         canonical: "/privacy-policy",
         ogImage: {
-            title: `${COMPANY_NAME} – Privacy Policy`,
-            description: "Clear and transparent privacy practices for CV/resume services.",
+            title: "Averis – Privacy Policy",
+            description:
+                "Transparent privacy practices for Averis AI fitness platform under UK GDPR.",
             bg: "#ffffff",
-            color: "#000000"
-        }
+            color: "#000000",
+        },
     },
     blocks: [
         {
             type: "text",
             title: "Privacy Policy",
-            description: "Effective date: 10 September 2025"
+            description: "Effective date: 18 October 2025",
         },
         {
             type: "text",
             title: "1. Introduction",
-            description: `We value your privacy and are committed to handling personal data responsibly. This Privacy Policy explains what data we collect, why we process it, how long we retain it, who we may share it with, and how you can exercise your rights under applicable data-protection law in connection with the services provided by ${COMPANY_NAME}, operated by ${COMPANY_LEGAL_NAME} (Company No. ${COMPANY_NUMBER}), registered at ${COMPANY_ADDRESS}.\n\nFor any questions or data requests, please contact us at: ${COMPANY_EMAIL}.`
-        },
-        {
-            type: "text",
-            title: "2. What Personal Data We Collect",
-            description: "We only collect the personal data necessary to operate and improve our Services. Typical categories include:",
+            description:
+                "We value and respect your privacy. This Privacy Policy explains what personal data we collect, why we use it, how long we retain it, and how you can exercise your rights when using averis.co.uk and related services (the “Service”).",
             bullets: [
-                "Identity & contact details: name, email address, billing/postal address.",
-                "Transaction & order details: token purchases, order references, invoices, payment identifiers (note: we do not store full card details).",
-                "Account data: username, password hash, saved preferences.",
-                "Usage & technical information: IP address, browser/device type, access logs, timestamps.",
-                "CV/resume content: text or documents you provide to create drafts, improvements, or exports.",
-                "Support & correspondence: communications with our support team, uploaded files, and service history.",
-                "Other information: any additional details you voluntarily provide while using our Services.",
-                "We do not collect more information than is required for these purposes."
-            ]
-        },
-        {
-            type: "text",
-            title: "3. Why We Process Your Data and Legal Bases",
-            description: "We process your data for the following purposes and on these legal grounds:",
-            bullets: [
-                "Service delivery (contract performance): to generate drafts, create PDF/DOCX files, apply AI improvements, deliver manager feedback, and communicate with you.",
-                "Payment processing and fraud prevention (legal obligation / legitimate interests): to verify purchases, detect misuse, and comply with accounting and tax requirements.",
-                "Support, refunds, and dispute resolution (contract / legitimate interests).",
-                "Marketing communications (consent): sent only if you opt in; you may withdraw consent at any time.",
-                "Legal and regulatory compliance (legal obligation): such as record-keeping and tax reporting.",
-                "Business interests (legitimate interests): including service improvements, security monitoring, and anonymised analytics — always balanced against your rights."
-            ]
-        },
-        {
-            type: "text",
-            title: "4. Sharing and International Transfers",
-            description: "We may share personal data with trusted third parties where required to provide Services, including:",
-            bullets: [
-                "Payment providers and banks.",
-                "Hosting and cloud service providers (for account storage and CV drafts).",
-                "Analytics, monitoring, and customer support tools.",
-                "Professional advisers (legal or financial), if required.",
-                "Regulators, courts, or law enforcement where legally necessary.",
-                "Some providers may be located outside the UK/EEA. In these cases, we rely on safeguards such as UK adequacy regulations or Standard Contractual Clauses (SCCs). We will not transfer your data in a way that reduces the protections guaranteed under applicable law."
-            ]
-        },
-        {
-            type: "text",
-            title: "5. Cookies and Similar Technologies",
-            description: "We use cookies and related technologies for essential operations, security, analytics, and (with your consent) marketing. Essential cookies are required for the platform to function. For details and opt-out options, please see our Cookies Policy."
-        },
-        {
-            type: "text",
-            title: "6. Data Retention",
-            description: "We keep personal data only for as long as needed for the purposes outlined in this Policy and to meet legal obligations:",
-            bullets: [
-                "Order and payment records: minimum 24 months, up to 6 years in case of disputes or corporate requirements.",
-                "Account and support data: retained as long as your account is active and for legitimate business purposes.",
-                "CV/resume drafts and files: stored only during your active use, unless saved to your account; temporary files may be deleted automatically after processing.",
-                "Marketing data: kept until you withdraw consent or there is no lawful reason to retain it.",
-                "Once no longer required, data is securely deleted or anonymised."
-            ]
-        },
-        {
-            type: "text",
-            title: "7. Your Rights",
-            description: `Under applicable data-protection laws (including UK GDPR), you have the right to:`,
-            bullets: [
-                "Access your personal data.",
-                "Request correction or deletion.",
-                "Restrict processing.",
-                "Request portability of your data.",
-                "Object to certain types of processing (including marketing).",
-                "Withdraw consent at any time (where processing is based on consent)."
+                "Controller: SHIREDON LIMITED (Company No. 15799662), Academy House, 11 Dunraven Place, Bridgend, Mid Glamorgan, United Kingdom, CF31 1JF (“Averis”, “we”, “us”, “our”).",
+                "Contact: info@averis.co.uk",
+                "Scope: This Policy applies to users of the Service. The Service is intended for individuals 18+.",
             ],
-            description2: `To exercise these rights, please contact us at ${COMPANY_EMAIL}. We may request verification of your identity. We will respond within statutory deadlines unless an extension or lawful refusal applies.`
         },
         {
             type: "text",
-            title: "8. Security Measures",
-            description: "We implement appropriate technical and organisational measures to protect personal data, including encryption in transit, access controls, secure backups, system monitoring, and staff training. While no system is fully secure, if a breach occurs that affects your rights, we will notify you and the regulator in accordance with the law."
+            title: "2. Data We Collect",
+            description: "We collect only the data needed to operate, secure, and improve the Service.",
         },
         {
             type: "text",
-            title: "9. Automated Decision-Making and Profiling",
-            description: "We do not engage in automated decision-making that has legal or similarly significant effects on you. Limited automated processes may be used for analytics and service improvements, but these do not override your rights. You may request further information or opt out, where applicable."
-        },
-        {
-            type: "text",
-            title: "10. Changes to this Policy",
-            description: "We may revise this Privacy Policy from time to time. Major updates will be communicated via email or a notice on our website. Otherwise, the revised Policy will be published with a new effective date."
-        },
-        {
-            type: "text",
-            title: "11. Contact & Complaints",
-            description: `For questions, requests, or complaints about personal data, please contact us at: ${COMPANY_EMAIL}.\n\nIf you are unsatisfied with our handling of your personal data, you have the right to lodge a complaint with the UK Information Commissioner’s Office (ICO).`
-        },
-        {
-            type: "text",
-            title: "Company Details",
+            title: "2.1. Data You Provide Directly",
             bullets: [
-                `Company: ${COMPANY_LEGAL_NAME}`,
-                `Company number: ${COMPANY_NUMBER}`,
-                `Registered office: ${COMPANY_ADDRESS}`,
-                `Email: ${COMPANY_EMAIL}`
-            ]
-        }
-    ]
+                "Name and contact details (e.g., email).",
+                "Account credentials (stored securely in hashed form).",
+                "Billing details (billing address; optional VAT information for invoices).",
+                "Inputs for plan generation: fitness goals, target muscle groups, current level, age range, height/weight ranges, injuries/limitations, available equipment, preferred training style/schedule, and other free-form prompts you choose to provide.",
+                "Support requests and communications.",
+            ],
+        },
+        {
+            type: "text",
+            title: "2.2. Collected Automatically",
+            bullets: [
+                "IP address, device and browser information, timezone, language, access logs, and security telemetry (e.g., failed logins).",
+                "Usage data: page views, clicks, token purchases/redemptions, generation attempts, error logs, and aggregate performance metrics.",
+            ],
+        },
+        {
+            type: "text",
+            title: "2.3. From Third Parties (as Needed)",
+            bullets: [
+                "Payment processors (transaction references and status; never full card numbers).",
+                "Fraud-prevention/anti-abuse providers (risk signals).",
+            ],
+            description:
+                "Special category data: information about injuries, health conditions, or mobility limitations that you voluntarily provide may qualify as special category data. We process such data only to personalise workout plans, and only with your consent.",
+        },
+        {
+            type: "text",
+            title: "3. Why We Process Your Data & Legal Bases",
+            description:
+                "We process personal data under the UK GDPR and the Data Protection Act 2018 on the following bases:",
+        },
+        {
+            type: "text",
+            title: "3.1. Performance of a Contract",
+            bullets: [
+                "To register and maintain your account.",
+                "To process token top-ups and deliver digital content (Workout Plans/PDFs).",
+                "To provide customer support and handle refunds or queries.",
+            ],
+        },
+        {
+            type: "text",
+            title: "3.2. Consent (Including Special Category Data)",
+            bullets: [
+                "To use health/fitness details (e.g., injuries, limitations) that you input to tailor results.",
+                "To send marketing emails/newsletters where you opt in.",
+                "To use your content/feedback for model improvement where you opt in (we do not use personal data for training unless you consent).",
+            ],
+            description:
+                "You can withdraw consent at any time via account settings or by contacting us. Withdrawal does not affect prior lawful processing but may reduce the relevance of generated results.",
+        },
+        {
+            type: "text",
+            title: "3.3. Legitimate Interests",
+            bullets: [
+                "To keep the Service secure (fraud detection, abuse prevention, logging).",
+                "To measure and improve performance and user experience.",
+                "To communicate important non-marketing updates about the Service.",
+            ],
+        },
+        {
+            type: "text",
+            title: "3.4. Legal Obligation",
+            bullets: [
+                "Tax, accounting, and compliance record-keeping.",
+                "Responding to lawful requests from authorities.",
+            ],
+        },
+        {
+            type: "text",
+            title: "4. AI, Profiling and Automated Decisions",
+            bullets: [
+                "The Service uses AI to generate workout plans based on your inputs. This involves automated processing and limited profiling to match exercises to your preferences and goals.",
+                "We do not make legal or similarly significant decisions about you solely by automated means.",
+                "You can choose not to provide health-related data (results may be less relevant). You may also request human review of any support outcome.",
+            ],
+        },
+        {
+            type: "text",
+            title: "5. Sharing and International Transfers",
+            bullets: [
+                "Payment processing: card acquirers/processors (we receive transaction references/status, not full card details).",
+                "Hosting & IT: secure cloud infrastructure, content delivery, storage, and backups.",
+                "Product & support tooling: analytics (aggregated/pseudonymised where possible), helpdesk, and email delivery.",
+                "Professional advisers: legal, accounting, and compliance where required.",
+                "Some providers may be located outside the UK/EEA. Appropriate safeguards (e.g., UK adequacy, SCCs) are applied.",
+                "We do not sell your personal data.",
+            ],
+        },
+        {
+            type: "text",
+            title: "6. Cookies",
+            description:
+                "We use cookies and similar technologies (e.g., localStorage) to run the Service, remember preferences, measure performance, and—where you consent—enable analytics or marketing. Essential cookies are required for security and core functionality. See our Cookie Policy for full details.",
+        },
+        {
+            type: "text",
+            title: "7. Retention",
+            bullets: [
+                "Orders, tokens & transactions: retained for at least 24 months, and up to 6 years where required.",
+                "Account & profile data: retained while your account is active and up to 24 months after closure, unless needed longer for legal or security reasons.",
+                "Logs & security telemetry: typically 6–24 months depending on purpose.",
+                "Where possible, data is minimised, pseudonymised, or anonymised before deletion.",
+            ],
+        },
+        {
+            type: "text",
+            title: "8. Your Rights",
+            bullets: [
+                "Access your data.",
+                "Rectification of inaccurate data.",
+                "Erasure ('right to be forgotten').",
+                "Restriction of processing.",
+                "Data portability.",
+                "Object to processing based on legitimate interests.",
+                "Withdraw consent at any time (for marketing, fitness data, or model improvement).",
+            ],
+            description:
+                "To exercise your rights, email info@averis.co.uk from your account address. Proof of identity may be required. We aim to respond within one month, extendable by two months for complex requests.",
+        },
+        {
+            type: "text",
+            title: "9. Security",
+            bullets: [
+                "Access controls, role-based permissions, and MFA for admin interfaces.",
+                "Encryption in transit (HTTPS/TLS) and at rest where applicable.",
+                "Network segregation, firewalls, and backups.",
+                "Logging, monitoring, and incident-response processes.",
+                "Vendor due diligence and processor safeguards.",
+            ],
+            description:
+                "No system is 100% secure, but we continuously improve protections and promptly investigate incidents.",
+        },
+        {
+            type: "text",
+            title: "10. Children’s Data",
+            description:
+                "The Service is for users 18+. We do not knowingly collect data from children. If you believe a child has provided data to us, contact info@averis.co.uk to have it deleted.",
+        },
+        {
+            type: "text",
+            title: "11. Changes",
+            description:
+                "We may update this Policy periodically. Material changes will be notified by email and/or prominent in-product notice. Updates apply prospectively.",
+        },
+        {
+            type: "text",
+            title: "12. Contact & Complaints",
+            bullets: [
+                "Controller: SHIREDON LIMITED",
+                "Address: Academy House, 11 Dunraven Place, Bridgend, Mid Glamorgan, United Kingdom, CF31 1JF",
+                "Email (privacy): info@averis.co.uk",
+                "If you are unsatisfied with our response, you may lodge a complaint with the UK Information Commissioner’s Office (ICO) or your local data protection authority within the EEA.",
+            ],
+        },
+    ],
 };
 
 export default privacyPolicySchema;
